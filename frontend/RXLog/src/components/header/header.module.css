@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Oblong';
+    src: url('../../fonts/oblong.ttf') format('truetype');
+  }
+  
+.titulo {
+    font-family: 'Oblong', cursive;
+}
+  

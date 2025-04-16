@@ -33,6 +33,15 @@
   }
 }
 
+@font-face {
+  font-family: 'Oblong';
+  src: url('../src/fonts/oblong.ttf') format('truetype');
+}
+
+h1{
+  font-family: Oblong;
+}
+
 .card {
   padding: 2em;
 }
