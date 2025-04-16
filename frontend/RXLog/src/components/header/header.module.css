@@ -1,9 +1,94 @@
 @font-face {
-    font-family: 'Oblong';
-    src: url('../../fonts/oblong.ttf') format('truetype');
-  }
-  
-.titulo {
-    font-family: 'Oblong', cursive;
+  font-family: "Oblong";
+  src: url("../../fonts/oblong.ttf") format("truetype");
 }
-  
+
+.header {
+  background-color: #278c67;
+  padding: 1.5rem;
+  color: #fff;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  font-size: 3rem;
+  text-align: left;
+  font-family: Oblong;
+  font-weight: 200;
+  color: #98c8b7;
+  margin-left: 30px;
+}
+
+.menuButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 15px;
+  cursor: pointer;
+  margin-left: 0;
+}
+
+.bar {
+  height: 2px;
+  width: 80%;
+  background-color: white;
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #ffffff;
+  font-family: Poppins, sans-serif;
+  font-size: 1rem;
+  position: relative;
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+.userButton {
+  background: #ccc;
+  border: none;
+  border-radius: 50%;
+  width: 65px;
+  height: 45px;
+  margin-left: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2b8967;
+  font-size: 1.2rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.userImage {
+  width: 35px;
+  height: 35px;
+}

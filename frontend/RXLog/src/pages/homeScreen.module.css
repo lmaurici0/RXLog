@@ -1,0 +1,68 @@
+@font-face {
+    font-family: "Rustica";
+    src: url("../fonts/Fontspring-DEMO-7_rustica-bold.otf") format("truetype");
+  }
+
+.aboutSection {
+  padding: 4rem 2rem;
+  background: #ffffff;
+}
+
+.aboutContent {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.aboutImage {
+  flex: 1;
+  min-width: 300px;
+}
+
+.aboutImage img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.aboutText {
+  flex: 1;
+}
+
+.aboutText h2 {
+  font-size: 2rem;
+  color: #45BF86;
+  font-family: Rustica;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #278c67;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.aboutText p {
+  line-height: 1.6;
+  color: #333;
+  font-size: 14px;
+  font-family: Poppins ;
+  font-weight: 400;
+  width: 250px;
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .aboutContent {
+    flex-direction: column;
+  }
+
+  .aboutImage {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .aboutText h2 {
+    font-size: 1.8rem;
+  }
+}
