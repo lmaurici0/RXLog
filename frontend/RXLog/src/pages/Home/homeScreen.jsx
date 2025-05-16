@@ -1,8 +1,8 @@
-import Header from "../components/header/header";
-import Carrossel from "../components/carrossel/carrossel";
-import Footer from "../components/footer/footer";
-import styles from "../pages/homeScreen.module.css";
-import ilustracao from "../assets/images/ilustracao.png"
+import Header from "../../components/header/header";
+import Carrossel from "../../components/carrossel/carrossel";
+import Footer from "../../components/footer/footer";
+import styles from "../Home/homeScreen.module.css";
+import image from "../../assets/images/image.png"
 
 function HomeScreen() {
   return (
@@ -12,12 +12,12 @@ function HomeScreen() {
       <section className={styles.aboutSection}>
         <div className={styles.aboutContent}>
           <div className={styles.aboutImage}>
-            <img src={ilustracao} alt="Ilustracao RxLog" />
+            <img src={image} alt="Ilustracao RxLog" />
           </div>
           <div className={styles.aboutText}>
             <h2>QUEM SOMOS</h2>
             <p>
-              A RxLog é uma empresa de soluções de armazenamento e estoque que
+              A RxLog é uma empresa de soluções de armazenamento e estoque que
               visa a tecnologia e a facilidade dentro da área da saúde. Fundada
               em 2025, a RxLog trouxe uma nova abordagem ao ecossistema de
               armazenamento de medicamentos nos hospitais públicos, que muitas

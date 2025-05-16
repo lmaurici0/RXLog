@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../carrossel/carrossel.module.css';
-import dog from '../../assets/images/dog.jpg'
+import image01 from '../../assets/images/imageCarrossel01.png'
 import desenho from '../../assets/images/desenho.jpg'
 import humpiti from '../../assets/images/humpiti.jpg'
-import oi from '../../assets/images/oi.jpg'
 
 const AutoCarousel = () => {
   const images = [
-    dog, desenho, humpiti, oi
+    image01, desenho, humpiti
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);

@@ -76,7 +76,7 @@
   background: #ccc;
   border: none;
   border-radius: 50%;
-  width: 65px;
+  width: 45px;
   height: 45px;
   margin-left: 70px;
   display: flex;
@@ -91,4 +91,93 @@
 .userImage {
   width: 35px;
   height: 35px;
+}
+
+.sideMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  width: 200px;
+  height: 100vh;
+  background-color: #278c67;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+  z-index: 999;
+  padding: 2rem 1rem;
+  font-family: Poppins;
+  font-size: 0.8rem;
+}
+
+.sideMenuOpen {
+  transform: translateX(0);
+}
+
+.menuButton {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start; 
+}
+
+.nav a {
+  color: #e6e6e6;
+  text-decoration: none;
+  font-size: 1.1rem;
+  text-align: left;
+  padding: 0.5rem; 
+}
+
+.sideMenu a:first-child {
+  margin-top: 4rem;
+}
+
+.logoMenu{
+  margin-top: 260px;
+  font-size: 2rem;
+  color: #98c8b7;
+  font-family: Oblong;
+}
+
+.userMenuContainer {
+  position: relative;
+  display: inline-block;
+  font-family: Poppins;
+  font-size: 0.9rem;
+}
+
+.userDropdown {
+  position: absolute;
+  margin-top: 10px;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  min-width: 150px;
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+
+.userDropdown a {
+  display: block;
+  padding: 0.5rem;
+  color: #333;
+  text-decoration: none;
+}
+
+.userDropdown a:hover {
+  background-color: #f0f0f0;
 }
