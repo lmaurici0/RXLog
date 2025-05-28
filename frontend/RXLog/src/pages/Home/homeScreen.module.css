@@ -19,7 +19,7 @@
 }
 
 .aboutImage {
-  flex: 0 0 35%; /* ocupa 35% da largura */
+  flex: 0 0 35%; 
   max-width: 350px;
 }
 
