@@ -1,0 +1,79 @@
+@font-face {
+  font-family: "Rustica";
+  src: url("../fonts/Fontspring-DEMO-7_rustica-bold.otf") format("truetype");
+}
+
+.aboutSection {
+  padding: 4rem 2rem;
+  background-color: #fff;
+}
+
+.aboutContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.aboutImage {
+  flex: 0 0 35%; 
+  max-width: 350px;
+}
+
+.aboutImage img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.aboutText {
+  flex: 1;
+  max-width: 600px;
+}
+
+.aboutText h2 {
+  font-size: 2rem;
+  color: #26b07f;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  position: relative; 
+  margin-left: 120px;
+
+}
+
+.aboutText h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #26b07f;
+  margin-top: 0.5rem;
+}
+
+.aboutText p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  font-family: "Poppins", sans-serif;
+  margin-left: 120px;
+}
+
+@media (max-width: 768px) {
+  .aboutContent {
+    flex-direction: column;
+  }
+
+  .aboutImage {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .aboutText h2 {
+    font-size: 1.8rem;
+  }
+}

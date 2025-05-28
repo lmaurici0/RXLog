@@ -1,0 +1,15 @@
+.btn{
+    opacity: 80%;
+    background-color: #45BF86;
+    color: #fff;
+    font-size: 15px;
+    width: 300px;
+    height: 61px;
+    border: none;
+    font-family: Poppins;
+    border-radius: 15px;
+    font-weight: 200;
+    cursor: pointer;
+    margin-left: 75%;
+    margin-top: -5%;
+}
