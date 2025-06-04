@@ -4,8 +4,7 @@
   max-width: 100%;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
-  overflow: hidden;
-  background-color: #fff;
+   background-color: #fff;
 }
 
 .leftSection {
@@ -112,6 +111,7 @@ form {
   outline: none;
   font-family: Montserrat, sans-serif;
   transition: background-color 0.3s ease;
+  text-transform: capitalize;
 }
 
 .inputField:focus {
@@ -143,4 +143,35 @@ form {
 
 .cargoInput{
   text-transform: uppercase;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  background-color: #fff;
+  transition: transform 0.8s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.leftSection, .rightSection {
+  transition: transform 0.5s ease;
+  position: relative;
+  z-index: 1;
+}
+/* MODO LOGIN */
+
+.loginMode .leftSection {
+  transform: translateX(145%);
+  width: 40%;
+  z-index: 1;
+}
+
+.loginMode .rightSection {
+  transform: translateX(-70%);
+  width: 60%;
+  z-index: 2;
 }

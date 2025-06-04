@@ -1,6 +1,6 @@
 import Header from "../../components/header/header";
 import Carrossel from "../../components/carrossel/carrossel";
-// import Footer from "../../components/footer/footer";
+import Footer from "../../components/footer/footer";
 import styles from "./homeScreen.module.css";
 import image from "../../assets/images/image.png"
 
@@ -29,7 +29,7 @@ function HomeScreen() {
           </div>
         </div>
       </section>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
