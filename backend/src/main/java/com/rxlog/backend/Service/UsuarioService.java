@@ -3,20 +3,15 @@ package com.rxlog.backend.Service;
 import com.rxlog.backend.Entity.Usuario;
 import com.rxlog.backend.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-
-    @Autowired
-    public PasswordEncoder passwordEncoder;
 
     public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
@@ -28,8 +23,6 @@ public class UsuarioService {
     }
 
     public Usuario salvar(Usuario usuario) {
-        String senhaCriptografada = passwordEncoder.encode(usuario.getSenhaUsuario());
-        usuario.setSenhaUsuario(senhaCriptografada);
         return usuarioRepository.save(usuario);
     }
 
@@ -38,7 +31,10 @@ public class UsuarioService {
 
         existente.setNomeUsuario(usuarioAtualizado.getNomeUsuario());
         existente.setEmailUsuario(usuarioAtualizado.getEmailUsuario());
+
+        // Se atualizar senha criptografar ANTES de chamar esse método
         existente.setSenhaUsuario(usuarioAtualizado.getSenhaUsuario());
+
         existente.setCargoUsuario(usuarioAtualizado.getCargoUsuario());
 
         return usuarioRepository.save(existente);
@@ -54,6 +50,4 @@ public class UsuarioService {
     public Usuario buscarPorEmail(String email) {
         return usuarioRepository.findByEmailUsuario(email).orElse(null);
     }
-
-
 }

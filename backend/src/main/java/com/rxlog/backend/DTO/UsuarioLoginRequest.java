@@ -1,6 +1,6 @@
 package com.rxlog.backend.DTO;
 
-public class LoginRequest {
+public class UsuarioLoginRequest {
     private String email;
     private String senha;
 
