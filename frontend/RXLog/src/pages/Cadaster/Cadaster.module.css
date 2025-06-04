@@ -1,87 +1,177 @@
-.formContainer {
+.container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;
-}
-
-.formBox {
-  background: rgba(39, 140, 103, 0.69);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(7.5px);
-  -webkit-backdrop-filter: blur(7.5px);
-  border: 1px solid rgba(39, 140, 103, 0.3);
-  padding: 20px 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 25px;
-}
-
-.Userinput {
-  width: 300px;
-  height: 20px;
-  border-radius: 7px;
-  border: 1px solid #333;
-  padding: 8px;
-  text-transform: capitalize;
-  outline: none;
-}
-
-.inputGrid {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
   width: 100%;
+  max-width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+   background-color: #fff;
 }
 
-.Userinput::placeholder {
-  font-size: 12px;
-  font-family: Poppins;
-}
-
-.Userselect {
-  width: 315px;
-  height: 40px;
-  padding: 8px;
-  font-size: 14px;
-  color: #333;
-  border: 1px solid #333;
-  border-radius: 7px;
-}
-
-option {
-  font-family: Poppins;
-}
-
-.button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #45BF86;
+.leftSection {
+  background-color: #278C67; 
+  height: 100vh;
   color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  padding: 20px;
-  width: 280px;
+  padding: 60px 40px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.leftSection h2 {
+  font-size: 2rem;
   text-align: center;
   font-family: Poppins;
-  transition: 0.4s;
-  height: 40px;
+  font-weight: 300;
 }
 
-label {
+.leftSection h1 {
+  font-size: 3.5rem;
+  text-align: center;
+  margin: -30px 0 -10px 0;
+  font-family: Poppins;
+}
+
+.leftSection p {
+  text-align: center;
+  font-size: 1.2rem;
+  font-family: Montserrat;
+}
+
+.signInButton{
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 2px solid #fff;
+  color:#fff;
+  margin-top: 210px;
+  width: 250px;
+  padding: 10px;
+  border-radius: 50px;
+  font-family: Poppins;
+  font-size: 1.1rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.rightSection{
+  background-color: #fff; 
+  height: 100vh;
+  color: white;
+  padding: 60px 40px;
+  width: 60%;
   display: flex;
   flex-direction: column;
-  font-family: Poppins;
-  font-size: 1rem;
-  color: #fff;
-  font-weight: 500;
-  margin-bottom: 10px;
+  box-shadow: -15px 0 25px -5px rgba(0, 0, 0, 0.35);
 }
 
-.button:hover {
+.rightSection h2{
+  font-family: Poppins;
+  font-size: 2.4rem;
+  text-align: center;
+  color: #278C67;
+}
+form {
+  width: 100%;
+  margin: 0; 
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroupRow {
+  display: flex;
+  gap: 50px;
+  margin-bottom: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.formGroup label {
+  color: #278C67;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-family: Poppins, sans-serif;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.inputField {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 50px;
+  border: none;
+  background-color: rgba(5, 150, 105, 0.3);
+  color: #278C67;
+  font-size: 1.1rem;
+  outline: none;
+  font-family: Montserrat, sans-serif;
+  transition: background-color 0.3s ease;
+  text-transform: capitalize;
+}
+
+.inputField:focus {
+  background-color: rgba(5, 150, 105, 0.6);
+}
+
+.signUpButton{
+  justify-content: center; 
+  align-items: center;
+  display: flex;
+  margin: 0 auto;
+  text-align: center;
   background-color: #278C67;
+  border: 2px solid #fff;
+  color:#fff;
+  margin-top: 20px;
+  width: 400px;
+  padding: 10px;
+  border-radius: 50px;
+  font-family: Poppins;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.signUpButton:hover{
+  background-color: #239C64;
+  transition: 0.5s ease;
+}
+
+.cargoInput{
+  text-transform: uppercase;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  background-color: #fff;
+  transition: transform 0.8s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.leftSection, .rightSection {
+  transition: transform 0.5s ease;
+  position: relative;
+  z-index: 1;
+}
+/* MODO LOGIN */
+
+.loginMode .leftSection {
+  transform: translateX(145%);
+  width: 40%;
+  z-index: 1;
+}
+
+.loginMode .rightSection {
+  transform: translateX(-70%);
+  width: 60%;
+  z-index: 2;
 }
