@@ -1,11 +1,23 @@
-
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // <-- Importa o hook de navegação
 import styles from "../Cadaster/Cadaster.module.css";
 
 function AuthPage() {
   const [isLogin, setIsLogin] = useState(false);
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const navigate = useNavigate(); // <-- Instancia o hook
 
   const toggleMode = () => setIsLogin(!isLogin);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (email === "admin" && senha === "123") {
+      navigate("/home"); // <-- Redireciona para a página inicial
+    } else {
+      alert("Usuário ou senha inválidos");
+    }
+  };
 
   return (
     <div className={`${styles.container} ${isLogin ? styles.loginMode : ""}`}>
@@ -68,18 +80,22 @@ function AuthPage() {
         ) : (
           <>
             <h2>Login</h2>
-            <form>
+            <form onSubmit={handleLogin}>
               <div className={styles.formGroup}>
                 <label>Email</label>
                 <input
-                  type="email"
+                  type="text"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className={styles.inputField}
                 />
               </div>
               <div className={styles.formGroup}>
                 <label>Senha</label>
                 <input
-                  type="password"   
+                  type="password"
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
                   className={styles.inputField}
                 />
               </div>
