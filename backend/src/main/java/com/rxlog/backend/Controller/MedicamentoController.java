@@ -23,7 +23,7 @@ public class MedicamentoController {
         return medicamentoService.buscarPorId(id);
     }
 
-    @PostMapping
+    @PostMapping("/cadastrar")
     public Medicamento criar(@RequestBody Medicamento medicamento){
         return medicamentoService.salvar(medicamento);
     }

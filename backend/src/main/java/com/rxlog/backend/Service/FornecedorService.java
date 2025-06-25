@@ -42,4 +42,18 @@ public class FornecedorService {
         }
         fornecedorRepository.deleteById(id);
     }
+
+    public Fornecedor buscarPorCnpjEEmail(String cnpj, String email) {
+        return fornecedorRepository.findByCnpjFornecedorAndEmailFornecedor(cnpj, email);
+    }
+
+    public Fornecedor buscarPorCnpj(String cnpj) {
+        return fornecedorRepository.findByCnpjFornecedor(cnpj);
+    }
+
+    public Fornecedor buscarPorEmail(String email) {
+        return fornecedorRepository.findByEmailFornecedor(email);
+    }
+
+
 }

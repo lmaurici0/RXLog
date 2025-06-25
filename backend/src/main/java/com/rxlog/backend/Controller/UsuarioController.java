@@ -24,11 +24,12 @@ public class UsuarioController {
         return usuarioService.buscarPorId(id);
     }
 
-    @PostMapping
-    public Usuario criar(@RequestBody Usuario usuario) {
+    //não sei se vai ser usado denovo.
+    /*@PostMapping("/cadastrar")
+    //public Usuario criar(@RequestBody Usuario usuario) {
         return usuarioService.salvar(usuario);
     }
-
+    */
     @PutMapping("/{id}")
     public Usuario atualizar(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
         Usuario existente = usuarioService.buscarPorId(id);

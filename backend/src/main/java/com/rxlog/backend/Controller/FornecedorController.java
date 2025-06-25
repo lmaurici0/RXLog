@@ -24,7 +24,7 @@ public class FornecedorController {
         return fornecedorService.buscarPorId(id); // corrigido
     }
 
-    @PostMapping
+    @PostMapping("/cadastrar")
     public Fornecedor criar(@RequestBody Fornecedor fornecedor) {
         return fornecedorService.salvar(fornecedor); // corrigido
     }
