@@ -11,7 +11,6 @@ function App() {
       <Routes>
           <Route path="/" element={<Cadaster />} />
         <Route path="/home" element={<HomeScreen />} /> 
-        <Route path='/signin' element={<Login />} />
         <Route path='/dashboards' element={<DashBoard />} />
       </Routes>
     </Router>
