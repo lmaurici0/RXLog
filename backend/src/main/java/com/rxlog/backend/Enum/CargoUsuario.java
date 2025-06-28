@@ -4,5 +4,4 @@ public enum CargoUsuario {
     ADMINISTRADOR,
     RECEPCIONISTA,
     FARMACÊUTICO
-
 }
