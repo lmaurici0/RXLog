@@ -4,15 +4,14 @@
   display: flex;
   width: 100%;
   max-width: 100%;
-  /* box-shadow: 0 10px 25px rgba(32, 6, 6, 0.1); */
   border-radius: 20px;
-   background-color: #fff;
+   background-color: var(--neutral-color);
 }
 
 .leftSection {
-  background-color: #278C67; 
+  background-color: var(--primary-color); 
   height: 100vh;
-  color: white;
+  color: var(--neutral-color);
   padding: 60px 40px;
   width: 50%;
   display: flex;
@@ -45,8 +44,8 @@
   justify-content: center;
   align-items: center;
   background-color: transparent;
-  border: 2px solid #fff;
-  color:#fff;
+  border: 2px solid var(--neutral-color);
+  color:var(--neutral-color);
   margin-top: 210px;
   width: 250px;
   padding: 10px;
@@ -58,9 +57,9 @@
 }
 
 .rightSection{
-  background-color: #fff; 
+  background-color: var(--neutral-color); 
   height: 100vh;
-  color: white;
+  color: var(--neutral-color);
   padding: 60px 40px;
   width: 60%;
   display: flex;
@@ -72,7 +71,7 @@
   font-family: Poppins;
   font-size: 2.4rem;
   text-align: center;
-  color: #278C67;
+  color: var(--primary-color);
 }
 form {
   width: 100%;
@@ -94,7 +93,7 @@ form {
 }
 
 .formGroup label {
-  color: #278C67;
+  color: var(--primary-color);
   font-weight: 600;
   margin-bottom: 8px;
   font-family: Poppins, sans-serif;
@@ -108,7 +107,7 @@ form {
   border-radius: 50px;
   border: none;
   background-color: rgba(5, 150, 105, 0.3);
-  color: #278C67;
+  color: var(--primary-color);
   font-size: 1.1rem;
   outline: none;
   font-family: Montserrat, sans-serif;
@@ -126,9 +125,9 @@ form {
   display: flex;
   margin: 0 auto;
   text-align: center;
-  background-color: #278C67;
-  border: 2px solid #fff;
-  color:#fff;
+  background-color: var(--primary-color);
+  border: 2px solid var(--neutral-color);
+  color:var(--neutral-color);
   margin-top: 20px;
   width: 400px;
   padding: 10px;
@@ -151,9 +150,8 @@ form {
   display: flex;
   width: 100%;
   max-width: 100%;
-  /* box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); */
   border-radius: 20px;
-  background-color: #fff;
+  background-color: var(--neutral-color);
   transition: transform 0.8s ease;
   overflow: hidden;
   position: relative;

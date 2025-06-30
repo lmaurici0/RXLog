@@ -1,5 +1,5 @@
 .footer {
-  background: #D7D9D8;
+  background: var(--complementary-color);
   padding: 1rem 2.5rem; 
   position: relative;
   font-family: Poppins;
@@ -13,7 +13,7 @@
 }
 
 .contactContent h2 {
-  color: #45BF86;
+  color: var(--secondary-color);
   font-size: 3rem;
   margin-bottom: 0.5rem;
   font-family: Poppins;
@@ -30,7 +30,7 @@
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  color: #45BF86;
+  color: var(--secondary-color);
   font-family: Poppins;
 }
 
@@ -51,7 +51,7 @@
   text-align: left;
   font-family: Oblong;
   font-weight: 200;
-  color: #45BF86;
+  color: var(--secondary-color);
   margin-left: 30px;
 }
 
