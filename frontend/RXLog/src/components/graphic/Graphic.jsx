@@ -17,28 +17,26 @@ const CustomTooltip = ({ active, payload, label }) => {
     return (
       <div
         style={{
-          width: "150px",
-          textAlign: "center",
-          backgroundColor: "#45BF86",
+          width: "180px",
+          backgroundColor: "#E0F7FA",
           color: "#fff",
-          textTransform: "capitalize",
-          fontWeight: "400",
-          padding: "10px",
-          borderRadius: "6px",
-          border: "1px solid #278C67",
-          fontFamily: "Montserrat, sans-serif",
-          fontSize: "14px",
-          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+          padding: "12px",
+          borderRadius: "8px",
+          border: "1px solid #D9D9D9",
+          fontFamily: "Poppins, sans-serif",
+          fontSize: "13px",
+          boxShadow: "0 3px 10px rgba(0, 0, 0, 0.2)",
         }}
       >
-        <p>
-          <strong>{label}</strong>
+        <p style={{ margin:0, fontWeight: "500", fontSize: "15px", color: "#000" }}>
+          {label}
         </p>
-        <p>Quantidade: {payload[0].value}</p>
+        <p style={{ marginTop:5, marginBottom:0, color:"#000", fontWeight:"500", fontSize: "14px" }}>
+          Quantidade: <strong>{payload[0].value}</strong>
+        </p>
       </div>
     );
   }
-
   return null;
 };
 
@@ -47,7 +45,7 @@ export default function Graphic() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/medicamentos/quantidade-por-categoria")
+      .get("http://localhost:8080/medicamentos/disponibilidade")
       .then((response) => {
         setData(response.data);
       })
@@ -58,32 +56,39 @@ export default function Graphic() {
 
   return (
     <div className={styles.graficoContainer}>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer >
         <BarChart
           data={data}
-          margin={{ top: 20, right: 30, left: 10, bottom: 5 }}
+          margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
         >
-          <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
+          <CartesianGrid stroke="#e0e0e0" strokeDasharray="3 3" />
           <XAxis
             dataKey="categoria"
-            angle={0}
-            interval={0}
-            tick={{ fontFamily: "Poppins", fill: "black", fontSize: "1.1rem" }}
+            tick={{ fontFamily: "Poppins", fontSize: "14px", fill: "#000" }}
           />
           <YAxis
             domain={[0, "dataMax + 10"]}
-            tick={{ fill: "black", fontFamily: "Poppins", fontSize: "17px" }}
+            tick={{ fontFamily: "Poppins", fontSize: "14px", fill: "#000" }}
           >
             <Label
               value="Quantidade disponível"
               angle={-90}
               position="insideLeft"
-              className={styles.yAxisLabel}
+              offset={10}
+              style={{
+                fontFamily: "Poppins",
+                fontSize: "13px",
+                fill: "#555",
+              }}
             />
           </YAxis>
-
           <Tooltip content={<CustomTooltip />} />
-          <Bar dataKey="quantidade" fill="#1E342D" barSize={80} />
+          <Bar
+            dataKey="quantidade"
+            fill="#1E342D"
+            barSize={60}
+            radius={[6, 6, 0, 0]}
+          />
         </BarChart>
       </ResponsiveContainer>
     </div>

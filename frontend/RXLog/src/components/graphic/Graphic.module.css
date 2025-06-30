@@ -1,11 +1,9 @@
 .graficoContainer {
-  width: 70%;
-  padding: 2rem;
+  width: 65%;
+  padding: 2rem 1rem 2rem;
   background-color: #fff;
   height: 400px; 
   display: flex;
-  justify-content: center;
-  align-items: center; 
 }
 
 .yAxisLabel {
