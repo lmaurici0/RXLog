@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from "../header/header.module.css";
-import { FaBars, FaUserCircle, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,7 +9,13 @@ const Header = () => {
   const menuRef = useRef(null);
   const userMenuRef = useRef(null);
 
-  // Fecha o menu lateral ou o user menu se clicar fora
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    const storedName = localStorage.getItem("userName") || "Eric Luis";
+    setUserName(storedName);
+  }, []);
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (
@@ -27,6 +34,17 @@ const Header = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  function getInitials(name) {
+    return name
+      .split(" ")
+      .filter((n) => n)
+      .map((n) => n[0].toUpperCase())
+      .slice(0, 2)
+      .join("");
+  }
+
+  const initials = getInitials(userName);
 
   return (
     <header className={styles.header}>
@@ -50,29 +68,28 @@ const Header = () => {
         }`}
       >
         <nav className={styles.nav}>
-          <a href="#home">Home</a>
-          <a href="#contato">Contato</a>
-          <a href="#gestao">Gestão</a>
-          <a href="#dashboard">DashBoards</a>
-        <h6 className={styles.logoMenu}>RxLog</h6>
-
+          <Link to="/home">Home</Link>
+          <Link to="/">Contato</Link>
+          <Link to="/">Gestão</Link>
+          <Link to="/dashboards">DashBoards</Link>
+          <h6 className={styles.logoMenu}>RxLog</h6>
         </nav>
-
       </div>
 
       <div className={styles.userMenuContainer} ref={userMenuRef}>
         <button
-          className={styles.userButton}
+          className={styles.userInitialsButton}
           onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+          aria-label="Menu do usuário"
         >
-          <FaUserCircle className={styles.userImage} />
+          {initials}
         </button>
 
         {isUserMenuOpen && (
           <div className={styles.userDropdown}>
-            <a href="#perfil">Perfil</a>
-            <a href="#configuracoes">Configurações</a>
-            <a href="#sair">Sair</a>
+            <Link to="/">Perfil</Link>
+            <Link to="/">Configurações</Link>
+            <Link to="/">Sair</Link>
           </div>
         )}
       </div>

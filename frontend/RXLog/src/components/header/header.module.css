@@ -181,3 +181,18 @@
 .userDropdown a:hover {
   background-color: #f0f0f0;
 }
+.userInitialsButton {
+  background-color: #45BF86; 
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  margin-left: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-family: Montserrat;
+  cursor: pointer;
+  border: none;
+}
