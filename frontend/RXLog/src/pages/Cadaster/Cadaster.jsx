@@ -83,19 +83,29 @@ function AuthPage() {
           senhaUsuario: data.senha,
           cargoUsuario: data.cargo,
         });
-        toast.success("Cadastro realizado com sucesso!", { autoClose: 3000 });
-        setIsLogin(true);
-        reset();
-      } catch (err) {
-        toast.error("Erro ao cadastrar. Verifique todos os campos e tente novamente.", {
+        toast.success("Cadastro realizado com sucesso!", {
           style: {
-            backgroundColor: "#E74C3C",
-            color: "#fff",
             fontFamily: "Poppins",
             fontSize: "1rem",
+            backgroundColor: "#45BF86",
           },
           autoClose: 3000,
         });
+        setIsLogin(true);
+        reset();
+      } catch (err) {
+        toast.error(
+          "Erro ao cadastrar. Verifique todos os campos e tente novamente.",
+          {
+            style: {
+              backgroundColor: "#E74C3C",
+              color: "#fff",
+              fontFamily: "Poppins",
+              fontSize: "1rem",
+            },
+            autoClose: 3000,
+          }
+        );
       }
     }
   };
