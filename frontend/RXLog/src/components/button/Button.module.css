@@ -1,6 +1,6 @@
 .btn{
     opacity: 80%;
-    background-color: #45BF86;
+    background-color: var(--secondary-color);
     color: #fff;
     font-size: 15px;
     width: 300px;
