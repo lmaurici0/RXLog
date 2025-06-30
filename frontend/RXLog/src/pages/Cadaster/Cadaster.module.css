@@ -4,7 +4,7 @@
   display: flex;
   width: 100%;
   max-width: 100%;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 10px 25px rgba(32, 6, 6, 0.1); */
   border-radius: 20px;
    background-color: #fff;
 }
@@ -151,7 +151,7 @@ form {
   display: flex;
   width: 100%;
   max-width: 100%;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); */
   border-radius: 20px;
   background-color: #fff;
   transition: transform 0.8s ease;
@@ -164,10 +164,11 @@ form {
   position: relative;
   z-index: 1;
 }
+
 /* MODO LOGIN */
 
 .loginMode .leftSection {
-  transform: translateX(145%);
+  transform: translateX(143%);
   width: 40%;
   z-index: 1;
 }
@@ -175,7 +176,8 @@ form {
 .loginMode .rightSection {
   transform: translateX(-70%);
   width: 60%;
-  z-index: 2;
+  z-index: 1;
+ box-shadow: 15px 0 25px 5px rgba(0,0,0,0.35);
 }
 
 .Toastify__toast {

@@ -10,7 +10,6 @@ import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// Schemas de validação
 const schemaLogin = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email obrigatório"),
   senha: yup.string().required("Senha obrigatória"),
