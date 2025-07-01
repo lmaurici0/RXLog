@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/alertas")
 public class AlertaController {
@@ -23,15 +24,10 @@ public class AlertaController {
     @Autowired
     private MedicamentoService medicamentoService;
 
-    @PostMapping("/verificar/{medicamentoId}")
-    public ResponseEntity<String> verificarAlertasParaMedicamento(@PathVariable Long medicamentoId) {
-        Medicamento medicamento = medicamentoService.buscarPorId(medicamentoId);
-        if (medicamento == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Medicamento não encontrado.");
-        }
-
-        alertaService.verificarAlertasParaMedicamento(medicamento);
-        return ResponseEntity.ok("Verificação de alertas realizada com sucesso.");
+    @GetMapping("/vencidos")
+    public ResponseEntity<List<Medicamento>> listarMedicamentosVencidos() {
+        List<Medicamento> vencidos = alertaService.buscarMedicamentosVencidos();
+        return ResponseEntity.ok(vencidos);
     }
 
     @GetMapping
@@ -44,19 +40,13 @@ public class AlertaController {
         return alertaService.listarPorStatus(status);
     }
 
-    @GetMapping("/tipo")
-    public List<Alerta> listarPorTipo(@RequestParam TipoAlerta tipo) {
-        return alertaService.listarPorTipo(tipo);
+    @GetMapping("/vencimento/proximo")
+    public ResponseEntity<List<Medicamento>> listarMedicamentosProximosVencimento() {
+        List<Medicamento> proximos = alertaService.buscarMedicamentosProximosVencimento();
+        return ResponseEntity.ok(proximos);
     }
 
-    @GetMapping("/medicamento/{medicamentoId}")
-    public List<Alerta> listarPorMedicamento(@PathVariable Long medicamentoId) {
-        return alertaService.listarPorMedicamento(medicamentoId);
-    }
 
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
-        alertaService.deletar(id);
-    }
+
 }
 

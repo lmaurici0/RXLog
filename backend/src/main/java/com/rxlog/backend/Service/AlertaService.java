@@ -85,4 +85,13 @@ public class AlertaService {
         alertaRepository.deleteById(id);
     }
 
+    public List<Medicamento> buscarMedicamentosVencidos() {
+        return medicamentoRepository.findByValidadeMedicamentoBefore(LocalDate.now());
+    }
+
+    public List<Medicamento> buscarMedicamentosProximosVencimento() {
+        LocalDate hoje = LocalDate.now();
+        LocalDate limite = hoje.plusDays(30);
+        return medicamentoRepository.findByValidadeMedicamentoBetween(hoje, limite);
+    }
 }
