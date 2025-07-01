@@ -70,6 +70,4 @@ public class MedicamentoService {
         return medicamentoRepository.quantidadePorCategoria();
     }
 
-
-
 }

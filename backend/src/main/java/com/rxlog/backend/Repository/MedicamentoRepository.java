@@ -18,5 +18,4 @@ public interface MedicamentoRepository extends JpaRepository<Medicamento, Long> 
 
     List<Medicamento> findByValidadeMedicamentoBetween(LocalDate start, LocalDate end);
 
-
 }
