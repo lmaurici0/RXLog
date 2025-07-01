@@ -7,9 +7,8 @@ function DashBoard() {
     <>
       <Header />
       <Graphic />
-      <Button />
     </>
-  );
+  )
 }
 
 export default DashBoard;
