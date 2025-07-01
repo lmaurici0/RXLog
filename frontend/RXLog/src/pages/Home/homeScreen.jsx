@@ -54,7 +54,6 @@ function HomeScreen() {
         </div>
       </section>
       <Footer />
-      <ToastContainer />
     </>
   );
 }
