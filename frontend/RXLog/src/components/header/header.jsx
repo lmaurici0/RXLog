@@ -67,11 +67,12 @@ const Header = () => {
           isMenuOpen ? styles.sideMenuOpen : ""
         }`}
       >
+
         <nav className={styles.nav}>
-          <Link to="/home">Home</Link>
-          <Link to="/contato">Contato</Link>
+          <Link to="/auth/dashboards">DashBoards</Link>
+          <Link to="/contato">Fale Conosco</Link>
           <Link to="/">Cadastrar</Link>
-          <Link to="/dashboard">DashBoards</Link>
+          <Link to="/sobre">Sobre Nós</Link>
         </nav>
       </div>
 
