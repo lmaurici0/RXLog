@@ -4,7 +4,52 @@
   background-color: #fff;
   height: 400px; 
   display: flex;
+  flex-direction: column; 
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  font-family: 'Montserrat', sans-serif;
 }
+
+.filterContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+  color: #1E342D;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.filterContainer svg {
+  font-size: 20px;
+  color: #1E342D;
+}
+
+.filterContainer select {
+  padding: 6px 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background-color: #fff;
+  color: #1E342D;
+  transition: border-color 0.3s ease;
+}
+
+.filterContainer select:hover,
+.filterContainer select:focus {
+  outline: none;
+}
+
+/* Manter altura fixa do gráfico e permitir responsividade */
+.responsiveChartContainer {
+  flex: 1; /* ocupa o espaço restante da coluna */
+  min-height: 300px; /* mínimo pra não quebrar layout */
+}
+
+/* Seus estilos existentes para eixo e labels */
 
 .yAxisLabel {
   text-anchor: middle;
@@ -24,3 +69,26 @@
   fill: black; 
 }
 
+/* Tabela estilizada para lista de medicamentos */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Montserrat', sans-serif;
+}
+
+table thead tr {
+  border-bottom: 2px solid #1E342D;
+}
+
+table th, table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  color: #333;
+  font-weight: 500;
+}
+
+table tbody tr:hover {
+  background-color: #f0f8ff;
+}
