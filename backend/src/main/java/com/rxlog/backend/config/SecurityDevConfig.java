@@ -1,4 +1,3 @@
-//classe para liberar todas as portas na fase de desenvolvimento, tirar ela bloqueia todas as portas por padrão, conforme a classe SecurityConfig age.
 
 package com.rxlog.backend.config;
 
@@ -17,8 +16,8 @@ public class SecurityDevConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().permitAll()
                 )
-                .csrf(csrf -> csrf.disable()) // desabilita CSRF
-                .httpBasic(Customizer.withDefaults()); // usa autenticação básica, se quiser
+                .csrf(csrf -> csrf.disable())
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
