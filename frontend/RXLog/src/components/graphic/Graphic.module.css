@@ -43,13 +43,10 @@
   outline: none;
 }
 
-/* Manter altura fixa do gráfico e permitir responsividade */
 .responsiveChartContainer {
-  flex: 1; /* ocupa o espaço restante da coluna */
-  min-height: 300px; /* mínimo pra não quebrar layout */
+  flex: 1; 
+  min-height: 300px; 
 }
-
-/* Seus estilos existentes para eixo e labels */
 
 .yAxisLabel {
   text-anchor: middle;
