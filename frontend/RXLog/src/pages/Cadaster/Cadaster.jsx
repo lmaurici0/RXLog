@@ -60,7 +60,7 @@ function AuthPage() {
           autoClose: 3000,
           onClose: () => {
             setIsExiting(true);
-            setTimeout(() => navigate("/home"), 600);
+            setTimeout(() => navigate("/auth/dashboards"), 600);
           },
         });
       } catch (err) {
@@ -147,7 +147,8 @@ function AuthPage() {
                   <select className={styles.inputField} {...register("cargo")}>
                     <option value="">Selecione</option>
                     <option value="ADMINISTRADOR">ADMINISTRADOR</option>
-                    <option value="FUNCIONARIO">FUNCIONARIO</option>
+                    <option value="RECEPCIONISTA">RECEPCIONISTA</option>
+                    <option value="FARMACÊUTICO">FARMACÊUTICO</option>
                   </select>
                   {errors.cargo && (
                     <p className={styles.errorMsg}>{errors.cargo.message}</p>
