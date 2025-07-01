@@ -69,10 +69,9 @@ const Header = () => {
       >
         <nav className={styles.nav}>
           <Link to="/home">Home</Link>
-          <Link to="/">Contato</Link>
-          <Link to="/">Gestão</Link>
-          <Link to="/dashboards">DashBoards</Link>
-          <h6 className={styles.logoMenu}>RxLog</h6>
+          <Link to="/contato">Contato</Link>
+          <Link to="/">Cadastrar</Link>
+          <Link to="/dashboard">DashBoards</Link>
         </nav>
       </div>
 

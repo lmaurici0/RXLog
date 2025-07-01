@@ -7,7 +7,7 @@
   background-color: var(--primary-color);
   padding: 1.5rem;
   color: var(--neutral-color);
-  height: 10vh;
+  height: 8vh;
   display: flex;
   align-items: center;
 }
@@ -21,6 +21,7 @@
 .logo {
   font-size: 3rem;
   text-align: left;
+  align-items: center;
   font-family: Oblong;
   font-weight: 200;
   color: #98c8b7;
@@ -31,16 +32,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 24px;
-  height: 15px;
+  height: 16px;
   cursor: pointer;
   margin-left: 0;
-}
-
-.bar {
-  height: 2px;
-  width: 80%;
-  background-color: var(--neutral-color);
 }
 
 .nav {
@@ -70,27 +64,6 @@
 
 .nav a:hover::after {
   width: 100%;
-}
-
-.userButton {
-  background: #ccc;
-  border: none;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  margin-left: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--secondary-color);
-  font-size: 1.2rem;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.userImage {
-  width: 35px;
-  height: 35px;
 }
 
 .sideMenu {
@@ -143,19 +116,11 @@
   margin-top: 4rem;
 }
 
-.logoMenu{
-  margin-top: 260px;
-  font-weight: 200;
-  font-size: 2rem;
-  color: #98c8b7;
-  font-family: Oblong;
-}
-
 .userMenuContainer {
   position: relative;
   display: inline-block;
   font-family: Poppins;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .userDropdown {
@@ -175,25 +140,26 @@
 .userDropdown a {
   display: block;
   padding: 0.5rem;
-  color: #333;
+  color: #1c1c1c;
   text-decoration: none;
 }
 
 .userDropdown a:hover {
-  background-color: #f0f0f0;
+  background-color: #D9D9D9;
 }
+
 .userInitialsButton {
-  background-color: var(--secondary-color); 
+  background-color: var(--third-color); 
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   margin-left: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--neutral-color);
-  font-size: 1.3rem;
-  font-family: Montserrat;
   cursor: pointer;
   border: none;
+    font-size: 1.2rem;
+  font-family: Inter;
 }
