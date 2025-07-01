@@ -113,3 +113,21 @@
 .form button:hover {
   background-color: var(--secondary-color);
 }
+
+.backButton {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.backButton:hover {
+  transform: scale(1.05);
+}
