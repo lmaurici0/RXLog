@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomeScreen from './pages/Home/homeScreen';
 import DashBoard from './pages/DashBoard/DashBoard';  
 import Cadaster from './pages/Cadaster/Cadaster';
+import Contact from './pages/Contact/Contact';
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Cadaster />} />
         <Route path="/home" element={<HomeScreen />} /> 
-        <Route path='/dashboards' element={<DashBoard />} />
+        <Route path='/dashboard' element={<DashBoard />} />
+        <Route path='/contato' element={<Contact />} />
       </Routes>
     </Router>
   );
