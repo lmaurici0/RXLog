@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/medicamentos")
 public class MedicamentoController {
@@ -46,6 +48,12 @@ public class MedicamentoController {
     public void deletar(@PathVariable Long id){
         medicamentoService.deletar(id);
     }
+
+    @GetMapping("/disponibilidade")
+    public List<Map<String, Object>> getQuantidadePorCategoria() {
+        return medicamentoService.quantidadePorCategoria();
+    }
+
 
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MedicamentoService {
@@ -64,5 +65,11 @@ public class MedicamentoService {
         }
         medicamentoRepository.deleteById(id);
     }
+
+    public List<Map<String, Object>> quantidadePorCategoria() {
+        return medicamentoRepository.quantidadePorCategoria();
+    }
+
+
 
 }
