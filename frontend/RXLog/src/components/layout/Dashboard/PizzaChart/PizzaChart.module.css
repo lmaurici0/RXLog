@@ -1,0 +1,17 @@
+.container {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Montserrat', sans-serif;
+  color: #1E342D;
+  text-align: center;
+  width: 300px;
+  padding: 4rem;
+}
+
+.title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
