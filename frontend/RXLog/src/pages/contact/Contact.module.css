@@ -1,0 +1,115 @@
+.contactContainer {
+  display: flex;
+  height: 100vh;
+  font-family: Poppins;
+}
+
+.leftPanel {
+  flex: 0.6;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+}
+.overlayTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;    
+  justify-content: flex-start; 
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  padding-top: 40px;      
+  gap: 10px;              
+}
+
+.overlayTop h2 {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: #f1f1f1;
+  margin: 0;
+}
+
+.overlayTop p {
+  font-size: 1rem;
+  color: #f0f0f0;
+  margin: 0;
+}
+
+.rightPanel {
+  flex: 1;
+  background-color: var(--neutral-color);
+  padding: 60px 40px;
+  box-shadow: -6px 1px 17px 8px rgba(0,0,0,0.45);
+}
+
+.title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #111;
+  font-weight: bold;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form label {
+  margin: 10px 0 5px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.form input {
+  width: 90%;
+  padding: 10px 15px;
+  border-radius: 50px;
+  border: none;
+  background-color: rgba(5, 150, 105, 0.2);
+  color: #111;
+  font-weight: 500;
+  font-size: 17px;
+  outline: none;
+  font-family: Montserrat, sans-serif;
+  transition: background-color 0.3s ease;
+  text-transform: lowercase;
+}
+
+.form textarea {
+  width: 90%;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  background-color: rgba(5, 150, 105, 0.3);
+  color: #1c1c1c;
+  font-weight: 500;
+  font-size: 17px;
+  outline: none;
+  font-family: Montserrat, sans-serif;
+  transition: background-color 0.3s ease;
+  text-transform: capitalize;
+  margin: 0 0 25px 0;
+}
+
+.form button {
+  width: 50%;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  margin: 0 auto;
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: var(--complementary-color);
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-family: Poppins;
+}
+
+.form button:hover {
+  background-color: var(--secondary-color);
+}
