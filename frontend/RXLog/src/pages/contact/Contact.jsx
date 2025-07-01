@@ -1,9 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react"; // opcional: ícone de seta
 import styles from "./Contact.module.css";
 
 const Contact = () => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.contactContainer}>
+      <button className={styles.backButton} onClick={() => navigate(-1)}>
+        <ArrowLeft size={20} /> 
+      </button>
+
       <div className={styles.leftPanel}>
         <div className={styles.overlayTop}>
           <h2>Quer falar<br />conosco?</h2>
