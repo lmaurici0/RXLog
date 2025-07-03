@@ -7,6 +7,7 @@ import Contact from './pages/Contact/Contact';
 import PageNotFound from './pages/Error/404/PageNotFound';
 import Forbidden from './pages/Error/403/Forbidden';
 import Unauthorized from './pages/Error/401/Unauthorized';
+import Profile from './pages/Profile/Profile';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/dashboard" element={<DashBoard />} /> 
         <Route path='/sobre' element={<HomeScreen />} />
         <Route path='/contato' element={<Contact />} />
+        <Route path='/profile' element={<Profile />} />
         <Route path='/error/401' element={<Unauthorized />} />
         <Route path='/error/403' element={<Forbidden />} />
         <Route path='/error/404' element={<PageNotFound />} />
