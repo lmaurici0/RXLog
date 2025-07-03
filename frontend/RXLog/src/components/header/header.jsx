@@ -12,7 +12,7 @@ const Header = () => {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    const storedName = localStorage.getItem("userName") || "Eric Luis";
+    const storedName = localStorage.getItem("userName") || "Eric Mauricio";
     setUserName(storedName);
   }, []);
 
@@ -87,8 +87,7 @@ const Header = () => {
 
         {isUserMenuOpen && (
           <div className={styles.userDropdown}>
-            <Link to="/">Perfil</Link>
-            <Link to="/">Configurações</Link>
+            <Link to="/profile">Perfil</Link>
             <Link to="/">Sair</Link>
           </div>
         )}
