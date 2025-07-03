@@ -1,0 +1,124 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 2rem;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: popIn 0.6s ease-in-out;
+}
+
+.four, .one {
+  font-size: 8rem;
+  font-weight: 900;
+  color: #1976d2;
+  margin: 0 1rem;
+  animation: bounce 1.5s infinite alternate;
+}
+
+.zero {
+  width: 100px;
+  height: 100px;
+  background-color: #bbdefb;
+  border-radius: 50%;
+  position: relative;
+  margin: 0 1rem;
+  box-shadow: inset -5px -5px 8px #e3f2fd, inset 5px 5px 8px #1565c0;
+  animation: pulse 2s infinite;
+  transition: transform 0.3s ease;
+}
+
+.zero::before {
+  content: "";
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  background: url('https://cdn-icons-png.flaticon.com/512/3064/3064197.png') no-repeat center center;
+  background-size: contain;
+  opacity: 0.7;
+}
+
+.text {
+  text-align: center;
+  margin-top: 2rem;
+  max-width: 600px;
+}
+
+.errorText {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.subText {
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 1rem;
+}
+
+.btn {
+  margin-top: 2.5rem;
+}
+
+.backButton {
+  background-color: #1976d2;
+  color: white;
+  padding: 0.8rem 2.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-family: Poppins;
+}
+
+.backButton:hover {
+  background-color: #0d47a1;
+  transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: inset -5px -5px 8px #e3f2fd, inset 5px 5px 8px #1565c0;
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: inset -2px -2px 6px #e3f2fd, inset 2px 2px 6px #1565c0;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: inset -5px -5px 8px #e3f2fd, inset 5px 5px 8px #1565c0;
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
