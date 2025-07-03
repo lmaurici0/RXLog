@@ -1,0 +1,194 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+.profilePage {
+  background-color: #f0f2f5;
+  min-height: 100vh;
+}
+
+.profileContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: calc(100vh - 80px);
+}
+
+.profileCard {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 700px;
+  padding: 40px;
+}
+
+.avatarSection {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.avatarContainer {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.profileAvatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: #e0e7ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  color: var(--primary-color);
+  font-weight: bold;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
+.avatarOverlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: var(--primary-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid white;
+  transition: all 0.3s ease;
+}
+
+.plusIcon {
+  color: white;
+  font-size: 24px;
+  stroke-width: 3px;
+}
+
+.avatarContainer:hover .avatarOverlay {
+  transform: scale(1.1);
+  background: var(--primary-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.avatarUploadInput {
+  display: none;
+}
+
+.infoGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.infoRow {
+  display: flex;
+  gap: 25px;
+}
+
+.infoItem {
+  flex: 1;
+  padding: 20px;
+  background: #f9fafc;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.infoLabel {
+  font-family: "Poppins", regular;
+  display: block;
+  font-size: 16px;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.infoValue {
+  font-size: 20px;
+  color: #333;
+  font-weight: 600;
+}
+
+.adminBadge {
+  background-color: #ffeb3b;
+  color: #333;
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+.loadingSpinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .profileCard {
+    padding: 30px 20px;
+  }
+
+  .infoRow {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .profileAvatar {
+    width: 120px;
+    height: 120px;
+    font-size: 48px;
+  }
+
+  .avatarOverlay {
+    width: 35px;
+    height: 35px;
+  }
+
+  .plusIcon {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profileContainer {
+    padding: 10px;
+  }
+
+  .infoItem {
+    padding: 15px;
+  }
+
+  .infoValue {
+    font-size: 18px;
+  }
+}
