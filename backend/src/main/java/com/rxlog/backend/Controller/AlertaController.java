@@ -45,8 +45,4 @@ public class AlertaController {
         List<Medicamento> proximos = alertaService.buscarMedicamentosProximosVencimento();
         return ResponseEntity.ok(proximos);
     }
-
-
-
 }
-

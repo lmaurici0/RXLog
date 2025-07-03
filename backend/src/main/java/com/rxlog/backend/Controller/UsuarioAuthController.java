@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/auth/usuario")
-@CrossOrigin(origins = "http://localhost:5173") // Libera acesso do React
+@CrossOrigin(origins = "http://localhost:5173") 
 public class UsuarioAuthController {
 
     @Autowired
@@ -21,12 +21,10 @@ public class UsuarioAuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // Cadastrar novo usuário
     @PostMapping("/signup")
     public ResponseEntity<?> cadastrar(@RequestBody UsuarioCadastroRequest request) {
         System.out.println("Recebido cadastro para email: " + request.getEmailUsuario());
 
-        // Verifica se email já está em uso
         Usuario existente = usuarioService.buscarPorEmail(request.getEmailUsuario());
         if (existente != null) {
             System.out.println("Tentativa de cadastro com email já existente: " + request.getEmailUsuario());
@@ -34,11 +32,10 @@ public class UsuarioAuthController {
                     .body("Já existe um usuário com esse email.");
         }
 
-        // Cria novo usuário
         Usuario usuario = new Usuario();
         usuario.setNomeUsuario(request.getNomeUsuario());
         usuario.setEmailUsuario(request.getEmailUsuario());
-        usuario.setSenhaUsuario(passwordEncoder.encode(request.getSenhaUsuario())); // Criptografada
+        usuario.setSenhaUsuario(passwordEncoder.encode(request.getSenhaUsuario()));
         usuario.setCargoUsuario(request.getCargoUsuario());
 
         System.out.println("Novo usuário será salvo: " + usuario.getEmailUsuario());
@@ -48,7 +45,6 @@ public class UsuarioAuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
     }
 
-    // Fazer login
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UsuarioLoginRequest loginRequest) {
         Usuario usuario = usuarioService.buscarPorEmail(loginRequest.getEmail());
@@ -60,7 +56,6 @@ public class UsuarioAuthController {
         return ResponseEntity.ok("Login realizado com sucesso.");
     }
 
-    // Deletar conta por email
     @DeleteMapping("/deletar/{email}")
     public ResponseEntity<?> deletarConta(@PathVariable String email) {
         Usuario usuario = usuarioService.buscarPorEmail(email);

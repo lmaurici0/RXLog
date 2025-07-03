@@ -32,7 +32,6 @@ public class UsuarioService {
         existente.setNomeUsuario(usuarioAtualizado.getNomeUsuario());
         existente.setEmailUsuario(usuarioAtualizado.getEmailUsuario());
 
-        // Se atualizar senha criptografar ANTES de chamar esse método
         existente.setSenhaUsuario(usuarioAtualizado.getSenhaUsuario());
 
         existente.setCargoUsuario(usuarioAtualizado.getCargoUsuario());
