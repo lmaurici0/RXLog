@@ -15,6 +15,7 @@ import java.util.List;
 
 @Service
 public class AlertaService {
+
     @Autowired
     private AlertaRepository alertaRepository;
 
@@ -23,7 +24,9 @@ public class AlertaService {
 
     public void verificarAlertasParaMedicamento(Medicamento medicamento) {
         LocalDate hoje = LocalDate.now();
+        LocalDate validade = medicamento.getValidadeMedicamento();
 
+        // === ESTOQUE BAIXO ===
         boolean alertaEstoqueJaExiste = alertaRepository.existsByMedicamentoAndTipoAlertaAndStatusAlerta(
                 medicamento, TipoAlerta.ESTOQUE_BAIXO, StatusAlerta.Pendente);
 
@@ -36,23 +39,6 @@ public class AlertaService {
             alertaRepository.save(alertaEstoque);
         }
 
-        LocalDate validade = medicamento.getValidadeMedicamento();
-        boolean validadeProxima = validade != null
-                && validade.isAfter(hoje)
-                && validade.isBefore(hoje.plusDays(30));
-
-        boolean alertaValidadeJaExiste = alertaRepository.existsByMedicamentoAndTipoAlertaAndStatusAlerta(
-                medicamento, TipoAlerta.VENCIMENTO_PROXIMO, StatusAlerta.Pendente);
-
-        if (validadeProxima && !alertaValidadeJaExiste) {
-            Alerta alertaValidade = new Alerta();
-            alertaValidade.setMedicamento(medicamento);
-            alertaValidade.setTipoAlerta(TipoAlerta.VENCIMENTO_PROXIMO);
-            alertaValidade.setStatusAlerta(StatusAlerta.Pendente);
-            alertaValidade.setDataGeracao(LocalDateTime.now());
-            alertaRepository.save(alertaValidade);
-        }
-
         if (medicamento.getQuantidadeMedicamento() >= 10) {
             List<Alerta> alertasEstoque = alertaRepository.findByMedicamentoAndTipoAlertaAndStatusAlerta(
                     medicamento, TipoAlerta.ESTOQUE_BAIXO, StatusAlerta.Pendente);
@@ -61,7 +47,56 @@ public class AlertaService {
                 alertaRepository.save(alerta);
             });
         }
+
+        // === VENCIDO ===
+        boolean alertaVencidoJaExiste = alertaRepository.existsByMedicamentoAndTipoAlertaAndStatusAlerta(
+                medicamento, TipoAlerta.VENCIDO, StatusAlerta.Pendente);
+
+        if (validade != null && (validade.isBefore(hoje) || validade.isEqual(hoje)) && !alertaVencidoJaExiste) {
+            Alerta alertaVencido = new Alerta();
+            alertaVencido.setMedicamento(medicamento);
+            alertaVencido.setTipoAlerta(TipoAlerta.VENCIDO);
+            alertaVencido.setStatusAlerta(StatusAlerta.Pendente);
+            alertaVencido.setDataGeracao(LocalDateTime.now());
+            alertaRepository.save(alertaVencido);
+        }
+
+        // Resolver alerta de vencido se a validade for atualizada para o futuro
+        if (validade != null && validade.isAfter(hoje)) {
+            List<Alerta> alertasVencido = alertaRepository.findByMedicamentoAndTipoAlertaAndStatusAlerta(
+                    medicamento, TipoAlerta.VENCIDO, StatusAlerta.Pendente);
+            alertasVencido.forEach(alerta -> {
+                alerta.setStatusAlerta(StatusAlerta.Resolvido);
+                alertaRepository.save(alerta);
+            });
+        }
+
+        // === VENCIMENTO PRÓXIMO ===
+        boolean validadeProxima = validade != null && validade.isAfter(hoje) && validade.isBefore(hoje.plusDays(30));
+
+        boolean alertaValidadeProximaJaExiste = alertaRepository.existsByMedicamentoAndTipoAlertaAndStatusAlerta(
+                medicamento, TipoAlerta.VENCIMENTO_PROXIMO, StatusAlerta.Pendente);
+
+        if (validadeProxima && !alertaValidadeProximaJaExiste) {
+            Alerta alertaValidade = new Alerta();
+            alertaValidade.setMedicamento(medicamento);
+            alertaValidade.setTipoAlerta(TipoAlerta.VENCIMENTO_PROXIMO);
+            alertaValidade.setStatusAlerta(StatusAlerta.Pendente);
+            alertaValidade.setDataGeracao(LocalDateTime.now());
+            alertaRepository.save(alertaValidade);
+        }
+
+        // Resolver alerta de vencimento próximo se não estiver mais dentro da janela
+        if (!validadeProxima) {
+            List<Alerta> alertasVencProx = alertaRepository.findByMedicamentoAndTipoAlertaAndStatusAlerta(
+                    medicamento, TipoAlerta.VENCIMENTO_PROXIMO, StatusAlerta.Pendente);
+            alertasVencProx.forEach(alerta -> {
+                alerta.setStatusAlerta(StatusAlerta.Resolvido);
+                alertaRepository.save(alerta);
+            });
+        }
     }
+
     public List<Alerta> listarTodos() {
         return alertaRepository.findAll();
     }
@@ -80,7 +115,7 @@ public class AlertaService {
 
     public void deletar(Long id) {
         if (!alertaRepository.existsById(id)) {
-            throw new RuntimeException("Usuário não encontrado para deletar");
+            throw new RuntimeException("Alerta não encontrado para deletar");
         }
         alertaRepository.deleteById(id);
     }
@@ -92,6 +127,6 @@ public class AlertaService {
     public List<Medicamento> buscarMedicamentosProximosVencimento() {
         LocalDate hoje = LocalDate.now();
         LocalDate limite = hoje.plusDays(30);
-        return medicamentoRepository.findByValidadeMedicamentoBetween(hoje, limite);
+        return medicamentoRepository.findByValidadeMedicamentoBetween(hoje.plusDays(1), limite);
     }
 }
