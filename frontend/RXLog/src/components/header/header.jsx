@@ -69,9 +69,10 @@ const Header = () => {
       >
 
         <nav className={styles.nav}>
-          <Link to="/auth/dashboards">DashBoards</Link>
+          <Link to="/dashboards">DashBoards</Link>
+          <Link to="/medicamentos/cadastro">Cadastrar</Link>
+          <Link to="/medicamentos/saida">Baixa de Estoque</Link>
           <Link to="/contato">Fale Conosco</Link>
-          <Link to="/">Cadastrar</Link>
           <Link to="/sobre">Sobre Nós</Link>
         </nav>
       </div>
