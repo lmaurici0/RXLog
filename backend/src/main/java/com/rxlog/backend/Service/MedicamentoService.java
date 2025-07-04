@@ -59,6 +59,19 @@ public class MedicamentoService {
 
     }
 
+    public void darBaixa(Long id, int quantidade) {
+        Medicamento medicamento = medicamentoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Medicamento não encontrado"));
+
+        if (medicamento.getQuantidadeMedicamento() < quantidade) {
+            throw new RuntimeException("Quantidade insuficiente em estoque");
+        }
+
+        medicamento.setQuantidadeMedicamento(medicamento.getQuantidadeMedicamento() - quantidade);
+        medicamentoRepository.save(medicamento);
+    }
+
+
     public void deletar(Long id){
         if(!medicamentoRepository.existsById(id)){
             throw new RuntimeException("Medicamento não encontrado pelo id");
