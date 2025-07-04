@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../../components/header/header";
 import styles from "./MedicamentRegistration.module.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function MedicamentRegistration() {
   const [form, setForm] = useState({
@@ -14,12 +16,17 @@ export default function MedicamentRegistration() {
     tarjaMedicamento: "",
     fornecedorId: "",
   });
+
   const [fornecedores, setFornecedores] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/fornecedores")
-      .then(res => setFornecedores(res.data))
-      .catch(console.error);
+    axios
+      .get("http://localhost:8080/fornecedores")
+      .then((res) => setFornecedores(res.data))
+      .catch((err) => {
+        console.error(err);
+        toast.error("Erro ao buscar fornecedores.");
+      });
   }, []);
 
   function handleChange(e) {
@@ -30,7 +37,7 @@ export default function MedicamentRegistration() {
     e.preventDefault();
 
     if (!form.fornecedorId) {
-      alert("Selecione um fornecedor");
+      toast.error("Selecione um fornecedor!");
       return;
     }
 
@@ -56,10 +63,11 @@ export default function MedicamentRegistration() {
         tarjaMedicamento: "",
         fornecedorId: "",
       });
-      alert("Medicamento cadastrado com sucesso!");
+
+      toast.success("Medicamento cadastrado com sucesso!");
     } catch (err) {
       console.error(err);
-      alert("Erro ao cadastrar medicamento.");
+      toast.error("Erro ao cadastrar medicamento.");
     }
   }
 
@@ -68,25 +76,23 @@ export default function MedicamentRegistration() {
       <Header />
       <div className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.form}>
-
           <div className={styles.inputGroup}>
-  <label>Fornecedor</label>
-  <select
-    name="fornecedorId"
-    value={form.fornecedorId}
-    onChange={handleChange}
-    className={styles.select}
-    required
-  >
-    <option value="">Selecione o fornecedor</option>
-    {fornecedores.map(fornecedor => (
-      <option key={fornecedor.id} value={fornecedor.id}>
-        {fornecedor.nomeFornecedor}
-      </option>
-    ))}
-  </select>
-</div>
-
+            <label>Fornecedor</label>
+            <select
+              name="fornecedorId"
+              value={form.fornecedorId}
+              onChange={handleChange}
+              className={styles.select}
+              required
+            >
+              <option value="">Selecione o fornecedor</option>
+              {fornecedores.map((fornecedor) => (
+                <option key={fornecedor.id} value={fornecedor.id}>
+                  {fornecedor.nomeFornecedor}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div className={styles.inputGroup}>
             <label>Nome Comercial</label>
@@ -178,8 +184,12 @@ export default function MedicamentRegistration() {
             </select>
           </div>
 
-          <button type="submit" className={styles.button}>Salvar</button>
+          <button type="submit" className={styles.button}>
+            Salvar
+          </button>
         </form>
+
+        <ToastContainer position="top-right" autoClose={3000} />
       </div>
     </>
   );
