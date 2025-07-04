@@ -60,7 +60,7 @@ function AuthPage() {
           autoClose: 3000,
           onClose: () => {
             setIsExiting(true);
-            setTimeout(() => navigate("/auth/dashboards"), 600);
+            setTimeout(() => navigate("/dashboards"), 600);
           },
         });
       } catch (err) {
