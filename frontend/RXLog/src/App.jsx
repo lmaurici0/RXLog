@@ -16,12 +16,12 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<AuthPage />} />
-        <Route path="/dashboard" element={<DashBoard />} /> 
+        <Route path="/dashboards" element={<DashBoard />} /> 
         <Route path='/sobre' element={<HomeScreen />} />
         <Route path='/contato' element={<Contact />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/registration' element={<MedicamentRegistration />} />
-        <Route path='/exit' element={<MedicamentExit />} />
+        <Route path='/medicamentos/cadastro' element={<MedicamentRegistration />} />
+        <Route path='/medicamentos/saida' element={<MedicamentExit />} />
         
         <Route path='/error/401' element={<Unauthorized />} />
         <Route path='/error/403' element={<Forbidden />} />
