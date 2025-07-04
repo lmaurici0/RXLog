@@ -8,6 +8,7 @@ import PageNotFound from './pages/Error/404/PageNotFound';
 import Forbidden from './pages/Error/403/Forbidden';
 import Unauthorized from './pages/Error/401/Unauthorized';
 import Profile from './pages/Profile/Profile';
+import MedicamentRegistration from './pages/MedicamentRegister/MedicamentRegistration';
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path='/sobre' element={<HomeScreen />} />
         <Route path='/contato' element={<Contact />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/registration' element={<MedicamentRegistration />} />
+        
         <Route path='/error/401' element={<Unauthorized />} />
         <Route path='/error/403' element={<Forbidden />} />
         <Route path='/error/404' element={<PageNotFound />} />
