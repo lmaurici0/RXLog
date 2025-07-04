@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  font-family: Poppins;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 3rem;
+  align-items: start;
+  max-width: 1000px;
+  width: 100%;
+  position: relative;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 1.2rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  color: #2f8665;
+}
+
+.input,
+.select {
+  padding: 0.9rem;
+  border-radius: 30px;
+  border: none;
+  background-color: rgba(162, 224, 209, 0.6);
+  color: #1e4f3f;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  appearance: none;
+  font-family: Poppins;
+}
+
+.input[type="date"] {
+  font-family: "Poppins";
+}
+
+.input:focus,
+.select:focus {
+  background-color: rgba(162, 224, 209, 0.9);
+}
+
+.button {
+  margin-top: 1rem;
+  padding: 0.9rem 2.5rem;
+  background-color: #41b883;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  justify-self: end;
+  grid-column: 2;
+  font-family: Poppins;
+}
+
+.button:hover {
+  background-color: #339e6e;
+}
