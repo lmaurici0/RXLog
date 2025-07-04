@@ -44,9 +44,11 @@ public class MedicamentoController {
         return medicamentoService.salvar(existente);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id){
-        medicamentoService.deletar(id);
+    @PostMapping("/baixa")
+    public void darBaixa(@RequestBody Map<String, Object> payload) {
+        Long medicamentoId = Long.valueOf(payload.get("medicamentoId").toString());
+        int quantidade = Integer.parseInt(payload.get("quantidade").toString());
+        medicamentoService.darBaixa(medicamentoId, quantidade);
     }
 
     @GetMapping("/disponibilidade")
