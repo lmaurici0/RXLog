@@ -1,12 +1,12 @@
 import {React, useEffect} from "react";
 
-import Header from "../../components/header/header";
+import Header from "../../components/header/Header";
 import styles from "../DashBoard/DashBoard.module.css";
 
 import EstoqueChart from "../../components/layout/Dashboard/EstoqueChart/EstoqueChart";
 import EntradasChart from "../../components/layout/Dashboard/EntradasChart/EntradasChart";
 import SaidasChart from "../../components/layout/Dashboard/SaidasChart/SaidasChar";
-import Footer from "../../components/footer/footer";
+import Footer from "../../components/footer/Footer";
 import TabelasMedicamentos from "../../components/layout/Dashboard/Table/Table";
 import PizzaChart from "../../components/layout/Dashboard/PizzaChart/PizzaChart";
 

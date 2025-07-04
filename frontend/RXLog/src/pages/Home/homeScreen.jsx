@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "../../components/header/header";
-import Carrossel from "../../components/carrossel/carrossel";
-import Footer from "../../components/footer/footer";
+import Header from "../../components/header/Header";
+import Carrossel from "../../components/carrossel/Carrossel";
+import Footer from "../../components/footer/Footer";
 import styles from "./homeScreen.module.css";
 import image from "../../assets/images/image.png";
 

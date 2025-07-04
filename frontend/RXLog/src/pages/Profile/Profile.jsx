@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./Profile.module.css";
-import Header from "../../components/header/header";
+import Header from "../../components/header/Header";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FiPlus } from 'react-icons/fi';
