@@ -14,16 +14,17 @@ const schemaLogin = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email obrigatório"),
   senha: yup.string().required("Senha obrigatória"),
 });
-
 const schemaCadastro = yup.object().shape({
   nome: yup.string().required("Nome obrigatório"),
   cargo: yup.string().required("Cargo obrigatório"),
+  instituicao: yup.string().required("Instituição obrigatória"),
   email: yup.string().email("Email inválido").required("Email obrigatório"),
   senha: yup
     .string()
     .min(4, "Senha mínima de 4 caracteres")
     .required("Senha obrigatória"),
 });
+
 
 function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -146,9 +147,9 @@ function AuthPage() {
                   <label>Cargo</label>
                   <select className={styles.inputField} {...register("cargo")}>
                     <option value="">Selecione</option>
-                    <option value="ADMINISTRADOR">ADMINISTRADOR</option>
-                    <option value="RECEPCIONISTA">RECEPCIONISTA</option>
-                    <option value="FARMACÊUTICO">FARMACÊUTICO</option>
+                    <option value="ADMINISTRADOR">Administrador</option>
+                    <option value="RECEPCIONISTA">Recepcionista</option>
+                    <option value="FARMACÊUTICO">Farmacêutico</option>
                   </select>
                   {errors.cargo && (
                     <p className={styles.errorMsg}>{errors.cargo.message}</p>
