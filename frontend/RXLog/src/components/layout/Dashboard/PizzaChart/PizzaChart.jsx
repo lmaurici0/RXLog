@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   PieChart,
   Pie,
@@ -8,14 +8,8 @@ import {
 } from "recharts";
 import styles from "./PizzaChart.module.css";
 
-const dadosEstoque = [
-  { nome: "Estoque Regular", valor: 420 },
-  { nome: "Estoque Expirado", valor: 80 },
-];
+const CORES = ["#4CAF50", "#F44336"]; // Verde: regular, Vermelho: vencido
 
-const CORES = ["#4CAF50", "#F44336"];
-
-// Tooltip personalizada com transição
 const CustomTooltip = ({ active, payload }) => {
   return (
     <div
@@ -23,7 +17,7 @@ const CustomTooltip = ({ active, payload }) => {
         opacity: active ? 1 : 0,
         transition: "opacity 0.4s ease",
         backgroundColor: "#ffffff",
-        padding: "1rem 1rem",
+        padding: "1rem",
         border: "1px solid #ccc",
         borderRadius: "8px",
         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
@@ -40,9 +34,38 @@ const CustomTooltip = ({ active, payload }) => {
 };
 
 export default function PizzaChart() {
+  const [dadosEstoque, setDadosEstoque] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/medicamentos/estoque-vencido-vs-regular")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Erro ao buscar dados");
+        }
+        return res.json();
+      })
+      .then((dados) => {
+        setDadosEstoque(dados);
+        setCarregando(false);
+      })
+      .catch((err) => {
+        console.error("Erro ao buscar dados da API:", err);
+        setCarregando(false);
+      });
+  }, []);
+
+  if (carregando) {
+    return <div className={styles.container}>Carregando gráfico...</div>;
+  }
+
+  if (!dadosEstoque.length) {
+    return <div className={styles.container}>Nenhum dado disponível.</div>;
+  }
+
   return (
     <div className={styles.container}>
-      <ResponsiveContainer width="100%" height={200}>
+      <ResponsiveContainer width="100%" height={250}>
         <PieChart>
           <Pie
             data={dadosEstoque}
