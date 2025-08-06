@@ -17,7 +17,6 @@ const schemaLogin = yup.object().shape({
 const schemaCadastro = yup.object().shape({
   nome: yup.string().required("Nome obrigatório"),
   cargo: yup.string().required("Cargo obrigatório"),
-  instituicao: yup.string().required("Instituição obrigatória"),
   email: yup.string().email("Email inválido").required("Email obrigatório"),
   senha: yup
     .string()
