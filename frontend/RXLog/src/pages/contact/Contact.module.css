@@ -104,7 +104,7 @@
   color: var(--complementary-color);
   font-size: 1rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background 0.3s ease;
   font-family: Poppins;
