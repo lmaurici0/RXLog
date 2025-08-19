@@ -19,7 +19,7 @@ function App() {
         <Route path="/dashboards" element={<DashBoard />} /> 
         <Route path='/sobre' element={<HomeScreen />} />
         <Route path='/contato' element={<Contact />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/perfil' element={<Profile />} />
         <Route path='/medicamentos/cadastro' element={<MedicamentRegistration />} />
         <Route path='/medicamentos/saida' element={<MedicamentExit />} />
         
