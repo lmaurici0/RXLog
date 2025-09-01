@@ -3,16 +3,20 @@ package com.rxlog.backend.Controller;
 import com.rxlog.backend.DTO.UsuarioCadastroRequest;
 import com.rxlog.backend.DTO.UsuarioLoginRequest;
 import com.rxlog.backend.Entity.Usuario;
+import com.rxlog.backend.Security.UserDetailsServiceImpl;
 import com.rxlog.backend.Service.UsuarioService;
+import com.rxlog.backend.Security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth/usuario")
-@CrossOrigin(origins = "http://localhost:5173") 
+@CrossOrigin(origins = "http://localhost:5173")
 public class UsuarioAuthController {
 
     @Autowired
@@ -21,15 +25,14 @@ public class UsuarioAuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     @PostMapping("/signup")
     public ResponseEntity<?> cadastrar(@RequestBody UsuarioCadastroRequest request) {
-        System.out.println("Recebido cadastro para email: " + request.getEmailUsuario());
-
         Usuario existente = usuarioService.buscarPorEmail(request.getEmailUsuario());
         if (existente != null) {
-            System.out.println("Tentativa de cadastro com email já existente: " + request.getEmailUsuario());
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("Já existe um usuário com esse email.");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Já existe um usuário com esse email.");
         }
 
         Usuario usuario = new Usuario();
@@ -37,33 +40,30 @@ public class UsuarioAuthController {
         usuario.setEmailUsuario(request.getEmailUsuario());
         usuario.setSenhaUsuario(passwordEncoder.encode(request.getSenhaUsuario()));
         usuario.setCargoUsuario(request.getCargoUsuario());
+        usuario.setInstituicaoUsuario(request.getInstituicaoUsuario());
 
-        System.out.println("Novo usuário será salvo: " + usuario.getEmailUsuario());
         Usuario novoUsuario = usuarioService.salvar(usuario);
-        System.out.println("Usuário salvo com id: " + novoUsuario.getId());
-
         return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UsuarioLoginRequest loginRequest) {
-        Usuario usuario = usuarioService.buscarPorEmail(loginRequest.getEmail());
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
-        if (usuario == null || !passwordEncoder.matches(loginRequest.getSenha(), usuario.getSenhaUsuario())) {
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UsuarioLoginRequest request) {
+        Usuario usuario = usuarioService.buscarPorEmail(request.getEmail());
+        if (usuario == null || !passwordEncoder.matches(request.getSenha(), usuario.getSenhaUsuario())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas.");
         }
 
-        return ResponseEntity.ok("Login realizado com sucesso.");
-    }
+        var userDetails = userDetailsService.loadUserByUsername(usuario.getEmailUsuario());
+        String token = jwtUtil.generateToken(userDetails);
 
-    @DeleteMapping("/deletar/{email}")
-    public ResponseEntity<?> deletarConta(@PathVariable String email) {
-        Usuario usuario = usuarioService.buscarPorEmail(email);
-        if (usuario == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
-        }
-
-        usuarioService.deletar(usuario.getId());
-        return ResponseEntity.ok("Conta de usuário deletada com sucesso.");
+        return ResponseEntity.ok(Map.of(
+                "token", token,
+                "email", usuario.getEmailUsuario(),
+                "cargo", usuario.getCargoUsuario()
+        ));
     }
 }
+

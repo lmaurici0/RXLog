@@ -49,4 +49,8 @@ public class UsuarioService {
     public Usuario buscarPorEmail(String email) {
         return usuarioRepository.findByEmailUsuario(email).orElse(null);
     }
+
+    public List<Usuario> buscarPorInstituicao(String instituicao) {
+        return usuarioRepository.findByInstituicaoUsuario(instituicao);
+    }
 }

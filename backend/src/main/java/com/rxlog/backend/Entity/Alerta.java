@@ -6,6 +6,11 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "alertas")
 public class Alerta {
@@ -35,25 +40,4 @@ public class Alerta {
     )
     private Medicamento medicamento;
 
-
-
-    public Long getId() {return id;}
-
-    public void setId(Long id) {this.id = id;}
-
-    public LocalDateTime getDataGeracao() {return dataGeracao;}
-
-    public void setDataGeracao(LocalDateTime dataGeracao) {this.dataGeracao = dataGeracao;}
-
-    public TipoAlerta getTipoAlerta() {return tipoAlerta;}
-
-    public void setTipoAlerta(TipoAlerta tipoAlerta) {this.tipoAlerta = tipoAlerta;}
-
-    public StatusAlerta getStatusAlerta() {return statusAlerta;}
-
-    public void setStatusAlerta(StatusAlerta statusAlerta) {this.statusAlerta = statusAlerta;}
-
-    public Medicamento getMedicamento() {return medicamento;}
-
-    public void setMedicamento(Medicamento medicamento) {this.medicamento = medicamento;}
 }

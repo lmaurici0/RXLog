@@ -44,4 +44,11 @@ public class UsuarioController {
     public void deletar(@PathVariable Long id) {
         usuarioService.deletar(id);
     }
+
+    @GetMapping("/instituicao/{nome}")
+    public List<Usuario> listarPorInstituicao(@PathVariable String nome) {
+        return usuarioService.buscarPorInstituicao(nome);
+    }
+
+
 }
