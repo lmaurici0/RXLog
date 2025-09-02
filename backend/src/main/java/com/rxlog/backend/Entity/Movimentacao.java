@@ -5,7 +5,11 @@ import jakarta.validation.constraints.Min;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "movimentacoes")
 public class Movimentacao {
@@ -37,28 +41,4 @@ public class Movimentacao {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-
-    public Long getId() {return id;}
-
-    public void setId(Long id) {this.id = id;}
-
-    public int getQuantidadeMovimentacao() {return quantidadeMovimentacao;}
-
-    public void setQuantidadeMovimentacao(int quantidadeMovimentacao) {this.quantidadeMovimentacao = quantidadeMovimentacao;}
-
-    public LocalDateTime getDataMovimentacao() {return dataMovimentacao;}
-
-    public void setDataMovimentacao(LocalDateTime dataMovimentacao) {this.dataMovimentacao = dataMovimentacao;}
-
-    public Medicamento getMedicamento() {return medicamento;}
-
-    public void setMedicamento(Medicamento medicamento) {this.medicamento = medicamento;}
-
-    public Usuario getUsuario() {return usuario;}
-
-    public void setUsuario(Usuario usuario) {this.usuario = usuario;}
-
-    public TipoMovimentacao getTipoMovimentacao() {return tipoMovimentacao;}
-
-    public void setTipoMovimentacao(TipoMovimentacao tipoMovimentacao) {this.tipoMovimentacao = tipoMovimentacao;}
 }

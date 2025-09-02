@@ -1,65 +1,76 @@
 package com.rxlog.backend.Controller;
 
-import com.rxlog.backend.Entity.Movimentacao;
-import com.rxlog.backend.Enum.TipoMovimentacao;
-import com.rxlog.backend.Service.MovimentacaoService;
+import com.rxlog.backend.DTO.UsuarioCadastroRequest;
+import com.rxlog.backend.DTO.UsuarioLoginRequest;
+import com.rxlog.backend.Entity.Usuario;
+import com.rxlog.backend.Security.UserDetailsServiceImpl;
+import com.rxlog.backend.Service.UsuarioService;
+import com.rxlog.backend.Security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/movimentacoes")
-public class MovimentacaoController {
+@RequestMapping("/auth/usuario")
+@CrossOrigin(origins = "http://localhost:5173")
+public class UsuarioAuthController {
+
     @Autowired
-    private MovimentacaoService movimentacaoService;
+    private UsuarioService usuarioService;
 
-    @GetMapping
-    public List<Movimentacao> listarTodos(){
-        return movimentacaoService.listarTodos();
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+    // --- Cadastro de usuário ---
+    @PostMapping("/signup")
+    public ResponseEntity<?> cadastrar(@RequestBody UsuarioCadastroRequest request) {
+        Usuario existente = usuarioService.buscarPorEmail(request.getEmailUsuario());
+        if (existente != null) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("erro", "Já existe um usuário com esse email."));
+        }
+
+        Usuario usuario = new Usuario();
+        usuario.setNomeUsuario(request.getNomeUsuario());
+        usuario.setEmailUsuario(request.getEmailUsuario());
+        usuario.setSenhaUsuario(passwordEncoder.encode(request.getSenhaUsuario()));
+        usuario.setCargoUsuario(request.getCargoUsuario());
+        usuario.setInstituicaoUsuario(request.getInstituicaoUsuario());
+
+        Usuario novoUsuario = usuarioService.salvar(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
+                "id", novoUsuario.getIdUsuario(),
+                "email", novoUsuario.getEmailUsuario(),
+                "nome", novoUsuario.getNomeUsuario()
+        ));
     }
 
-    @GetMapping("/{id}")
-    public Movimentacao buscarPorId(@PathVariable Long id){
-        return movimentacaoService.buscarPorId(id);
+    // --- Login de usuário (gera token JWT) ---
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UsuarioLoginRequest request) {
+        Usuario usuario = usuarioService.buscarPorEmail(request.getEmail());
+        if (usuario == null || !passwordEncoder.matches(request.getSenha(), usuario.getSenhaUsuario())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("erro", "Credenciais inválidas."));
+        }
+
+        var userDetails = userDetailsService.loadUserByUsername(usuario.getEmailUsuario());
+        String token = jwtUtil.generateToken(userDetails);
+
+        return ResponseEntity.ok(Map.of(
+                "token", token,
+                "email", usuario.getEmailUsuario(),
+                "cargo", usuario.getCargoUsuario()
+        ));
     }
-
-    @PostMapping
-    public Movimentacao criar(@RequestBody Movimentacao movimentacao){
-        return movimentacaoService.salvar(movimentacao);
-    }
-
-    @PostMapping("/entrada")
-    public ResponseEntity<Movimentacao> registrarEntrada(@RequestBody Movimentacao movimentacao) {
-        movimentacao.setTipoMovimentacao(TipoMovimentacao.ENTRADA); // Força tipo ENTRADA
-        Movimentacao entrada = movimentacaoService.registrarEntrada(movimentacao);
-        return ResponseEntity.status(HttpStatus.CREATED).body(entrada);
-    }
-
-    @PostMapping("/saida")
-    public ResponseEntity<Movimentacao> registrarSaida(@RequestBody Movimentacao movimentacao) {
-        movimentacao.setTipoMovimentacao(TipoMovimentacao.SAIDA); // Força tipo SAÍDA
-        Movimentacao saida = movimentacaoService.registrarSaida(movimentacao);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saida);
-    }
-
-    @PutMapping("/{id}")
-    public Movimentacao atualizar(@PathVariable Long id, @RequestBody Movimentacao movimentacaoAtualizada){
-        Movimentacao existente = buscarPorId(id);
-
-        existente.setDataMovimentacao(movimentacaoAtualizada.getDataMovimentacao());
-        existente.setQuantidadeMovimentacao(movimentacaoAtualizada.getQuantidadeMovimentacao());
-        existente.setUsuario(movimentacaoAtualizada.getUsuario());
-        existente.setMedicamento(movimentacaoAtualizada.getMedicamento());
-        return movimentacaoService.salvar(existente);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id){
-        movimentacaoService.deletar(id);
-    }
-
-
 }

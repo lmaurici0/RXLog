@@ -6,6 +6,11 @@ import jakarta.validation.constraints.Min;
 
 import java.time.LocalDate;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "medicamentos")
 public class Medicamento {
@@ -40,41 +45,4 @@ public class Medicamento {
     @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
 
-
-
-    public Long getId() {return id;}
-
-    public void setId(Long id) {this.id = id;}
-
-    public String getNomeComercial() {return nomeComercial;}
-
-    public void setNomeComercial(String nomeComercial) {this.nomeComercial = nomeComercial;}
-
-    public String getNomeFarmaceutico() {return nomeFarmaceutico;}
-
-    public void setNomeFarmaceutico(String nomeFarmaceutico) {this.nomeFarmaceutico = nomeFarmaceutico;}
-
-    public String getTipoMedicamento() {return tipoMedicamento;}
-
-    public void setTipoMedicamento(String tipoMedicamento) {this.tipoMedicamento = tipoMedicamento;}
-
-    public int getQuantidadeMedicamento() {return quantidadeMedicamento;}
-
-    public void setQuantidadeMedicamento(int quantidadeMedicamento) {this.quantidadeMedicamento = quantidadeMedicamento;}
-
-    public LocalDate getValidadeMedicamento() {return validadeMedicamento;}
-
-    public void setValidadeMedicamento(LocalDate validadeMedicamento) {this.validadeMedicamento = validadeMedicamento;}
-
-    public String getLoteMedicamento() {return loteMedicamento;}
-
-    public void setLoteMedicamento(String loteMedicamento) {this.loteMedicamento = loteMedicamento;}
-
-    public Fornecedor getFornecedor() {return fornecedor;}
-
-    public void setFornecedor(Fornecedor fornecedor) {this.fornecedor = fornecedor;}
-
-    public TarjaMedicamento getTarjaMedicamento() {return tarjaMedicamento;}
-
-    public void setTarjaMedicamento(TarjaMedicamento tarjaMedicamento) {this.tarjaMedicamento = tarjaMedicamento;}
 }
