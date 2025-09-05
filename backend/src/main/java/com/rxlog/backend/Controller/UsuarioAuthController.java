@@ -28,32 +28,42 @@ public class UsuarioAuthController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+    // --- Cadastro de usuário ---
     @PostMapping("/signup")
     public ResponseEntity<?> cadastrar(@RequestBody UsuarioCadastroRequest request) {
         Usuario existente = usuarioService.buscarPorEmail(request.getEmailUsuario());
         if (existente != null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Já existe um usuário com esse email.");
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("erro", "Já existe um usuário com esse email."));
         }
 
         Usuario usuario = new Usuario();
         usuario.setNomeUsuario(request.getNomeUsuario());
         usuario.setEmailUsuario(request.getEmailUsuario());
         usuario.setSenhaUsuario(passwordEncoder.encode(request.getSenhaUsuario()));
-        usuario.setCargoUsuario(request.getCargoUsuario());
+        usuario.setCargoUsuario(request.getCargoUsuario()); // enum
         usuario.setInstituicaoUsuario(request.getInstituicaoUsuario());
 
         Usuario novoUsuario = usuarioService.salvar(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
+                "id", novoUsuario.getId(),
+                "email", novoUsuario.getEmailUsuario(),
+                "nome", novoUsuario.getNomeUsuario(),
+                "cargo", novoUsuario.getCargoUsuario().name()
+        ));
     }
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-
+    // --- Login de usuário (gera token JWT) ---
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UsuarioLoginRequest request) {
         Usuario usuario = usuarioService.buscarPorEmail(request.getEmail());
         if (usuario == null || !passwordEncoder.matches(request.getSenha(), usuario.getSenhaUsuario())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("erro", "Credenciais inválidas."));
         }
 
         var userDetails = userDetailsService.loadUserByUsername(usuario.getEmailUsuario());
@@ -62,8 +72,7 @@ public class UsuarioAuthController {
         return ResponseEntity.ok(Map.of(
                 "token", token,
                 "email", usuario.getEmailUsuario(),
-                "cargo", usuario.getCargoUsuario()
+                "cargo", usuario.getCargoUsuario().name()
         ));
     }
 }
-
