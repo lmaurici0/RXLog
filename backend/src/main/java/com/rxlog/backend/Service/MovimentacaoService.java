@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MovimentacaoService {
@@ -106,4 +108,32 @@ public class MovimentacaoService {
         }
         movimentacaoRepository.deleteById(id);
     }
+
+    public int totalEntradas() {
+        return movimentacaoRepository.sumByTipoMovimentacao("ENTRADA");
+    }
+
+    public int totalSaidas() {
+        return movimentacaoRepository.sumByTipoMovimentacao("SAIDA");
+    }
+
+
+    public List<Map<String, Object>> entradasPorCategoria() {
+        List<Map<String, Object>> resultado = new ArrayList<>();
+        List<Object[]> lista = movimentacaoRepository.entradasPorCategoria();
+        for(Object[] row : lista) {
+            resultado.add(Map.of("categoria", row[0], "quantidade", ((Number)row[1]).intValue()));
+        }
+        return resultado;
+    }
+
+    public List<Map<String, Object>> saidasPorCategoria() {
+        List<Map<String, Object>> resultado = new ArrayList<>();
+        List<Object[]> lista = movimentacaoRepository.saidasPorCategoria();
+        for(Object[] row : lista) {
+            resultado.add(Map.of("categoria", row[0], "quantidade", ((Number)row[1]).intValue()));
+        }
+        return resultado;
+    }
+
 }
