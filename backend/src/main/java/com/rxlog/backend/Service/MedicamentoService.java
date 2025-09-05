@@ -19,7 +19,7 @@ public class MedicamentoService {
     @Autowired
     private AlertaService alertaService;
 
-    public List<Medicamento> listarTodos(){
+    public List<Medicamento> listarTodos() {
         return medicamentoRepository.findAll();
     }
 

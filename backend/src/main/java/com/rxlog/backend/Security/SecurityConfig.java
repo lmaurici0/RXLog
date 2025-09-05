@@ -11,6 +11,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -20,11 +25,34 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.csrf(csrf -> csrf.disable())
+        return http
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/medicamentos/cadastrar").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+
+                        .requestMatchers(HttpMethod.GET,
+                                "/fornecedores",
+                                "/medicamentos",
+                                "/medicamentos/disponibilidade",
+                                "/medicamentos/estoque-vencido-vs-regular",
+                                "/alertas/vencimento/proximo",
+                                "/alertas/vencidos",
+                                "/movimentacoes/total",
+                                "/movimentacoes/entradas-por-categoria",
+                                "/movimentacoes/saidas-por-categoria",
+                                "/medicamentos/cadastrar"
+                        ).permitAll()
+
+                        .requestMatchers(HttpMethod.POST,
+                                "/medicamentos/baixa"
+                        ).permitAll()
+
+                        .requestMatchers(HttpMethod.POST,
+
+                                "/fornecedores/cadastrar"
+                        ).hasAuthority("ADMINISTRADOR")
+
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
@@ -38,5 +66,18 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
