@@ -1,27 +1,30 @@
-import {React, useEffect} from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios"; 
 
 import Header from "../../components/header/Header";
 import styles from "../DashBoard/DashBoard.module.css";
 
 import EstoqueChart from "../../components/layout/Dashboard/EstoqueChart/EstoqueChart";
 import EntradasChart from "../../components/layout/Dashboard/EntradasChart/EntradasChart";
-import SaidasChart from "../../components/layout/Dashboard/SaidasChart/SaidasChar";
+import SaidasChart from "../../components/layout/Dashboard/SaidasChart/SaidasChart"; 
 import Footer from "../../components/footer/Footer";
 import TabelasMedicamentos from "../../components/layout/Dashboard/Table/Table";
 import PizzaChart from "../../components/layout/Dashboard/PizzaChart/PizzaChart";
 
-
 function DashBoard() {
-  const usuario = {
-    nome: "Eric Luis",
-    email: "ericluismauricio@gmail.com",
-    cargo: "Farmacêutico Responsável",
-  };
+  const [movimentacoes, setMovimentacoes] = useState({ entradas: 0, saidas: 0 });
 
-  const movimentacoes = {
-    entradas: 535,
-    saidas: 290,
-  };
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // pegar token do login
+
+    axios.get("http://localhost:8080/movimentacoes/total", {
+      headers: {
+        Authorization: `Bearer ${token}`, // envia token
+      },
+    })
+    .then(res => setMovimentacoes(res.data))
+    .catch(err => console.error("Erro ao buscar movimentações:", err));
+  }, []);
 
   return (
     <>
