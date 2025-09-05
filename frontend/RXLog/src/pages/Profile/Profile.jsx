@@ -1,32 +1,38 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from "./Profile.module.css";
 import Header from "../../components/header/Header";
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { FiPlus } from 'react-icons/fi';
 
 const Profile = () => {
   const [userData, setUserData] = useState({
     email: '',
     name: '',
     role: '',
-    institution: '',
-    avatar: null
+    institution: ''
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [avatarPreview, setAvatarPreview] = useState(null);
-  const fileInputRef = useRef(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get('/api/profile');
-        setUserData(response.data);
-        
-        if (response.data.avatar) {
-          setAvatarPreview(response.data.avatar);
-        }
+
+        // Pega o token do localStorage se estiver usando JWT
+        const token = localStorage.getItem('token');
+
+        const response = await axios.get('/usuarios/profile', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        const data = response.data;
+
+        setUserData({
+          email: data.emailUsuario,
+          name: data.nomeUsuario,
+          role: data.cargoUsuario,
+          institution: data.instituicaoUsuario
+        });
       } catch (error) {
         toast.error('Erro ao carregar perfil');
         console.error('Erro ao buscar dados do usuário:', error);
@@ -38,42 +44,12 @@ const Profile = () => {
     fetchUserData();
   }, []);
 
-  const handleAvatarClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleAvatarChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    try {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setAvatarPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-
-      const formData = new FormData();
-      formData.append('avatar', file);
-
-      const response = await axios.patch('/api/profile/avatar', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-
-      toast.success('Foto atualizada com sucesso!');
-      setUserData(prev => ({ ...prev, avatar: response.data.avatarUrl }));
-    } catch (error) {
-      toast.error('Erro ao atualizar foto');
-      console.error('Erro ao atualizar avatar:', error);
-    }
-  };
-
+  // Função para pegar as iniciais do primeiro e último nome
   const getInitials = () => {
     if (!userData.name) return '';
-    const names = userData.name.split(' ');
-    return names.map(name => name[0]).join('').toUpperCase();
+    const names = userData.name.trim().split(' ');
+    if (names.length === 1) return names[0][0].toUpperCase();
+    return (names[0][0] + names[names.length - 1][0]).toUpperCase();
   };
 
   if (isLoading) {
@@ -81,7 +57,6 @@ const Profile = () => {
       <div className={styles.profilePage}>
         <Header />
         <div className={styles.loadingContainer}>
-          <div className={styles.loadingSpinner}></div>
           <p>Carregando perfil...</p>
         </div>
       </div>
@@ -91,58 +66,36 @@ const Profile = () => {
   return (
     <div className={styles.profilePage}>
       <Header />
-      
+
       <div className={styles.profileContainer}>
         <div className={styles.profileCard}>
           <div className={styles.avatarSection}>
-            <div 
-              className={styles.avatarContainer} 
-              onClick={handleAvatarClick}
-            >
-              {avatarPreview ? (
-                <img 
-                  src={avatarPreview} 
-                  alt="Avatar" 
-                  className={styles.profileAvatar}
-                />
-              ) : (
-                <div className={styles.profileAvatar}>{getInitials()}</div>
-              )}
-              
-              <div className={styles.avatarOverlay}>
-                <FiPlus className={styles.plusIcon} />
+            <div className={styles.avatarContainer}>
+              <div className={styles.profileAvatar}>
+                {getInitials()}
               </div>
-              
-              <input 
-                type="file" 
-                accept="image/*" 
-                onChange={handleAvatarChange}
-                className={styles.avatarUploadInput}
-                ref={fileInputRef}
-              />
             </div>
           </div>
-          
+
           <div className={styles.infoGrid}>
             <div className={styles.infoRow}>
               <div className={styles.infoItem}>
                 <span className={styles.infoLabel}>Login</span>
                 <div className={styles.infoValue}>{userData.email}</div>
               </div>
-              
+
               <div className={styles.infoItem}>
                 <span className={styles.infoLabel}>Cargo</span>
                 <div className={styles.infoValue}>{userData.role}</div>
-                
               </div>
             </div>
-            
+
             <div className={styles.infoRow}>
               <div className={styles.infoItem}>
                 <span className={styles.infoLabel}>Nome</span>
                 <div className={styles.infoValue}>{userData.name}</div>
               </div>
-              
+
               <div className={styles.infoItem}>
                 <span className={styles.infoLabel}>Instituição</span>
                 <div className={styles.infoValue}>{userData.institution}</div>
