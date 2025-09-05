@@ -5,43 +5,25 @@ import com.rxlog.backend.Service.MedicamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/medicamentos")
 public class MedicamentoController {
+
     @Autowired
     private MedicamentoService medicamentoService;
 
     @GetMapping
-    public List<Medicamento> listarTodos(){
+    public List<Medicamento> listarTodos() {
         return medicamentoService.listarTodos();
     }
 
-    @GetMapping("/{id}")
-    public Medicamento buscarPorId(@PathVariable Long id){
-        return medicamentoService.buscarPorId(id);
-    }
-
     @PostMapping("/cadastrar")
-    public Medicamento criar(@RequestBody Medicamento medicamento){
+    public Medicamento criar(@RequestBody Medicamento medicamento) {
         return medicamentoService.salvar(medicamento);
-    }
-
-    @PutMapping("/{id}")
-    public Medicamento atualizar(@PathVariable Long id, @RequestBody Medicamento medicamentoAtualizado){
-        Medicamento existente = medicamentoService.buscarPorId(id);
-        existente.setNomeFarmaceutico(medicamentoAtualizado.getNomeFarmaceutico());
-        existente.setTipoMedicamento(medicamentoAtualizado.getTipoMedicamento());
-        existente.setTarjaMedicamento(medicamentoAtualizado.getTarjaMedicamento());
-        existente.setNomeComercial(medicamentoAtualizado.getNomeComercial());
-        existente.setQuantidadeMedicamento(medicamentoAtualizado.getQuantidadeMedicamento());
-        existente.setFornecedor(medicamentoAtualizado.getFornecedor());
-        existente.setValidadeMedicamento(medicamentoAtualizado.getValidadeMedicamento());
-        existente.setLoteMedicamento(medicamentoAtualizado.getLoteMedicamento());
-        return medicamentoService.salvar(existente);
     }
 
     @PostMapping("/baixa")
@@ -57,5 +39,25 @@ public class MedicamentoController {
     }
 
 
+    @GetMapping("/estoque-vencido-vs-regular")
+    public List<Map<String, Object>> estoqueVencidoVsRegular() {
+        List<Medicamento> todos = medicamentoService.listarTodos();
+        int vencidos = 0;
+        int regulares = 0;
+        LocalDate hoje = LocalDate.now();
 
+        for (Medicamento m : todos) {
+            if (m.getValidadeMedicamento().isBefore(hoje)) {
+                vencidos++;
+            } else {
+                regulares++;
+            }
+        }
+
+        List<Map<String, Object>> resultado = new ArrayList<>();
+        resultado.add(Map.of("nome", "Regular", "valor", regulares));
+        resultado.add(Map.of("nome", "Vencido", "valor", vencidos));
+
+        return resultado;
+    }
 }
