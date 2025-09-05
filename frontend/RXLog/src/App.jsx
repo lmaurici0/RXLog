@@ -11,6 +11,17 @@ import Profile from './pages/Profile/Profile';
 import MedicamentRegistration from './pages/MedicamentRegister/MedicamentRegistration';
 import MedicamentExit from './pages/MedicamentExit/MedicamentExit';
 
+const handleApiError = (status) => {
+    switch (status) {
+      case 401:
+        return <Navigate to="/unauthorized" />;
+      case 403:
+        return <Navigate to="/forbidden" />;
+      default:
+        return <Navigate to="/notfound" />;
+    }
+  };
+  
 function App() {
   return (
     <Router>
@@ -26,6 +37,7 @@ function App() {
         <Route path='/error/401' element={<Unauthorized />} />
         <Route path='/error/403' element={<Forbidden />} />
         <Route path='/error/404' element={<PageNotFound />} />
+        <Route path='*' element={<PageNotFound />} />
       </Routes>
     </Router>
   );
