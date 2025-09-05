@@ -10,20 +10,25 @@ import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// Schema de validação
 const schemaLogin = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email obrigatório"),
   senha: yup.string().required("Senha obrigatória"),
 });
+
 const schemaCadastro = yup.object().shape({
   nome: yup.string().required("Nome obrigatório"),
   cargo: yup.string().required("Cargo obrigatório"),
+  instituicao: yup
+    .string()
+    .required("Instituição obrigatória")
+    .min(3, "Instituição deve ter ao menos 3 caracteres"),
   email: yup.string().email("Email inválido").required("Email obrigatório"),
   senha: yup
     .string()
     .min(4, "Senha mínima de 4 caracteres")
     .required("Senha obrigatória"),
 });
-
 
 function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -81,6 +86,7 @@ function AuthPage() {
           emailUsuario: data.email,
           senhaUsuario: data.senha,
           cargoUsuario: data.cargo,
+          instituicaoUsuario: data.instituicao,
         });
         toast.success("Cadastro realizado com sucesso!", {
           style: {
@@ -134,7 +140,7 @@ function AuthPage() {
           <h2>{isLogin ? "Login" : "Cadastro"}</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             {!isLogin && (
-              <div className={styles.formGroupRow}>
+              <div className={styles.formGroupColumn}>
                 <div className={styles.formGroup}>
                   <label>Nome</label>
                   <input className={styles.inputField} {...register("nome")} />
@@ -142,6 +148,7 @@ function AuthPage() {
                     <p className={styles.errorMsg}>{errors.nome.message}</p>
                   )}
                 </div>
+
                 <div className={styles.formGroup}>
                   <label>Cargo</label>
                   <select className={styles.inputField} {...register("cargo")}>
@@ -152,6 +159,17 @@ function AuthPage() {
                   </select>
                   {errors.cargo && (
                     <p className={styles.errorMsg}>{errors.cargo.message}</p>
+                  )}
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>Instituição</label>
+                  <input
+                    className={styles.inputField}
+                    {...register("instituicao")}
+                  />
+                  {errors.instituicao && (
+                    <p className={styles.errorMsg}>{errors.instituicao.message}</p>
                   )}
                 </div>
               </div>
