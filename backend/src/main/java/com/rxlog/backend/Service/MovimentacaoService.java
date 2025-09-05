@@ -110,17 +110,16 @@ public class MovimentacaoService {
     }
 
     public int totalEntradas() {
-        return movimentacaoRepository.sumByTipoMovimentacao("ENTRADA");
+        return movimentacaoRepository.sumByTipoMovimentacao(TipoMovimentacao.ENTRADA);
     }
 
     public int totalSaidas() {
-        return movimentacaoRepository.sumByTipoMovimentacao("SAIDA");
+        return movimentacaoRepository.sumByTipoMovimentacao(TipoMovimentacao.SAIDA);
     }
-
 
     public List<Map<String, Object>> entradasPorCategoria() {
         List<Map<String, Object>> resultado = new ArrayList<>();
-        List<Object[]> lista = movimentacaoRepository.entradasPorCategoria();
+        List<Object[]> lista = movimentacaoRepository.entradasPorCategoria(TipoMovimentacao.ENTRADA);
         for(Object[] row : lista) {
             resultado.add(Map.of("categoria", row[0], "quantidade", ((Number)row[1]).intValue()));
         }
@@ -129,7 +128,7 @@ public class MovimentacaoService {
 
     public List<Map<String, Object>> saidasPorCategoria() {
         List<Map<String, Object>> resultado = new ArrayList<>();
-        List<Object[]> lista = movimentacaoRepository.saidasPorCategoria();
+        List<Object[]> lista = movimentacaoRepository.saidasPorCategoria(TipoMovimentacao.SAIDA);
         for(Object[] row : lista) {
             resultado.add(Map.of("categoria", row[0], "quantidade", ((Number)row[1]).intValue()));
         }
