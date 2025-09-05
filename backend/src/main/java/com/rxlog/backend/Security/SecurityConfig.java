@@ -38,10 +38,10 @@ public class SecurityConfig {
                                 "/medicamentos/estoque-vencido-vs-regular",
                                 "/alertas/vencimento/proximo",
                                 "/alertas/vencidos",
+                                "/movimentacoes",
                                 "/movimentacoes/total",
                                 "/movimentacoes/entradas-por-categoria",
-                                "/movimentacoes/saidas-por-categoria",
-                                "/medicamentos/cadastrar"
+                                "/movimentacoes/saidas-por-categoria"
                         ).permitAll()
 
                         .requestMatchers(HttpMethod.POST,
@@ -49,8 +49,8 @@ public class SecurityConfig {
                         ).permitAll()
 
                         .requestMatchers(HttpMethod.POST,
-
-                                "/fornecedores/cadastrar"
+                                "/fornecedores/cadastrar",
+                                "medicamentos/cadastrar"
                         ).hasAuthority("ADMINISTRADOR")
 
                 )
