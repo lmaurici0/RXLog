@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "../AuthPage/AuthPage.module.css";
-
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// Schema de validação
 const schemaLogin = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email obrigatório"),
   senha: yup.string().required("Senha obrigatória"),
@@ -19,15 +16,9 @@ const schemaLogin = yup.object().shape({
 const schemaCadastro = yup.object().shape({
   nome: yup.string().required("Nome obrigatório"),
   cargo: yup.string().required("Cargo obrigatório"),
-  instituicao: yup
-    .string()
-    .required("Instituição obrigatória")
-    .min(3, "Instituição deve ter ao menos 3 caracteres"),
+  instituicao: yup.string().required("Instituição obrigatória").min(3),
   email: yup.string().email("Email inválido").required("Email obrigatório"),
-  senha: yup
-    .string()
-    .min(4, "Senha mínima de 4 caracteres")
-    .required("Senha obrigatória"),
+  senha: yup.string().min(4).required("Senha obrigatória"),
 });
 
 function AuthPage() {
@@ -35,14 +26,25 @@ function AuthPage() {
   const [isExiting, setIsExiting] = useState(false);
   const navigate = useNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm({
+  const { register, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(isLogin ? schemaLogin : schemaCadastro),
   });
+
+  useEffect(() => {
+    const checarLogin = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+      try {
+        await axios.get("http://localhost:8080/auth/usuario/logado", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        navigate("/dashboards"); // já logado
+      } catch {
+        localStorage.removeItem("token");
+      }
+    };
+    checarLogin();
+  }, [navigate]);
 
   const toggleMode = () => {
     setIsLogin(!isLogin);
@@ -57,31 +59,21 @@ function AuthPage() {
           senha: data.senha,
         });
 
-        // Salvar token e dados no localStorage
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("email", res.data.email);
         localStorage.setItem("cargo", res.data.cargo);
 
         toast.success("Login realizado com sucesso!", {
-          style: {
-            fontFamily: "Poppins",
-            fontSize: "1rem",
-            backgroundColor: "#45BF86",
-          },
+          style: { fontFamily: "Poppins", fontSize: "1rem", backgroundColor: "#45BF86" },
           autoClose: 2000,
           onClose: () => {
             setIsExiting(true);
             setTimeout(() => navigate("/dashboards"), 600);
           },
         });
-      } catch (err) {
+      } catch {
         toast.error("Email ou senha incorretos.", {
-          style: {
-            backgroundColor: "#E74C3C",
-            color: "#fff",
-            fontFamily: "Poppins",
-            fontSize: "1rem",
-          },
+          style: { backgroundColor: "#E74C3C", color: "#fff" },
           autoClose: 3000,
         });
       }
@@ -94,29 +86,11 @@ function AuthPage() {
           cargoUsuario: data.cargo,
           instituicaoUsuario: data.instituicao,
         });
-        toast.success("Cadastro realizado com sucesso!", {
-          style: {
-            fontFamily: "Poppins",
-            fontSize: "1rem",
-            backgroundColor: "#45BF86",
-          },
-          autoClose: 3000,
-        });
+        toast.success("Cadastro realizado com sucesso!", { autoClose: 3000 });
         setIsLogin(true);
         reset();
-      } catch (err) {
-        toast.error(
-          "Erro ao cadastrar. Verifique todos os campos e tente novamente.",
-          {
-            style: {
-              backgroundColor: "#E74C3C",
-              color: "#fff",
-              fontFamily: "Poppins",
-              fontSize: "1rem",
-            },
-            autoClose: 3000,
-          }
-        );
+      } catch {
+        toast.error("Erro ao cadastrar. Verifique os campos.", { autoClose: 3000 });
       }
     }
   };
