@@ -20,19 +20,23 @@ export default function MedicamentRegistration() {
   const [fornecedores, setFornecedores] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
     axios
-      .get("http://localhost:8080/fornecedores")
+      .get("http://localhost:8080/fornecedores", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((res) => setFornecedores(res.data))
       .catch((err) => {
         console.error(err);
         toast.error("Erro ao buscar fornecedores.", {
-            style: {
+          style: {
             backgroundColor: "#E74C3C",
             color: "#fff",
             fontFamily: "Poppins",
             fontSize: "1rem",
           },
-        })
+        });
       });
   }, []);
 
@@ -49,16 +53,24 @@ export default function MedicamentRegistration() {
     }
 
     try {
-      await axios.post("http://localhost:8080/medicamentos/cadastrar", {
-        nomeComercial: form.nomeComercial,
-        nomeFarmaceutico: form.nomeFarmaceutico,
-        tipoMedicamento: form.tipoMedicamento,
-        quantidadeMedicamento: Number(form.quantidadeMedicamento),
-        validadeMedicamento: form.validadeMedicamento,
-        loteMedicamento: form.loteMedicamento,
-        tarjaMedicamento: form.tarjaMedicamento,
-        fornecedor: { id: form.fornecedorId },
-      });
+      const token = localStorage.getItem("token");
+
+      await axios.post(
+        "http://localhost:8080/medicamentos/cadastrar",
+        {
+          nomeComercial: form.nomeComercial,
+          nomeFarmaceutico: form.nomeFarmaceutico,
+          tipoMedicamento: form.tipoMedicamento,
+          quantidadeMedicamento: Number(form.quantidadeMedicamento),
+          validadeMedicamento: form.validadeMedicamento,
+          loteMedicamento: form.loteMedicamento,
+          tarjaMedicamento: form.tarjaMedicamento,
+          fornecedor: { id: form.fornecedorId },
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       setForm({
         nomeComercial: "",
@@ -71,16 +83,23 @@ export default function MedicamentRegistration() {
         fornecedorId: "",
       });
 
-      toast.success("Medicamento cadastrado com sucesso!");
-    } catch (err) {
-      console.error(err);
-      toast.error("Erro ao cadastrar medicamento." , {
-            style: {
-            color: "#E74C3C",
+      toast.success("Medicamento cadastrado com sucesso!", {
+         style: {
             fontFamily: "Poppins",
             fontSize: "1rem",
+            color: "#45BF86"
           },
-        })
+      });
+    } catch (err) {
+      console.error(err);
+      toast.error("Erro ao cadastrar medicamento.", {
+        style: {
+          backgroundColor: "#E74C3C",
+          color: "#fff",
+          fontFamily: "Poppins",
+          fontSize: "1rem",
+        },
+      });
     }
   }
 

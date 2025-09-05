@@ -52,17 +52,23 @@ function AuthPage() {
   const onSubmit = async (data) => {
     if (isLogin) {
       try {
-        await axios.post("http://localhost:8080/auth/usuario/login", {
+        const res = await axios.post("http://localhost:8080/auth/usuario/login", {
           email: data.email,
           senha: data.senha,
         });
+
+        // Salvar token e dados no localStorage
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("email", res.data.email);
+        localStorage.setItem("cargo", res.data.cargo);
+
         toast.success("Login realizado com sucesso!", {
           style: {
             fontFamily: "Poppins",
             fontSize: "1rem",
             backgroundColor: "#45BF86",
           },
-          autoClose: 3000,
+          autoClose: 2000,
           onClose: () => {
             setIsExiting(true);
             setTimeout(() => navigate("/dashboards"), 600);
@@ -155,7 +161,7 @@ function AuthPage() {
                     <option value="">Selecione</option>
                     <option value="ADMINISTRADOR">Administrador</option>
                     <option value="RECEPCIONISTA">Recepcionista</option>
-                    <option value="FARMACÊUTICO">Farmacêutico</option>
+                    <option value="FARMACEUTICO">Farmacêutico</option>
                   </select>
                   {errors.cargo && (
                     <p className={styles.errorMsg}>{errors.cargo.message}</p>
@@ -169,7 +175,9 @@ function AuthPage() {
                     {...register("instituicao")}
                   />
                   {errors.instituicao && (
-                    <p className={styles.errorMsg}>{errors.instituicao.message}</p>
+                    <p className={styles.errorMsg}>
+                      {errors.instituicao.message}
+                    </p>
                   )}
                 </div>
               </div>
