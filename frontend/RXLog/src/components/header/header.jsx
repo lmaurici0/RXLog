@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../header/header.module.css";
 import { FaBars, FaTimes } from "react-icons/fa";
 
@@ -8,11 +8,12 @@ const Header = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const userMenuRef = useRef(null);
+  const navigate = useNavigate();
 
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    const storedName = localStorage.getItem("userName") || "Eric Mauricio";
+    const storedName = localStorage.getItem("userName") || "Funcionario Responsavel";
     setUserName(storedName);
   }, []);
 
@@ -35,16 +36,31 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  function getInitials(name) {
-    return name
-      .split(" ")
-      .filter((n) => n)
-      .map((n) => n[0].toUpperCase())
-      .slice(0, 2)
-      .join("");
+// Pega iniciais do usuário
+function getInitials(name) {
+  const parts = name.trim().split(" ").filter(n => n);
+  
+  if (parts.length === 0) return ""; 
+  if (parts.length === 1) {
+    const single = parts[0];
+    return single[0].toUpperCase() + single[single.length - 1].toUpperCase();
   }
+  
+  const firstInitial = parts[0][0].toUpperCase();
+  const lastInitial = parts[parts.length - 1][0].toUpperCase();
+  return firstInitial + lastInitial;
+}
+
 
   const initials = getInitials(userName);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+    localStorage.removeItem("cargo");
+    localStorage.removeItem("userName");
+    navigate("/"); 
+  };
 
   return (
     <header className={styles.header}>
@@ -67,7 +83,6 @@ const Header = () => {
           isMenuOpen ? styles.sideMenuOpen : ""
         }`}
       >
-
         <nav className={styles.nav}>
           <Link to="/dashboards">DashBoards</Link>
           <Link to="/medicamentos/cadastro">Cadastrar</Link>
@@ -89,7 +104,9 @@ const Header = () => {
         {isUserMenuOpen && (
           <div className={styles.userDropdown}>
             <Link to="/perfil">Perfil</Link>
-            <Link to="/">Sair</Link>
+            <button className={styles.logoutButton} onClick={handleLogout}>
+              Sair
+            </button>
           </div>
         )}
       </div>
