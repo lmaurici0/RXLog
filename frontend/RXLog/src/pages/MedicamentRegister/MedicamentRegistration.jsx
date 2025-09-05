@@ -25,7 +25,14 @@ export default function MedicamentRegistration() {
       .then((res) => setFornecedores(res.data))
       .catch((err) => {
         console.error(err);
-        toast.error("Erro ao buscar fornecedores.");
+        toast.error("Erro ao buscar fornecedores.", {
+            style: {
+            backgroundColor: "#E74C3C",
+            color: "#fff",
+            fontFamily: "Poppins",
+            fontSize: "1rem",
+          },
+        })
       });
   }, []);
 
@@ -67,7 +74,13 @@ export default function MedicamentRegistration() {
       toast.success("Medicamento cadastrado com sucesso!");
     } catch (err) {
       console.error(err);
-      toast.error("Erro ao cadastrar medicamento.");
+      toast.error("Erro ao cadastrar medicamento." , {
+            style: {
+            color: "#E74C3C",
+            fontFamily: "Poppins",
+            fontSize: "1rem",
+          },
+        })
     }
   }
 
