@@ -31,7 +31,7 @@ public class UsuarioAuthController {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    // --- Cadastro de usuário ---
+    // --- Cadastro ---
     @PostMapping("/signup")
     public ResponseEntity<?> cadastrar(@RequestBody UsuarioCadastroRequest request) {
         Usuario existente = usuarioService.buscarPorEmail(request.getEmailUsuario());
@@ -44,7 +44,7 @@ public class UsuarioAuthController {
         usuario.setNomeUsuario(request.getNomeUsuario());
         usuario.setEmailUsuario(request.getEmailUsuario());
         usuario.setSenhaUsuario(passwordEncoder.encode(request.getSenhaUsuario()));
-        usuario.setCargoUsuario(request.getCargoUsuario()); // enum
+        usuario.setCargoUsuario(request.getCargoUsuario());
         usuario.setInstituicaoUsuario(request.getInstituicaoUsuario());
 
         Usuario novoUsuario = usuarioService.salvar(usuario);
@@ -57,7 +57,7 @@ public class UsuarioAuthController {
         ));
     }
 
-    // --- Login de usuário (gera token JWT) ---
+    // --- Login ---
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UsuarioLoginRequest request) {
         Usuario usuario = usuarioService.buscarPorEmail(request.getEmail());
@@ -72,6 +72,34 @@ public class UsuarioAuthController {
         return ResponseEntity.ok(Map.of(
                 "token", token,
                 "email", usuario.getEmailUsuario(),
+                "cargo", usuario.getCargoUsuario().name()
+        ));
+    }
+
+    // --- Verificação de login ---
+    @GetMapping("/logado")
+    public ResponseEntity<?> usuarioLogado(@RequestHeader("Authorization") String authHeader) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("erro", "Token ausente"));
+        }
+
+        String token = authHeader.substring(7);
+        if (!jwtUtil.validateToken(token, userDetailsService.loadUserByUsername(jwtUtil.extractUsername(token)))) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("erro", "Token inválido ou expirado"));
+        }
+
+        String email = jwtUtil.extractUsername(token);
+        Usuario usuario = usuarioService.buscarPorEmail(email);
+        if (usuario == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("erro", "Usuário não encontrado"));
+        }
+
+        return ResponseEntity.ok(Map.of(
+                "email", usuario.getEmailUsuario(),
+                "nome", usuario.getNomeUsuario(),
                 "cargo", usuario.getCargoUsuario().name()
         ));
     }
