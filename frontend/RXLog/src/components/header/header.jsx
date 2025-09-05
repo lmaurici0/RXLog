@@ -88,7 +88,7 @@ const Header = () => {
 
         {isUserMenuOpen && (
           <div className={styles.userDropdown}>
-            <Link to="/profile">Perfil</Link>
+            <Link to="/perfil">Perfil</Link>
             <Link to="/">Sair</Link>
           </div>
         )}
