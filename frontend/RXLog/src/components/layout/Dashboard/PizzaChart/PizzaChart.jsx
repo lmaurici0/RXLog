@@ -8,7 +8,7 @@ import {
 } from "recharts";
 import styles from "./PizzaChart.module.css";
 
-const CORES = ["#4CAF50", "#F44336"]; // Verde: regular, Vermelho: vencido
+const CORES = ["#4CAF50", "#F44336"]; 
 
 const CustomTooltip = ({ active, payload }) => {
   return (
