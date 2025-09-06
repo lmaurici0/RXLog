@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Header from "../../components/header/Header";
 import styles from "./MedicamentRegistration.module.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -18,6 +19,7 @@ export default function MedicamentRegistration() {
   });
 
   const [fornecedores, setFornecedores] = useState([]);
+  const navigate = useNavigate();  
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -28,6 +30,13 @@ export default function MedicamentRegistration() {
       })
       .then((res) => setFornecedores(res.data))
       .catch((err) => {
+        if (err.response) {
+          if (err.response.status === 403) {
+            navigate("/forbidden");
+          } else if (err.response.status === 401) {
+            navigate("/unauthorized");
+          }
+        }
         console.error(err);
         toast.error("Erro ao buscar fornecedores.", {
           style: {
@@ -38,7 +47,7 @@ export default function MedicamentRegistration() {
           },
         });
       });
-  }, []);
+  }, [navigate]);
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -84,13 +93,22 @@ export default function MedicamentRegistration() {
       });
 
       toast.success("Medicamento cadastrado com sucesso!", {
-         style: {
-            fontFamily: "Poppins",
-            fontSize: "1rem",
-            color: "#1c1c1c"
-          },
+        style: {
+          fontFamily: "Poppins",
+          fontSize: "1rem",
+          color: "#1c1c1c",
+        },
       });
     } catch (err) {
+      if (err.response) {
+        if (err.response.status === 403) {
+          navigate("/forbidden");
+          return;
+        } else if (err.response.status === 401) {
+          navigate("/unauthorized");
+          return;
+        }
+      }
       console.error(err);
       toast.error("Erro ao cadastrar medicamento.", {
         style: {
