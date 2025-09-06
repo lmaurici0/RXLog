@@ -26,7 +26,12 @@ function AuthPage() {
   const [isExiting, setIsExiting] = useState(false);
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
     resolver: yupResolver(isLogin ? schemaLogin : schemaCadastro),
   });
 
@@ -54,17 +59,24 @@ function AuthPage() {
   const onSubmit = async (data) => {
     if (isLogin) {
       try {
-        const res = await axios.post("http://localhost:8080/auth/usuario/login", {
-          email: data.email,
-          senha: data.senha,
-        });
+        const res = await axios.post(
+          "http://localhost:8080/auth/usuario/login",
+          {
+            email: data.email,
+            senha: data.senha,
+          }
+        );
 
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("email", res.data.email);
         localStorage.setItem("cargo", res.data.cargo);
 
         toast.success("Login realizado com sucesso!", {
-          style: { fontFamily: "Poppins", fontSize: "1rem", backgroundColor: "#45BF86" },
+          style: {
+            fontFamily: "Poppins",
+            fontSize: "1rem",
+            backgroundColor: "#45BF86",
+          },
           autoClose: 2000,
           onClose: () => {
             setIsExiting(true);
@@ -73,7 +85,12 @@ function AuthPage() {
         });
       } catch {
         toast.error("Email ou senha incorretos.", {
-          style: { backgroundColor: "#E74C3C", color: "#fff" },
+          style: { 
+            backgroundColor: "#E74C3C", 
+            color: "#fff",
+            fontFamily: "Poppins",
+            fontSize: "1rem"
+          },
           autoClose: 3000,
         });
       }
@@ -86,11 +103,26 @@ function AuthPage() {
           cargoUsuario: data.cargo,
           instituicaoUsuario: data.instituicao,
         });
-        toast.success("Cadastro realizado com sucesso!", { autoClose: 3000 });
+        toast.success("Cadastro realizado com sucesso!", {
+          style: {
+            fontFamily: "Poppins",
+            fontSize: "1rem",
+            backgroundColor: "#45BF86",
+          },
+          autoClose: 3000,
+        });
         setIsLogin(true);
         reset();
       } catch {
-        toast.error("Erro ao cadastrar. Verifique os campos.", { autoClose: 3000 });
+        toast.error("Erro ao cadastrar. Verifique os campos.", {
+          style: {
+          fontFamily: "Poppins",
+          fontSize: "1rem",
+          backgroundColor: "#E74C3C",
+          color: "#fff"
+        },
+          autoClose: 3000,
+        });
       }
     }
   };

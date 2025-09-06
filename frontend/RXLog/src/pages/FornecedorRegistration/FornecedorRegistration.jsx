@@ -37,12 +37,18 @@ export default function FornecedorRegistration() {
       });
 
       toast.success("Fornecedor cadastrado com sucesso!", {
-        style: { color: "#2ecc71" },
+        style: { 
+          color: "#2ecc71",
+          fontFamily: "Poppins"
+        },
       });
     } catch (err) {
       console.error(err);
       toast.error("Erro ao cadastrar fornecedor. Verifique os dados.", {
-        style: { color: "#E74C3C" },
+        style: {
+          color: "#E74C3C", 
+          fontFamily: "Poppins" 
+        },
       });
     }
   }
