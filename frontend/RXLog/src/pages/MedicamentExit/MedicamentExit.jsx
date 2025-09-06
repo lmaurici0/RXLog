@@ -31,16 +31,11 @@ export default function MedicamentExit() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (!form.medicamentoId || !form.quantidadeBaixa || !form.dataBaixa) {
-      toast.error("Preencha todos os campos.");
-      return;
-    }
-
     try {
       await axios.post("http://localhost:8080/medicamentos/baixa", {
         medicamentoId: form.medicamentoId,
         quantidade: Number(form.quantidadeBaixa),
-        data: form.dataBaixa, // se quiser usar no backend
+        data: form.dataBaixa,
       });
 
       setForm({
@@ -49,12 +44,21 @@ export default function MedicamentExit() {
         dataBaixa: "",
       });
 
-      toast.success("Baixa realizada com sucesso!");
+      toast.success("Baixa realizada com sucesso!", {
+         style: {
+            fontFamily: "Poppins",
+            fontSize: "1rem",
+            color: "#1c1c1c"
+          },
+      });
     } catch (err) {
       console.error(err);
       toast.error("Erro ao realizar baixa. Verifique a quantidade disponível.");
     }
   }
+
+  const isFormValid =
+    form.medicamentoId && form.quantidadeBaixa && form.dataBaixa;
 
   return (
     <>
@@ -71,7 +75,7 @@ export default function MedicamentExit() {
                 className={styles.select}
                 required
               >
-                <option value="">Selecione o medicamento</option>
+                <option value="">Selecione</option>
                 {medicamentos.map((m) => (
                   <option key={m.id} value={m.id}>
                     {m.nomeComercial} - Lote: {m.loteMedicamento}
@@ -95,8 +99,7 @@ export default function MedicamentExit() {
           </div>
 
           <div className={styles.rowBottom}>
-            <div className={styles.inputGroupFull}>
-              <label>Data da baixa</label>
+              <label className={styles.dateLabel}>Data da baixa</label>
               <input
                 type="date"
                 name="dataBaixa"
@@ -106,10 +109,13 @@ export default function MedicamentExit() {
                 required
               />
             </div>
-          </div>
 
-          <button type="submit" className={styles.button}>
-            Confirmar Baixa
+          <button
+            type="submit"
+            className={styles.button}
+            disabled={!isFormValid}
+          >
+            Registrar Baixa
           </button>
         </form>
         <ToastContainer position="top-right" autoClose={3000} />
