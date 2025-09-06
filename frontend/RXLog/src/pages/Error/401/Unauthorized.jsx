@@ -1,10 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./Unauthorized.module.css";
 
 function Unauthorized() {
-  const handleBack = () => {
-    window.history.back();
-  };
+  
 
   return (
     <div className={styles.container}>
@@ -20,9 +19,9 @@ function Unauthorized() {
         </p>
       </div>
       <div className={styles.btn}>
-        <button className={styles.backButton} onClick={handleBack}>
+        <Link to="/" className={styles.backButton}>
           Voltar
-        </button>
+        </Link>
       </div>
     </div>
   );
