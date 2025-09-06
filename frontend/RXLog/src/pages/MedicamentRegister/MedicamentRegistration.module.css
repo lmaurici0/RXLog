@@ -3,7 +3,9 @@
   flex-direction: column;
   align-items: center;
   padding: 2rem 1rem;
-  font-family: Poppins;
+  font-family: "Poppins", sans-serif;
+  background: #f9fafb;
+  min-height: 100vh;
 }
 
 .form {
@@ -11,63 +13,70 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem 3rem;
   align-items: start;
-  max-width: 1000px;
+  max-width: 900px;
   width: 100%;
-  position: relative;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  gap: 1.2rem;
+  padding: 2rem 2.5rem;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .inputGroup {
   display: flex;
   flex-direction: column;
   font-size: 1rem;
-  color: #2f8665;
+  color: #1e4f3f;
+}
+
+.inputGroup label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
 }
 
 .input,
 .select {
-  padding: 0.9rem;
-  border-radius: 30px;
-  border: none;
-  background-color: rgba(162, 224, 209, 0.6);
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background-color: #fff;
   color: #1e4f3f;
   font-size: 1rem;
   outline: none;
   transition: all 0.2s ease-in-out;
-  appearance: none;
-  font-family: Poppins;
-}
-
-.input[type="date"] {
-  font-family: "Poppins";
+  font-family: Poppins, sans-serif;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .input:focus,
 .select:focus {
-  background-color: rgba(162, 224, 209, 0.9);
+  border: 1px solid #41b883;
+  box-shadow: 0 4px 12px rgba(65, 184, 131, 0.2);
 }
 
+.input[type="date"] {
+  font-family: Poppins, sans-serif;
+}
+
+/* Botão moderno */
 .button {
-  margin-top: 1rem;
-  padding: 0.9rem 2.5rem;
-  background-color: #41b883;
+  margin-top: 1.5rem;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #41b883, #2e8b6a);
   color: white;
-  font-size: 1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
   border: none;
-  border-radius: 15px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   justify-self: end;
   grid-column: 2;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
+  box-shadow: 0 4px 14px rgba(65, 184, 131, 0.4);
 }
 
 .button:hover {
-  background-color: #339e6e;
+  background: linear-gradient(135deg, #339e6e, #247a55);
+  box-shadow: 0 6px 18px rgba(65, 184, 131, 0.5);
 }
