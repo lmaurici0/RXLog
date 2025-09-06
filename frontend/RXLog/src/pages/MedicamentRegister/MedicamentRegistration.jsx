@@ -31,8 +31,8 @@ export default function MedicamentRegistration() {
         console.error(err);
         toast.error("Erro ao buscar fornecedores.", {
           style: {
-            backgroundColor: "#E74C3C",
-            color: "#fff",
+            backgroundColor: "#fff",
+            color: "#E74C3C",
             fontFamily: "Poppins",
             fontSize: "1rem",
           },
