@@ -24,9 +24,6 @@ public class MovimentacaoService {
     private MedicamentoRepository medicamentoRepository;
 
     @Autowired
-    private MedicamentoService medicamentoService;
-
-    @Autowired
     private AlertaService alertaService;
 
     public List<Movimentacao> listarTodos() {
@@ -39,28 +36,16 @@ public class MovimentacaoService {
     }
 
     public Movimentacao salvar(Movimentacao movimentacao) {
+        if (movimentacao.getDataMovimentacao() == null) {
+            movimentacao.setDataMovimentacao(LocalDateTime.now());
+        }
         return movimentacaoRepository.save(movimentacao);
     }
 
-    public Movimentacao atualizar(Long id, Movimentacao movimentacaoAtualizada) {
-        Movimentacao existente = buscarPorId(id);
-
-        existente.setDataMovimentacao(movimentacaoAtualizada.getDataMovimentacao());
-        existente.setQuantidadeMovimentacao(movimentacaoAtualizada.getQuantidadeMovimentacao());
-        existente.setUsuario(movimentacaoAtualizada.getUsuario());
-        existente.setMedicamento(movimentacaoAtualizada.getMedicamento());
-        existente.setTipoMovimentacao(movimentacaoAtualizada.getTipoMovimentacao());
-
-        return movimentacaoRepository.save(existente);
-    }
-
+    @Transactional
     public Movimentacao registrarEntrada(Movimentacao movimentacao) {
         if (!movimentacao.getTipoMovimentacao().equals(TipoMovimentacao.ENTRADA)) {
             throw new IllegalArgumentException("Tipo de movimentação deve ser ENTRADA");
-        }
-
-        if (movimentacao.getMedicamento() == null || movimentacao.getMedicamento().getId() == null) {
-            throw new IllegalArgumentException("Medicamento é obrigatório");
         }
 
         Medicamento medicamento = medicamentoRepository.findById(movimentacao.getMedicamento().getId())
@@ -81,7 +66,8 @@ public class MovimentacaoService {
             throw new IllegalArgumentException("Este método só aceita movimentações do tipo SAÍDA.");
         }
 
-        Medicamento medicamento = medicamentoService.buscarPorId(movimentacao.getMedicamento().getId());
+        Medicamento medicamento = medicamentoRepository.findById(movimentacao.getMedicamento().getId())
+                .orElseThrow(() -> new RuntimeException("Medicamento não encontrado"));
 
         if (medicamento.getQuantidadeMedicamento() < movimentacao.getQuantidadeMovimentacao()) {
             throw new RuntimeException(String.format(
@@ -91,10 +77,12 @@ public class MovimentacaoService {
             ));
         }
 
-        int novaQuantidade = medicamento.getQuantidadeMedicamento() - movimentacao.getQuantidadeMovimentacao();
-        medicamento.setQuantidadeMedicamento(novaQuantidade);
-        medicamentoService.salvar(medicamento);
+        medicamento.setQuantidadeMedicamento(
+                medicamento.getQuantidadeMedicamento() - movimentacao.getQuantidadeMovimentacao()
+        );
+        medicamentoRepository.save(medicamento);
 
+        movimentacao.setDataMovimentacao(LocalDateTime.now());
         Movimentacao movimentacaoSalva = movimentacaoRepository.save(movimentacao);
 
         alertaService.verificarAlertasParaMedicamento(medicamento);
