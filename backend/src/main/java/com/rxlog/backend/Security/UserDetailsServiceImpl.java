@@ -18,9 +18,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioService.buscarPorEmail(email);
+
         if (usuario == null) {
+            System.out.println("[DEBUG] Usuário não encontrado com email: " + email);
             throw new UsernameNotFoundException("Usuário não encontrado: " + email);
         }
+
+        System.out.println("[DEBUG] Usuário encontrado:");
+        System.out.println("  ID: " + usuario.getId());
+        System.out.println("  Nome: " + usuario.getNomeUsuario());
+        System.out.println("  Cargo: " + usuario.getCargoUsuario());
 
         return User.builder()
                 .username(usuario.getEmailUsuario())
