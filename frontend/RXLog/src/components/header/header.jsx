@@ -13,7 +13,8 @@ const Header = () => {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    const storedName = localStorage.getItem("userName") || "Funcionario Responsavel";
+    const storedName =
+      localStorage.getItem("userName") || "Funcionario Responsavel";
     setUserName(storedName);
   }, []);
 
@@ -36,21 +37,23 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-// Pega iniciais do usuário
-function getInitials(name) {
-  const parts = name.trim().split(" ").filter(n => n);
-  
-  if (parts.length === 0) return ""; 
-  if (parts.length === 1) {
-    const single = parts[0];
-    return single[0].toUpperCase() + single[single.length - 1].toUpperCase();
-  }
-  
-  const firstInitial = parts[0][0].toUpperCase();
-  const lastInitial = parts[parts.length - 1][0].toUpperCase();
-  return firstInitial + lastInitial;
-}
+  // Pega iniciais do usuário
+  function getInitials(name) {
+    const parts = name
+      .trim()
+      .split(" ")
+      .filter((n) => n);
 
+    if (parts.length === 0) return "";
+    if (parts.length === 1) {
+      const single = parts[0];
+      return single[0].toUpperCase() + single[single.length - 1].toUpperCase();
+    }
+
+    const firstInitial = parts[0][0].toUpperCase();
+    const lastInitial = parts[parts.length - 1][0].toUpperCase();
+    return firstInitial + lastInitial;
+  }
 
   const initials = getInitials(userName);
 
@@ -59,7 +62,7 @@ function getInitials(name) {
     localStorage.removeItem("email");
     localStorage.removeItem("cargo");
     localStorage.removeItem("userName");
-    navigate("/"); 
+    navigate("/");
   };
 
   return (
@@ -85,10 +88,11 @@ function getInitials(name) {
       >
         <nav className={styles.nav}>
           <Link to="/dashboards">DashBoards</Link>
-          <Link to="/medicamentos/cadastro">Cadastrar</Link>
-          <Link to="/medicamentos/saida">Baixa de Estoque</Link>
           <Link to="/contato">Fale Conosco</Link>
           <Link to="/sobre">Sobre Nós</Link>
+          <Link to="/medicamentos/cadastro">Cadastrar Med.</Link>
+          <Link to="/medicamentos/saida">Baixa de Estoque</Link>
+          <Link to="/fornecedores/cadastro">Cadastrar Forn.</Link>
         </nav>
       </div>
 
