@@ -87,7 +87,7 @@ export default function MedicamentRegistration() {
          style: {
             fontFamily: "Poppins",
             fontSize: "1rem",
-            color: "#45BF86"
+            color: "#1c1c1c"
           },
       });
     } catch (err) {
