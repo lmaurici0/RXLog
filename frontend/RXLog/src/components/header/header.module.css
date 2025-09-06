@@ -134,7 +134,7 @@
   text-decoration: none;
 }
 
-.userDropdown a:hover {
+.userDropdown a:hover, .logoutButton:hover{
   background-color: #D9D9D9;
 }
 
@@ -165,4 +165,8 @@ background-color: transparent;
 border: none;
 font-size: 1rem;
 font-family: Poppins;
+width: 100%;
+text-align: start;
+padding: 10px;
+cursor: pointer;
 }
