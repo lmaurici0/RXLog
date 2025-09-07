@@ -75,15 +75,16 @@ mvn spring-boot:run
 
 ##Front-End
 1. Acesse a paste frontend
-2. ```bash
+```bash
    cd frontend
-   ```
-3. Instale as dependências
-   ```bash
-   npm install
-   ```
-4. Inicie a aplicação
-   ```bash
-   npm start
-   ```
+```
 
+2. Instale as dependências
+```bash
+   npm install
+```
+
+3. Inicie a aplicação
+```bash
+   npm start
+```
