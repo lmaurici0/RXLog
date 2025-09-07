@@ -56,5 +56,34 @@ O sistema está disponível para **web** e **mobile**, com interface intuitiva e
 
 ---
 
-## 💻 Estrutura do Projeto
+## ## ⚙️ Instalação e Execução
+
+### Back-end
+1. Configure o **MySQL** e crie o banco `rxlog`.  
+2. Clone o repositório e acesse a pasta `backend`:
+
+```bash
+git clone <seu-repo>
+cd backend
+```
+
+3. Configure as credencias no application.properties
+4. Execute a API
+```
+mvn spring-boot:run
+```
+
+##Front-End
+1. Acesse a paste frontend
+2. ```bash
+   cd frontend
+   ```
+3. Instale as dependências
+   ```bash
+   npm install
+   ```
+4. Inicie a aplicação
+   ```bash
+   npm start
+   ```
 
