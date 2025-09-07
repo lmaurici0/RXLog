@@ -3,6 +3,7 @@ package com.rxlog.backend.Controller;
 import com.rxlog.backend.Entity.Usuario;
 import com.rxlog.backend.Service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,22 +25,6 @@ public class UsuarioController {
         return usuarioService.buscarPorId(id);
     }
 
-    //não sei se vai ser usado denovo.
-    /*@PostMapping("/cadastrar")
-    //public Usuario criar(@RequestBody Usuario usuario) {
-        return usuarioService.salvar(usuario);
-    }
-    */
-    @PutMapping("/{id}")
-    public Usuario atualizar(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
-        Usuario existente = usuarioService.buscarPorId(id);
-        existente.setNomeUsuario(usuarioAtualizado.getNomeUsuario());
-        existente.setEmailUsuario(usuarioAtualizado.getEmailUsuario());
-        existente.setSenhaUsuario(usuarioAtualizado.getSenhaUsuario());
-        existente.setCargoUsuario(usuarioAtualizado.getCargoUsuario());
-        return usuarioService.salvar(existente);
-    }
-
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
         usuarioService.deletar(id);
@@ -50,5 +35,10 @@ public class UsuarioController {
         return usuarioService.buscarPorInstituicao(nome);
     }
 
+    @GetMapping("/profile")
+    public Usuario getProfile(Authentication authentication) {
+        String email = authentication.getName();
+        return usuarioService.buscarPorEmail(email);
+    }
 
 }
