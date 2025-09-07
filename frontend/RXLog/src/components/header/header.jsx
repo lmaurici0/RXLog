@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../header/header.module.css";
 import { FaBars, FaTimes } from "react-icons/fa";
+import axios from "axios";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,10 +13,25 @@ const Header = () => {
 
   const [userName, setUserName] = useState("");
 
+  // Pega o usuário logado via API
   useEffect(() => {
-    const storedName =
-      localStorage.getItem("userName") || "Funcionario Responsavel";
-    setUserName(storedName);
+    const fetchUserName = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const { data } = await axios.get("http://localhost:8080/usuarios/profile", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setUserName(data.nomeUsuario);
+        localStorage.setItem("userName", data.nomeUsuario); // opcional: manter no localStorage
+      } catch (error) {
+        console.error("Erro ao buscar nome do usuário:", error);
+      }
+    };
+
+    fetchUserName();
   }, []);
 
   useEffect(() => {
@@ -37,25 +53,15 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Pega iniciais do usuário
+  // Gera iniciais do usuário
   function getInitials(name) {
-    const parts = name
-      .trim()
-      .split(" ")
-      .filter((n) => n);
-
+    const parts = name.trim().split(" ").filter((n) => n);
     if (parts.length === 0) return "";
-    if (parts.length === 1) {
-      const single = parts[0];
-      return single[0].toUpperCase() + single[single.length - 1].toUpperCase();
-    }
-
-    const firstInitial = parts[0][0].toUpperCase();
-    const lastInitial = parts[parts.length - 1][0].toUpperCase();
-    return firstInitial + lastInitial;
+    if (parts.length === 1) return parts[0][0].toUpperCase();
+    return parts[0][0].toUpperCase() + parts[parts.length - 1][0].toUpperCase();
   }
 
-  const initials = getInitials(userName);
+  const initials = getInitials(userName || "Funcionario Responsavel");
 
   const handleLogout = () => {
     localStorage.removeItem("token");

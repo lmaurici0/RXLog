@@ -1,41 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import styles from "./Profile.module.css";
 import Header from "../../components/header/Header";
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const [userData, setUserData] = useState({
-    email: '',
-    name: '',
-    role: '',
-    institution: ''
+    email: "",
+    name: "",
+    role: "",
+    institution: "",
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [avatarColor, setAvatarColor] = useState({
+    bg: "#278C67",
+    text: "#ffffff",
+  });
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         setIsLoading(true);
+        const token = localStorage.getItem("token");
 
-        // Pega o token do localStorage se estiver usando JWT
-        const token = localStorage.getItem('token');
-
-        const response = await axios.get('/usuarios/profile', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-
-        const data = response.data;
+        const { data } = await axios.get(
+          "http://localhost:8080/usuarios/profile",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         setUserData({
           email: data.emailUsuario,
           name: data.nomeUsuario,
           role: data.cargoUsuario,
-          institution: data.instituicaoUsuario
+          institution: data.instituicaoUsuario,
         });
+
+        const colors = [
+          "#278C67",
+          "#45BF86",
+          "#1E342D",
+          "#D7D9D8",
+          "#3FC291",
+          "#2F4B3F",
+        ];
+        const textColors = ["#ffffff", "#D7D9D8"];
+        const bg = colors[Math.floor(Math.random() * colors.length)];
+        const text = textColors[Math.floor(Math.random() * textColors.length)];
+        setAvatarColor({ bg, text });
       } catch (error) {
-        toast.error('Erro ao carregar perfil');
-        console.error('Erro ao buscar dados do usuário:', error);
+        toast.error("Erro ao carregar perfil");
+        console.error("Erro ao buscar dados do usuário:", error);
       } finally {
         setIsLoading(false);
       }
@@ -44,10 +60,9 @@ const Profile = () => {
     fetchUserData();
   }, []);
 
-  // Função para pegar as iniciais do primeiro e último nome
   const getInitials = () => {
-    if (!userData.name) return '';
-    const names = userData.name.trim().split(' ');
+    if (!userData.name) return "";
+    const names = userData.name.trim().split(" ");
     if (names.length === 1) return names[0][0].toUpperCase();
     return (names[0][0] + names[names.length - 1][0]).toUpperCase();
   };
@@ -70,10 +85,14 @@ const Profile = () => {
       <div className={styles.profileContainer}>
         <div className={styles.profileCard}>
           <div className={styles.avatarSection}>
-            <div className={styles.avatarContainer}>
-              <div className={styles.profileAvatar}>
-                {getInitials()}
-              </div>
+            <div
+              className={styles.profileAvatar}
+              style={{
+                backgroundColor: avatarColor.bg,
+                color: avatarColor.text,
+              }}
+            >
+              {getInitials()}
             </div>
           </div>
 
