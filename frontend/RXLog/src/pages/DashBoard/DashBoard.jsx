@@ -15,11 +15,11 @@ function DashBoard() {
   const [movimentacoes, setMovimentacoes] = useState({ entradas: 0, saidas: 0 });
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); // pegar token do login
+    const token = localStorage.getItem("token"); 
 
     axios.get("http://localhost:8080/movimentacoes/total", {
       headers: {
-        Authorization: `Bearer ${token}`, // envia token
+        Authorization: `Bearer ${token}`,  
       },
     })
     .then(res => setMovimentacoes(res.data))

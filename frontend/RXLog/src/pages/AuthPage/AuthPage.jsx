@@ -43,7 +43,7 @@ function AuthPage() {
         await axios.get("http://localhost:8080/auth/usuario/logado", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        navigate("/dashboards"); // já logado
+        navigate("/dashboards"); 
       } catch {
         localStorage.removeItem("token");
       }

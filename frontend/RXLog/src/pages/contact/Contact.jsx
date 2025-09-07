@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react"; // opcional: ícone de seta
+import { ArrowLeft } from "lucide-react"; 
 import styles from "./Contact.module.css";
 
 const Contact = () => {
