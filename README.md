@@ -1,6 +1,5 @@
 # RxLog - Sistema de Controle de Estoque e Armazenamento de Medicamentos
 
-![RxLog Logo](https://via.placeholder.com/150x50?text=RxLog)
 
 > Sistema desenvolvido como parte do **Trabalho de Conclusão de Curso (TCC)** do curso de Desenvolvimento de Sistemas. Permite gerenciar o estoque e armazenamento de medicamentos com segurança e eficiência.
 
