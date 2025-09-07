@@ -52,7 +52,7 @@ O sistema está disponível para **web** e **mobile**, com interface intuitiva e
 
 ---
 
-## ## ⚙️ Instalação e Execução
+## ⚙️ Instalação e Execução
 
 ### Back-end
 1. Configure o **MySQL** e crie o banco `rxlog`.  
