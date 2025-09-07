@@ -44,6 +44,10 @@ public class SecurityConfig {
                                 "/movimentacoes/saidas-por-categoria"
                         ).permitAll()
 
+                        .requestMatchers(HttpMethod.GET,
+                                "/usuarios/profile"
+                        ).authenticated()
+
                         .requestMatchers(HttpMethod.POST,
                                 "/medicamentos/baixa"
                         ).permitAll()
