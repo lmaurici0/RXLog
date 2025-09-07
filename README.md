@@ -34,9 +34,6 @@ O sistema está disponível para **web** e **mobile**, com interface intuitiva e
 - React Icons  
 - CSS Modules  
 
-### Mobile
-- React Native  
-
 ### Outras Ferramentas
 - Git / GitHub  
 - Postman  
