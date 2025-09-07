@@ -31,7 +31,6 @@ public class UsuarioAuthController {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    // --- Cadastro ---
     @PostMapping("/signup")
     public ResponseEntity<?> cadastrar(@RequestBody UsuarioCadastroRequest request) {
         Usuario existente = usuarioService.buscarPorEmail(request.getEmailUsuario());
@@ -57,7 +56,6 @@ public class UsuarioAuthController {
         ));
     }
 
-    // --- Login ---
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UsuarioLoginRequest request) {
         Usuario usuario = usuarioService.buscarPorEmail(request.getEmail());
@@ -76,7 +74,6 @@ public class UsuarioAuthController {
         ));
     }
 
-    // --- Verificação de login ---
     @GetMapping("/logado")
     public ResponseEntity<?> usuarioLogado(@RequestHeader("Authorization") String authHeader) {
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
