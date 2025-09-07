@@ -69,7 +69,7 @@ cd backend
 mvn spring-boot:run
 ```
 
-###Front-End
+### Front-End
 1. Acesse a paste frontend
 ```bash
    cd frontend
