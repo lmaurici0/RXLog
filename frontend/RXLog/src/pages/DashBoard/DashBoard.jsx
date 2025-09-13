@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"; 
 
-import Header from "../../components/header/Header";
+import Header from "../../components/header/header";
 import styles from "../DashBoard/DashBoard.module.css";
 
 import EstoqueChart from "../../components/layout/Dashboard/EstoqueChart/EstoqueChart";
