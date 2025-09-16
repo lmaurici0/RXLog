@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet-async";
 
 const schemaLogin = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email obrigatório"),
@@ -75,7 +76,11 @@ function AuthPage() {
         localStorage.setItem("cargo", res.data.cargo);
 
         toast.success("Login realizado com sucesso!", {
-          style: { fontFamily: "Poppins", fontSize: "1rem", backgroundColor: "#45BF86" },
+          style: {
+            fontFamily: "Poppins",
+            fontSize: "1rem",
+            backgroundColor: "#45BF86",
+          },
           autoClose: 2000,
           onClose: () => {
             setIsExiting(true);
@@ -84,7 +89,12 @@ function AuthPage() {
         });
       } catch {
         toast.error("Email ou senha incorretos.", {
-          style: { backgroundColor: "#E74C3C", color: "#fff", fontFamily: "Poppins", fontSize: "1rem" },
+          style: {
+            backgroundColor: "#E74C3C",
+            color: "#fff",
+            fontFamily: "Poppins",
+            fontSize: "1rem",
+          },
           autoClose: 3000,
         });
       }
@@ -98,14 +108,23 @@ function AuthPage() {
           instituicaoUsuario: data.instituicao,
         });
         toast.success("Cadastro realizado com sucesso!", {
-          style: { fontFamily: "Poppins", fontSize: "1rem", backgroundColor: "#45BF86" },
+          style: {
+            fontFamily: "Poppins",
+            fontSize: "1rem",
+            backgroundColor: "#45BF86",
+          },
           autoClose: 3000,
         });
         setIsLogin(true);
         reset();
       } catch {
         toast.error("Erro ao cadastrar. Verifique os campos.", {
-          style: { fontFamily: "Poppins", fontSize: "1rem", backgroundColor: "#E74C3C", color: "#fff" },
+          style: {
+            fontFamily: "Poppins",
+            fontSize: "1rem",
+            backgroundColor: "#E74C3C",
+            color: "#fff",
+          },
           autoClose: 3000,
         });
       }
@@ -114,23 +133,37 @@ function AuthPage() {
 
   const handleForgotPassword = async () => {
     if (!emailDigitado) {
-      toast.warn("Digite seu e-mail antes de recuperar a senha.", { style: { fontFamily: "Poppins" } });
+      toast.warn("Digite seu e-mail antes de recuperar a senha.", {
+        style: { fontFamily: "Poppins" },
+      });
       return;
     }
     try {
       await axios.post("http://localhost:8080/auth/usuario/recuperar-senha", {
         email: emailDigitado,
       });
-      toast.info("Se o e-mail existir, enviaremos um link de recuperação.", { style: { fontFamily: "Poppins" } });
+      toast.info("Se o e-mail existir, enviaremos um link de recuperação.", {
+        style: { fontFamily: "Poppins" },
+      });
     } catch {
-      toast.error("Erro ao tentar recuperar a senha.", { style: { fontFamily: "Poppins" } });
+      toast.error("Erro ao tentar recuperar a senha.", {
+        style: { fontFamily: "Poppins" },
+      });
     }
   };
 
   return (
     <>
+      <Helmet>
+        <title>{isLogin ? "Login | RxLog" : "Cadastro | RxLog"}</title>
+      </Helmet>
+
       <ToastContainer position="top-right" autoClose={3000} theme="colored" />
-      <div className={`${styles.container} ${isLogin ? styles.loginMode : ""} ${isExiting ? styles.fadeOut : ""}`}>
+      <div
+        className={`${styles.container} ${isLogin ? styles.loginMode : ""} ${
+          isExiting ? styles.fadeOut : ""
+        }`}
+      >
         <div className={styles.leftSection}>
           <div>
             <h2>Bem-vindo à</h2>
@@ -152,7 +185,9 @@ function AuthPage() {
                 <div className={styles.formGroup}>
                   <label>Nome</label>
                   <input className={styles.inputField} {...register("nome")} />
-                  {errors.nome && <p className={styles.errorMsg}>{errors.nome.message}</p>}
+                  {errors.nome && (
+                    <p className={styles.errorMsg}>{errors.nome.message}</p>
+                  )}
                 </div>
 
                 <div className={styles.formGroup}>
@@ -163,31 +198,55 @@ function AuthPage() {
                     <option value="RECEPCIONISTA">Recepcionista</option>
                     <option value="FARMACEUTICO">Farmacêutico</option>
                   </select>
-                  {errors.cargo && <p className={styles.errorMsg}>{errors.cargo.message}</p>}
+                  {errors.cargo && (
+                    <p className={styles.errorMsg}>{errors.cargo.message}</p>
+                  )}
                 </div>
 
                 <div className={styles.formGroup}>
                   <label>Instituição</label>
-                  <input className={styles.inputField} {...register("instituicao")} />
-                  {errors.instituicao && <p className={styles.errorMsg}>{errors.instituicao.message}</p>}
+                  <input
+                    className={styles.inputField}
+                    {...register("instituicao")}
+                  />
+                  {errors.instituicao && (
+                    <p className={styles.errorMsg}>
+                      {errors.instituicao.message}
+                    </p>
+                  )}
                 </div>
               </div>
             )}
 
             <div className={styles.formGroup}>
               <label>Email</label>
-              <input className={`${styles.inputField} ${styles.inputEmail}`} {...register("email")} />
-              {errors.email && <p className={styles.errorMsg}>{errors.email.message}</p>}
+              <input
+                className={`${styles.inputField} ${styles.inputEmail}`}
+                {...register("email")}
+              />
+              {errors.email && (
+                <p className={styles.errorMsg}>{errors.email.message}</p>
+              )}
             </div>
 
             <div className={styles.formGroup}>
               <label>Senha</label>
-              <input type="password" className={`${styles.inputField} ${styles.inputPass}`} {...register("senha")} />
-              {errors.senha && <p className={styles.errorMsg}>{errors.senha.message}</p>}
+              <input
+                type="password"
+                className={`${styles.inputField} ${styles.inputPass}`}
+                {...register("senha")}
+              />
+              {errors.senha && (
+                <p className={styles.errorMsg}>{errors.senha.message}</p>
+              )}
             </div>
 
             {isLogin && (
-              <button type="button" onClick={handleForgotPassword} className={styles.forgotLink}>
+              <button
+                type="button"
+                onClick={handleForgotPassword}
+                className={styles.forgotLink}
+              >
                 Esqueci minha senha
               </button>
             )}

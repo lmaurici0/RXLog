@@ -6,7 +6,9 @@ import * as yup from "yup";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import styles from "../ResetPassword/ResetPassword.module.css"; 
+import styles from "../ResetPassword/ResetPassword.module.css";
+import { Helmet } from "react-helmet-async";
+
 const schema = yup.object().shape({
   novaSenha: yup
     .string()
@@ -21,7 +23,7 @@ const schema = yup.object().shape({
 function ResetPasswordPage() {
   const [isExiting, setIsExiting] = useState(false);
   const [searchParams] = useSearchParams();
-  const token = searchParams.get("token"); 
+  const token = searchParams.get("token");
   const navigate = useNavigate();
 
   const {
@@ -44,23 +46,23 @@ function ResetPasswordPage() {
         autoClose: 2500,
         onClose: () => {
           setIsExiting(true);
-          setTimeout(() => navigate("/"), 600); 
+          setTimeout(() => navigate("/"), 600);
         },
       });
     } catch (err) {
-      toast.error(
-        err.response?.data?.erro || "Erro ao redefinir a senha.",
-        { style: { fontFamily: "Poppins" } }
-      );
+      toast.error(err.response?.data?.erro || "Erro ao redefinir a senha.", {
+        style: { fontFamily: "Poppins" },
+      });
     }
   };
 
   return (
     <>
+      <Helmet>
+        <title>Resetar Senha | RXLog</title>
+      </Helmet>
       <ToastContainer position="top-right" autoClose={3000} theme="colored" />
-      <div
-        className={`${styles.container} ${isExiting ? styles.fadeOut : ""}`}
-      >
+      <div className={`${styles.container} ${isExiting ? styles.fadeOut : ""}`}>
         <div className={styles.rightSection}>
           <h2>Redefinir Senha</h2>
           <form onSubmit={handleSubmit(onSubmit)}>

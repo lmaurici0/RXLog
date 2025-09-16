@@ -25,10 +25,10 @@ export default function EstoqueChart() {
   );
 
   const cores = [
-    "#111417", 
-    "#1f1f48", 
-    "#57636c", 
-    "#8b97a2"  
+    "#00968a", 
+    "#f2a384", 
+    "#39d2c0", 
+    "#dbe2e7"  
   ];
 
   return (
