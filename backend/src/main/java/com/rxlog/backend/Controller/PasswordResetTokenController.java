@@ -37,13 +37,11 @@ public class PasswordResetTokenController {
         }
 
         PasswordResetToken token = passwordResetService.createToken(usuario);
-        String link = "http://localhost:5173/reset-password?token=" + token.getToken();
 
         try {
-            emailService.enviarEmail(email, "Redefinir senha RXLog",
-                    "<p>Olá! Clique no link abaixo para redefinir sua senha:</p>" +
-                            "<a href=\"" + link + "\">Redefinir senha</a>");
+            emailService.enviarEmailRecuperacao(usuario.getEmailUsuario(), token.getToken());
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(500).body(Map.of("erro", "Falha ao enviar email"));
         }
 
