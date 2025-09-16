@@ -15,6 +15,7 @@ import Unauthorized from "./pages/Error/401/Unauthorized";
 import Forbidden from "./pages/Error/403/Forbidden";
 import PageNotFound from "./pages/Error/404/PageNotFound";
 import FornecedorRegistration from "./pages/FornecedorRegistration/FornecedorRegistration";
+import ResetPasswordPage from "./pages/ResetPassword/ResetPassword";
 
 function PrivateRoute({ children }) {
   const token = localStorage.getItem("token");
@@ -55,6 +56,7 @@ function App() {
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="forbidden" element={<Forbidden />} />
         <Route path="*" element={<PageNotFound />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
       </Routes>
     </Router>
   );
