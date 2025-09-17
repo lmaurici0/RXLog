@@ -79,7 +79,7 @@ function AuthPage() {
           style: {
             fontFamily: "Poppins",
             fontSize: "1rem",
-            backgroundColor: "#45BF86",
+            backgroundColor: "#00968a",
           },
           autoClose: 2000,
           onClose: () => {
@@ -90,7 +90,7 @@ function AuthPage() {
       } catch {
         toast.error("Email ou senha incorretos.", {
           style: {
-            backgroundColor: "#E74C3C",
+            backgroundColor: "#f2a384",
             color: "#fff",
             fontFamily: "Poppins",
             fontSize: "1rem",
@@ -111,7 +111,7 @@ function AuthPage() {
           style: {
             fontFamily: "Poppins",
             fontSize: "1rem",
-            backgroundColor: "#45BF86",
+            backgroundColor: "#00968a",
           },
           autoClose: 3000,
         });
@@ -122,7 +122,7 @@ function AuthPage() {
           style: {
             fontFamily: "Poppins",
             fontSize: "1rem",
-            backgroundColor: "#E74C3C",
+            backgroundColor: "#f2a384",
             color: "#fff",
           },
           autoClose: 3000,
