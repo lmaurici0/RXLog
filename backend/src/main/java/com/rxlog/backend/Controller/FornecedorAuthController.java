@@ -4,20 +4,24 @@ import com.rxlog.backend.DTO.FornecedorCadastroRequest;
 import com.rxlog.backend.DTO.FornecedorLoginRequest;
 import com.rxlog.backend.Entity.Fornecedor;
 import com.rxlog.backend.Service.FornecedorService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:5173")
-
 @RestController
 @RequestMapping("/auth/fornecedor")
+@CrossOrigin(origins = "http://localhost:5173")
+@Tag(name = "Autenticação de Fornecedor", description = "Cadastro e login de fornecedores")
 public class FornecedorAuthController {
 
     @Autowired
     private FornecedorService fornecedorService;
 
     @PostMapping("/signup")
+    @Operation(summary = "Cadastra um novo fornecedor", description = "Cria um fornecedor com nome, CNPJ, email e telefone")
     public ResponseEntity<?> cadastrar(@RequestBody FornecedorCadastroRequest cadastroRequest) {
         if (fornecedorService.buscarPorCnpj(cadastroRequest.getCnpjFornecedor()) != null) {
             return ResponseEntity.status(400).body("CNPJ já cadastrado");
@@ -38,9 +42,9 @@ public class FornecedorAuthController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "Login do fornecedor", description = "Realiza autenticação do fornecedor")
     public ResponseEntity<?> login(@RequestBody FornecedorLoginRequest loginRequest) {
         Fornecedor fornecedor = fornecedorService.buscarPorCnpjEEmail(loginRequest.getCnpj(), loginRequest.getEmail());
-
         if (fornecedor == null) {
             return ResponseEntity.status(401).body("Credenciais inválidas");
         }
@@ -48,6 +52,7 @@ public class FornecedorAuthController {
     }
 
     @GetMapping("/perfil/{cnpj}")
+    @Operation(summary = "Obter perfil do fornecedor", description = "Retorna os dados de um fornecedor pelo CNPJ")
     public ResponseEntity<?> obterPerfil(@PathVariable String cnpj) {
         Fornecedor fornecedor = fornecedorService.buscarPorCnpj(cnpj);
         if (fornecedor == null) {
@@ -57,6 +62,7 @@ public class FornecedorAuthController {
     }
 
     @DeleteMapping("/deletar/{cnpj}")
+    @Operation(summary = "Deletar conta do fornecedor", description = "Remove um fornecedor pelo CNPJ")
     public ResponseEntity<?> deletarConta(@PathVariable String cnpj) {
         Fornecedor fornecedor = fornecedorService.buscarPorCnpj(cnpj);
         if (fornecedor == null) {

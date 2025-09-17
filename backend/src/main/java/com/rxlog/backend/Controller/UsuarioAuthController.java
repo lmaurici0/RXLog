@@ -6,6 +6,11 @@ import com.rxlog.backend.Entity.Usuario;
 import com.rxlog.backend.Security.UserDetailsServiceImpl;
 import com.rxlog.backend.Service.UsuarioService;
 import com.rxlog.backend.Security.JwtUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +22,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/auth/usuario")
 @CrossOrigin(origins = "http://localhost:5173")
+@Tag(name = "Usuários", description = "Operações relacionadas a usuários do sistema")
 public class UsuarioAuthController {
 
     @Autowired
@@ -32,7 +38,25 @@ public class UsuarioAuthController {
     private UserDetailsServiceImpl userDetailsService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> cadastrar(@RequestBody UsuarioCadastroRequest request) {
+    @Operation(summary = "Cadastra um novo usuário", description = "Cria um usuário com nome, email, senha, cargo e instituição")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso"),
+            @ApiResponse(responseCode = "409", description = "Email já existe"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos")
+    })
+    public ResponseEntity<?> cadastrar(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Dados do usuário para cadastro",
+                    required = true,
+                    content = @io.swagger.v3.oas.annotations.media.Content(
+                            mediaType = "application/json",
+                            examples = @io.swagger.v3.oas.annotations.media.ExampleObject(
+                                    value = "{ \"nomeUsuario\": \"Eric Luis\", \"emailUsuario\": \"eric@example.com\", \"senhaUsuario\": \"123456\", \"cargoUsuario\": \"ADMINISTRADOR\", \"instituicaoUsuario\": \"RxLog\" }"
+                            )
+                    )
+            )
+            @RequestBody UsuarioCadastroRequest request) {
+
         Usuario existente = usuarioService.buscarPorEmail(request.getEmailUsuario());
         if (existente != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -57,7 +81,24 @@ public class UsuarioAuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UsuarioLoginRequest request) {
+    @Operation(summary = "Realiza login do usuário", description = "Autentica um usuário e retorna o token JWT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Login realizado com sucesso"),
+            @ApiResponse(responseCode = "401", description = "Credenciais inválidas")
+    })
+    public ResponseEntity<?> login(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Email e senha do usuário",
+                    required = true,
+                    content = @io.swagger.v3.oas.annotations.media.Content(
+                            mediaType = "application/json",
+                            examples = @io.swagger.v3.oas.annotations.media.ExampleObject(
+                                    value = "{ \"email\": \"eric@example.com\", \"senha\": \"123456\" }"
+                            )
+                    )
+            )
+            @RequestBody UsuarioLoginRequest request) {
+
         Usuario usuario = usuarioService.buscarPorEmail(request.getEmail());
         if (usuario == null || !passwordEncoder.matches(request.getSenha(), usuario.getSenhaUsuario())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -75,7 +116,15 @@ public class UsuarioAuthController {
     }
 
     @GetMapping("/logado")
-    public ResponseEntity<?> usuarioLogado(@RequestHeader("Authorization") String authHeader) {
+    @Operation(summary = "Retorna o usuário logado", description = "Obtém informações do usuário a partir do token JWT enviado no header Authorization")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário encontrado"),
+            @ApiResponse(responseCode = "401", description = "Token ausente ou inválido")
+    })
+    public ResponseEntity<?> usuarioLogado(
+            @Parameter(description = "Token JWT no formato Bearer <token>", required = true)
+            @RequestHeader("Authorization") String authHeader) {
+
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("erro", "Token ausente"));

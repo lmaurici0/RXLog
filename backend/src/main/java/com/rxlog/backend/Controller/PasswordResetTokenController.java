@@ -5,6 +5,11 @@ import com.rxlog.backend.Entity.Usuario;
 import com.rxlog.backend.Service.EmailService;
 import com.rxlog.backend.Service.PasswordResetTokenService;
 import com.rxlog.backend.Service.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +20,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/auth/usuario")
 @CrossOrigin(origins = "http://localhost:5173")
+@Tag(name = "Recuperação de Senha", description = "Endpoints para recuperação e reset de senha")
 public class PasswordResetTokenController {
 
     @Autowired
@@ -27,6 +33,11 @@ public class PasswordResetTokenController {
     private EmailService emailService;
 
     @PostMapping("/recuperar-senha")
+    @Operation(summary = "Solicita recuperação de senha", description = "Envia email com token de recuperação se o usuário existir")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Mensagem enviada com sucesso"),
+            @ApiResponse(responseCode = "500", description = "Erro ao enviar email")
+    })
     public ResponseEntity<?> recuperarSenha(@RequestBody Map<String, String> body) {
         String email = body.get("email");
         Usuario usuario = usuarioService.buscarPorEmail(email);
@@ -50,6 +61,11 @@ public class PasswordResetTokenController {
     }
 
     @PostMapping("/resetar-senha")
+    @Operation(summary = "Reseta a senha do usuário", description = "Altera a senha do usuário utilizando token de recuperação")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Senha redefinida com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Token inválido ou expirado")
+    })
     public ResponseEntity<?> resetarSenha(@RequestBody Map<String, String> body) {
         String tokenStr = body.get("token");
         String novaSenha = body.get("senha");
