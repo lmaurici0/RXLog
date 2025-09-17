@@ -19,7 +19,6 @@ function DashBoard() {
   });
 
   useEffect(() => {
-<<<<<<< HEAD
     const token = localStorage.getItem("token"); 
 
     axios.get("http://localhost:8080/movimentacoes/total", {
@@ -29,18 +28,6 @@ function DashBoard() {
     })
     .then(res => setMovimentacoes(res.data))
     .catch(err => console.error("Erro ao buscar movimentações:", err));
-=======
-    const token = localStorage.getItem("token");
-
-    axios
-      .get("http://localhost:8080/movimentacoes/total", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => setMovimentacoes(res.data))
-      .catch((err) => console.error("Erro ao buscar movimentações:", err));
->>>>>>> development
   }, []);
 
   return (

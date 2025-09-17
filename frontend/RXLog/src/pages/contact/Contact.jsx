@@ -1,11 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import { ArrowLeft } from "lucide-react"; 
-=======
-import { ArrowLeft } from "lucide-react";
-import { Helmet } from "react-helmet-async";
->>>>>>> development
 import styles from "./Contact.module.css";
 
 const Contact = () => {
