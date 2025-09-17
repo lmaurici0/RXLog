@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import styles from "./PizzaChart.module.css";
 
-const CORES = ["#4CAF50", "#F44336"]; 
+const CORES = ["#00968a", "#f2a384"]; 
 
 const CustomTooltip = ({ active, payload }) => {
   return (
@@ -26,7 +20,7 @@ const CustomTooltip = ({ active, payload }) => {
     >
       {active && payload && payload.length && (
         <div>
-          <strong>{payload[0].name}</strong>: {payload[0].value}
+          <strong>{payload[0].name}</strong>: {payload[0].value}%
         </div>
       )}
     </div>
@@ -40,13 +34,17 @@ export default function PizzaChart() {
   useEffect(() => {
     fetch("http://localhost:8080/medicamentos/estoque-vencido-vs-regular")
       .then((res) => {
-        if (!res.ok) {
-          throw new Error("Erro ao buscar dados");
-        }
+        if (!res.ok) throw new Error("Erro ao buscar dados");
         return res.json();
       })
       .then((dados) => {
-        setDadosEstoque(dados);
+        const total = dados.reduce((acc, item) => acc + item.valor, 0);
+        const dadosPercentual = dados.map((item) => ({
+          nome: item.nome,
+          valor: Number(((item.valor / total) * 100).toFixed(2)), 
+        }));
+
+        setDadosEstoque(dadosPercentual);
         setCarregando(false);
       })
       .catch((err) => {

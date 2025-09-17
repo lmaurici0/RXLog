@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Profile.module.css";
-import Header from "../../components/header/Header";
+import Header from "../../components/header/header";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const Profile = () => {
   const [userData, setUserData] = useState({
@@ -13,7 +14,7 @@ const Profile = () => {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [avatarColor, setAvatarColor] = useState({
-    bg: "#278C67",
+    bg: "#00968a",
     text: "#ffffff",
   });
 
@@ -38,14 +39,11 @@ const Profile = () => {
         });
 
         const colors = [
-          "#278C67",
-          "#45BF86",
-          "#1E342D",
-          "#D7D9D8",
-          "#3FC291",
-          "#2F4B3F",
+          "#00968a",
+          "#f2a384",
+          "#39d2c0",
         ];
-        const textColors = ["#ffffff", "#D7D9D8"];
+        const textColors = ["#ffffff"]
         const bg = colors[Math.floor(Math.random() * colors.length)];
         const text = textColors[Math.floor(Math.random() * textColors.length)];
         setAvatarColor({ bg, text });
@@ -80,6 +78,9 @@ const Profile = () => {
 
   return (
     <div className={styles.profilePage}>
+      <Helmet>
+        <title>Meu perfil | RXLog</title>
+      </Helmet>
       <Header />
 
       <div className={styles.profileContainer}>

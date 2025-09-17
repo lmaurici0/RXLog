@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Header from "../../components/header/Header";
+import Header from "../../components/header/header";
 import styles from "./FornecedorRegistration.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet-async";
 
 export default function FornecedorRegistration() {
   const [form, setForm] = useState({
@@ -37,17 +38,17 @@ export default function FornecedorRegistration() {
       });
 
       toast.success("Fornecedor cadastrado com sucesso!", {
-        style: { 
-          color: "#2ecc71",
-          fontFamily: "Poppins"
+        style: {
+          color: "#00968a",
+          fontFamily: "Poppins",
         },
       });
     } catch (err) {
       console.error(err);
       toast.error("Erro ao cadastrar fornecedor. Verifique os dados.", {
         style: {
-          color: "#E74C3C", 
-          fontFamily: "Poppins" 
+          color: "#f2a384",
+          fontFamily: "Poppins",
         },
       });
     }
@@ -62,6 +63,9 @@ export default function FornecedorRegistration() {
 
   return (
     <>
+      <Helmet>
+        <title>Registrar Fornecedor | RXLog</title>
+      </Helmet>
       <Header />
       <div className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.form}>

@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet-async";
 
 const schemaLogin = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email obrigatório"),
@@ -31,9 +32,12 @@ function AuthPage() {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm({
     resolver: yupResolver(isLogin ? schemaLogin : schemaCadastro),
   });
+
+  const emailDigitado = watch("email");
 
   useEffect(() => {
     const checarLogin = async () => {
@@ -43,7 +47,11 @@ function AuthPage() {
         await axios.get("http://localhost:8080/auth/usuario/logado", {
           headers: { Authorization: `Bearer ${token}` },
         });
+<<<<<<< HEAD
         navigate("/dashboards"); 
+=======
+        navigate("/dashboards");
+>>>>>>> development
       } catch {
         localStorage.removeItem("token");
       }
@@ -75,7 +83,7 @@ function AuthPage() {
           style: {
             fontFamily: "Poppins",
             fontSize: "1rem",
-            backgroundColor: "#45BF86",
+            backgroundColor: "#00968a",
           },
           autoClose: 2000,
           onClose: () => {
@@ -85,11 +93,11 @@ function AuthPage() {
         });
       } catch {
         toast.error("Email ou senha incorretos.", {
-          style: { 
-            backgroundColor: "#E74C3C", 
+          style: {
+            backgroundColor: "#f2a384",
             color: "#fff",
             fontFamily: "Poppins",
-            fontSize: "1rem"
+            fontSize: "1rem",
           },
           autoClose: 3000,
         });
@@ -107,7 +115,7 @@ function AuthPage() {
           style: {
             fontFamily: "Poppins",
             fontSize: "1rem",
-            backgroundColor: "#45BF86",
+            backgroundColor: "#00968a",
           },
           autoClose: 3000,
         });
@@ -116,19 +124,44 @@ function AuthPage() {
       } catch {
         toast.error("Erro ao cadastrar. Verifique os campos.", {
           style: {
-          fontFamily: "Poppins",
-          fontSize: "1rem",
-          backgroundColor: "#E74C3C",
-          color: "#fff"
-        },
+            fontFamily: "Poppins",
+            fontSize: "1rem",
+            backgroundColor: "#f2a384",
+            color: "#fff",
+          },
           autoClose: 3000,
         });
       }
     }
   };
 
+  const handleForgotPassword = async () => {
+    if (!emailDigitado) {
+      toast.warn("Digite seu e-mail antes de recuperar a senha.", {
+        style: { fontFamily: "Poppins" },
+      });
+      return;
+    }
+    try {
+      await axios.post("http://localhost:8080/auth/usuario/recuperar-senha", {
+        email: emailDigitado,
+      });
+      toast.info("Se o e-mail existir, enviaremos um link de recuperação.", {
+        style: { fontFamily: "Poppins" },
+      });
+    } catch {
+      toast.error("Erro ao tentar recuperar a senha.", {
+        style: { fontFamily: "Poppins" },
+      });
+    }
+  };
+
   return (
     <>
+      <Helmet>
+        <title>{isLogin ? "Login | RxLog" : "Cadastro | RxLog"}</title>
+      </Helmet>
+
       <ToastContainer position="top-right" autoClose={3000} theme="colored" />
       <div
         className={`${styles.container} ${isLogin ? styles.loginMode : ""} ${
@@ -191,7 +224,10 @@ function AuthPage() {
 
             <div className={styles.formGroup}>
               <label>Email</label>
-              <input className={styles.inputField} {...register("email")} />
+              <input
+                className={`${styles.inputField} ${styles.inputEmail}`}
+                {...register("email")}
+              />
               {errors.email && (
                 <p className={styles.errorMsg}>{errors.email.message}</p>
               )}
@@ -201,13 +237,23 @@ function AuthPage() {
               <label>Senha</label>
               <input
                 type="password"
-                className={styles.inputField}
+                className={`${styles.inputField} ${styles.inputPass}`}
                 {...register("senha")}
               />
               {errors.senha && (
                 <p className={styles.errorMsg}>{errors.senha.message}</p>
               )}
             </div>
+
+            {isLogin && (
+              <button
+                type="button"
+                onClick={handleForgotPassword}
+                className={styles.forgotLink}
+              >
+                Esqueci minha senha
+              </button>
+            )}
 
             <button type="submit" className={styles.signUpButton}>
               Enviar

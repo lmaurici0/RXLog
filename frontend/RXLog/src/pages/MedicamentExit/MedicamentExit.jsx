@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../../components/header/Header";
+import Header from "../../components/header/header";
 import styles from "./MedicamentExit.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet-async";
 
 export default function MedicamentExit() {
   const [form, setForm] = useState({
@@ -45,11 +46,11 @@ export default function MedicamentExit() {
       });
 
       toast.success("Baixa realizada com sucesso!", {
-         style: {
-            fontFamily: "Poppins",
-            fontSize: "1rem",
-            color: "#1c1c1c"
-          },
+        style: {
+          fontFamily: "Poppins",
+          fontSize: "1rem",
+          color: "#1c1c1c",
+        },
       });
     } catch (err) {
       console.error(err);
@@ -62,6 +63,9 @@ export default function MedicamentExit() {
 
   return (
     <>
+      <Helmet>
+        <title>Baixa de Estoque | RXLog</title>
+      </Helmet>
       <Header />
       <div className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -99,16 +103,16 @@ export default function MedicamentExit() {
           </div>
 
           <div className={styles.rowBottom}>
-              <label className={styles.dateLabel}>Data da baixa</label>
-              <input
-                type="date"
-                name="dataBaixa"
-                value={form.dataBaixa}
-                onChange={handleChange}
-                className={styles.input}
-                required
-              />
-            </div>
+            <label className={styles.dateLabel}>Data da baixa</label>
+            <input
+              type="date"
+              name="dataBaixa"
+              value={form.dataBaixa}
+              onChange={handleChange}
+              className={styles.input}
+              required
+            />
+          </div>
 
           <button
             type="submit"

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip,
-  CartesianGrid, ResponsiveContainer,
+  CartesianGrid, ResponsiveContainer, Cell
 } from "recharts";
 import styles from "./EstoqueChart.module.css";
 
@@ -24,10 +24,17 @@ export default function EstoqueChart() {
     0
   );
 
+  const cores = [
+    "#00968a", 
+    "#f2a384", 
+    "#39d2c0", 
+    "#dbe2e7"  
+  ];
+
   return (
     <div className={styles.container}>
       <p className={styles.total}>
-        Total Em estoque: <strong>{totalMedicamentos}</strong>
+        Total em estoque: <strong>{totalMedicamentos}</strong>
       </p>
       <ResponsiveContainer width="100%" height={280}>
         <BarChart
@@ -47,12 +54,14 @@ export default function EstoqueChart() {
             tick={{ fontFamily: "Montserrat", fontSize: 14, fill: "#333" }}
           />
           <Tooltip />
-          <Bar
-            dataKey="quantidade"
-            fill="#1E342D"
-            barSize={35}
-            radius={[6, 6, 6, 6]}
-          />
+          <Bar dataKey="quantidade" barSize={35} radius={[6, 6, 6, 6]}>
+            {dadosEstoquePorCategoria.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={cores[index % cores.length]}
+              />
+            ))}
+          </Bar>
         </BarChart>
       </ResponsiveContainer>
     </div>

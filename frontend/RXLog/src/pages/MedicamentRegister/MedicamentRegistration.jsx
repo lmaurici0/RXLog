@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Header from "../../components/header/Header";
+import Header from "../../components/header/header";
 import styles from "./MedicamentRegistration.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet-async";
 
 export default function MedicamentRegistration() {
   const [form, setForm] = useState({
@@ -19,7 +20,7 @@ export default function MedicamentRegistration() {
   });
 
   const [fornecedores, setFornecedores] = useState([]);
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -41,7 +42,7 @@ export default function MedicamentRegistration() {
         toast.error("Erro ao buscar fornecedores.", {
           style: {
             backgroundColor: "#fff",
-            color: "#E74C3C",
+            color: "#f2a384",
             fontFamily: "Poppins",
             fontSize: "1rem",
           },
@@ -112,7 +113,7 @@ export default function MedicamentRegistration() {
       console.error(err);
       toast.error("Erro ao cadastrar medicamento.", {
         style: {
-          backgroundColor: "#E74C3C",
+          backgroundColor: "#f2a384",
           color: "#fff",
           fontFamily: "Poppins",
           fontSize: "1rem",
@@ -123,6 +124,9 @@ export default function MedicamentRegistration() {
 
   return (
     <>
+      <Helmet>
+        <title>Registrar Medicamento | RXLog</title>
+      </Helmet>
       <Header />
       <div className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.form}>

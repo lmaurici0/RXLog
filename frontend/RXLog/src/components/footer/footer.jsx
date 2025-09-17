@@ -4,7 +4,6 @@ import { AiTwotoneMail } from "react-icons/ai";
 import { CiInstagram, CiLinkedin } from "react-icons/ci";
 import { MdLocationOn } from "react-icons/md";
 
-
 const Footer = () => {
   return (
     <footer className={styles.footer}>
@@ -16,6 +15,7 @@ const Footer = () => {
             <AiTwotoneMail />
             <a href="mailto:somosrx@gmail.com">somosrx@gmail.com</a>
           </div>
+
           <div className={styles.contactItem}>
             <CiInstagram />
             <a
@@ -26,6 +26,7 @@ const Footer = () => {
               @somosrx
             </a>
           </div>
+
           <div className={styles.contactItem}>
             <CiLinkedin />
             <a
@@ -36,8 +37,9 @@ const Footer = () => {
               /somosrx
             </a>
           </div>
+
           <div className={styles.contactItem}>
-       <MdLocationOn style={{ fontSize: "50px" }} />
+            <MdLocationOn style={{ fontSize: "50px" }} />
             <a
               href="https://linkedin.com/company/somosrx"
               target="_blank"
@@ -49,12 +51,15 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Barra com degradê */}
         <hr
           style={{
-            width: "100%",
-            maxWidth: 600,
-            border: "0.5px solid #333",
-            margin: "30px 0",
+            height: "4px",
+            width: "60%",
+            border: "none",
+            borderRadius:"5px",
+            background: "linear-gradient(to right, #00968a, #f2a384)",
+            margin: "2rem 0"
           }}
         />
 

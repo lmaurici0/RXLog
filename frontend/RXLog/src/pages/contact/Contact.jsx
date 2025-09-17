@@ -1,6 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
 import { ArrowLeft } from "lucide-react"; 
+=======
+import { ArrowLeft } from "lucide-react";
+import { Helmet } from "react-helmet-async";
+>>>>>>> development
 import styles from "./Contact.module.css";
 
 const Contact = () => {
@@ -8,13 +13,20 @@ const Contact = () => {
 
   return (
     <div className={styles.contactContainer}>
+      <Helmet>
+        <title>Suporte | RXLog</title>
+      </Helmet>
       <button className={styles.backButton} onClick={() => navigate(-1)}>
-        <ArrowLeft size={20} /> 
+        <ArrowLeft size={20} />
       </button>
 
       <div className={styles.leftPanel}>
         <div className={styles.overlayTop}>
-          <h2>Quer falar<br />conosco?</h2>
+          <h2>
+            Quer falar
+            <br />
+            conosco?
+          </h2>
           <p>Estamos prontos para te ouvir.</p>
         </div>
       </div>

@@ -63,11 +63,16 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>8.0.1.Final</version> <!-- ou a versão compatível com seu Spring Boot -->
+			<version>8.0.1.Final</version>
 		</dependency>
 
 		<dependency>

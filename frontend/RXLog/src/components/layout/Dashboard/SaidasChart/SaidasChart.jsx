@@ -34,7 +34,7 @@ export default function SaidasChart() {
           <YAxis tick={{ fontFamily: "Montserrat", fontSize: 14, fill: "#333" }} />
           <Tooltip formatter={(value) => [`${value}`, "Saídas"]} />
           <Legend formatter={(value) => `Saídas`} />
-          <Line type="monotone" dataKey="saidas" stroke="#f44336" strokeWidth={3} />
+          <Line type="monotone" dataKey="saidas" stroke="#f2a384" strokeWidth={3} />
         </LineChart>
       </ResponsiveContainer>
     </div>

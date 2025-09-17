@@ -1,13 +1,17 @@
 import React from "react";
-import Header from "../../components/header/Header";
+import Header from "../../components/header/header";
 import Carrossel from "../../components/carrossel/Carrossel";
 import Footer from "../../components/footer/Footer";
 import styles from "./homeScreen.module.css";
 import image from "../../assets/images/image.png";
+import { Helmet } from "react-helmet-async";
 
 function HomeScreen() {
   return (
     <>
+      <Helmet>
+        <title>Sobre nós | RXLog</title>
+      </Helmet>
       <Header />
       <Carrossel />
       <section className={styles.aboutSection}>
