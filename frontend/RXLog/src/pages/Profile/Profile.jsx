@@ -14,7 +14,7 @@ const Profile = () => {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [avatarColor, setAvatarColor] = useState({
-    bg: "#278C67",
+    bg: "#00968a",
     text: "#ffffff",
   });
 
