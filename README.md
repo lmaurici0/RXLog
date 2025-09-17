@@ -84,3 +84,19 @@ mvn spring-boot:run
 ```bash
    npm run dev
 ```
+
+## 📑 Documentação da API com Swagger
+
+A documentação da API está disponível por meio do Swagger. 
+
+### Acessando o Swagger
+
+Após subir o back-end com o comando:
+```bash
+   mvn spring-boot:run
+```
+
+A documentação estará disponível no seguinte endereço:
+```bash
+   http://localhost:8080/swagger-ui.html
+``
