@@ -42,7 +42,7 @@ export default function MedicamentRegistration() {
         toast.error("Erro ao buscar fornecedores.", {
           style: {
             backgroundColor: "#fff",
-            color: "#E74C3C",
+            color: "#f2a384",
             fontFamily: "Poppins",
             fontSize: "1rem",
           },
@@ -113,7 +113,7 @@ export default function MedicamentRegistration() {
       console.error(err);
       toast.error("Erro ao cadastrar medicamento.", {
         style: {
-          backgroundColor: "#E74C3C",
+          backgroundColor: "#f2a384",
           color: "#fff",
           fontFamily: "Poppins",
           fontSize: "1rem",
