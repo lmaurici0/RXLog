@@ -34,9 +34,6 @@ O sistema está disponível para **web** e **mobile**, com interface intuitiva e
 - React Icons  
 - CSS Modules  
 
-### Mobile
-- React Native  
-
 ### Outras Ferramentas
 - Git / GitHub  
 - Postman  
@@ -55,7 +52,7 @@ O sistema está disponível para **web** e **mobile**, com interface intuitiva e
 
 ---
 
-## ## ⚙️ Instalação e Execução
+## ⚙️ Instalação e Execução
 
 ### Back-end
 1. Configure o **MySQL** e crie o banco `rxlog`.  
@@ -72,7 +69,7 @@ cd backend
 mvn spring-boot:run
 ```
 
-##Front-End
+### Front-End
 1. Acesse a paste frontend
 ```bash
    cd frontend
@@ -85,5 +82,5 @@ mvn spring-boot:run
 
 3. Inicie a aplicação
 ```bash
-   npm start
+   npm run dev
 ```
