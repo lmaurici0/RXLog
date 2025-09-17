@@ -33,7 +33,7 @@ export default function EntradasChart() {
           <YAxis tick={{ fontFamily: "Montserrat", fontSize: 14, fill: "#333" }} />
           <Tooltip formatter={(value) => [`${value}`, "Entradas"]} />
           <Legend formatter={(value) => `Entradas`} />
-          <Line type="monotone" dataKey="entradas" stroke="#4caf50" strokeWidth={3} />
+          <Line type="monotone" dataKey="entradas" stroke="#00968a" strokeWidth={3} />
         </LineChart>
       </ResponsiveContainer>
     </div>

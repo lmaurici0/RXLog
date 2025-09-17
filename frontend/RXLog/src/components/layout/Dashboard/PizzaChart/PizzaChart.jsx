@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import styles from "./PizzaChart.module.css";
 
-// Cores das fatias
-const CORES = ["#4CAF50", "#F44336"]; // Verde = Regular, Vermelho = Vencido
+const CORES = ["#00968a", "#f2a384"]; 
 
-// Tooltip personalizado mostrando %
 const CustomTooltip = ({ active, payload }) => {
   return (
     <div
@@ -43,7 +41,7 @@ export default function PizzaChart() {
         const total = dados.reduce((acc, item) => acc + item.valor, 0);
         const dadosPercentual = dados.map((item) => ({
           nome: item.nome,
-          valor: Number(((item.valor / total) * 100).toFixed(2)), // converte de volta para número
+          valor: Number(((item.valor / total) * 100).toFixed(2)), 
         }));
 
         setDadosEstoque(dadosPercentual);
