@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "../header/header.module.css";
 import { FaBars, FaTimes } from "react-icons/fa";
 import axios from "axios";
+import logo from "../../assets/images/logo.png"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,7 +54,6 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Gera iniciais do usuário
   function getInitials(name) {
     const parts = name.trim().split(" ").filter((n) => n);
     if (parts.length === 0) return "";
@@ -82,7 +82,7 @@ const Header = () => {
         </div>
 
         <div className={styles.logoContainer}>
-          <h1 className={styles.logo}>RxLog</h1>
+          <img className={styles.logo} src={logo}/>
         </div>
       </div>
 
