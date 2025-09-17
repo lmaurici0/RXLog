@@ -28,9 +28,13 @@ public class JwtFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        // Ignorar rotas públicas
+        // Ignorar rotas públicas e swagger
         String path = request.getRequestURI();
-        if (path.startsWith("/auth/") || "OPTIONS".equalsIgnoreCase(request.getMethod())) {
+        if (path.startsWith("/auth/") ||
+                path.startsWith("/swagger-ui") ||
+                path.startsWith("/v3/api-docs") ||
+                "OPTIONS".equalsIgnoreCase(request.getMethod())) {
+
             filterChain.doFilter(request, response);
             return;
         }
