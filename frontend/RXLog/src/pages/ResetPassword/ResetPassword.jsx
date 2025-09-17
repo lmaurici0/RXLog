@@ -64,7 +64,7 @@ function ResetPasswordPage() {
       <ToastContainer position="top-right" autoClose={3000} theme="colored" />
       <div className={`${styles.container} ${isExiting ? styles.fadeOut : ""}`}>
         <div className={styles.rightSection}>
-          <h2>Redefinir Senha</h2>
+          <h2 className={styles.passwordText}>Redefinir Senha</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.formGroup}>
               <label>Nova Senha</label>
