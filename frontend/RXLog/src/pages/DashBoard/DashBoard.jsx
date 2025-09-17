@@ -54,7 +54,7 @@ function DashBoard() {
 
         <div className={styles.cards}>
           <div className={styles.movCard}>
-            <h2>Minhas Movimentações</h2>
+            <h2>Histórico de Operações</h2>
             <p>
               <strong>Entradas:</strong> {movimentacoes.entradas}
             </p>
