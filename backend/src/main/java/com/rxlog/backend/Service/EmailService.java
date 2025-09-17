@@ -41,7 +41,7 @@ public class EmailService {
                 + "</body>"
                 + "</html>";
 
-        helper.setText(corpo, true); // true = HTML
+        helper.setText(corpo, true);
         mailSender.send(mensagem);
     }
 
