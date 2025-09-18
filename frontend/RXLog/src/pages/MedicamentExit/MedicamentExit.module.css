@@ -1,92 +1,215 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+
+
+:root {
+  --gradient: linear-gradient(to right, #00968a, #f2a384);
+}
+
+/* Container com fundo degradê e elementos decorativos */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 1rem;
-  font-family: Poppins, sans-serif;
+  justify-content: center;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #00968a22, #f2a38422);
+  position: relative;
+  overflow: hidden;
+  
 }
 
+.container::before,
+.container::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: var(--gradient);
+  opacity: 0.15;
+  filter: blur(50px);
+  z-index: 0;
+}
+
+.container::before {
+  width: 300px;
+  height: 300px;
+  top: 15%;
+  left: 10%;
+}
+
+.container::after {
+  width: 250px;
+  height: 250px;
+  bottom: 15%;
+  right: 10%;
+}
+
+/* Formulário com efeito de blur */
 .form {
+  align-items: center;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 500px; /* largura fixa */
+  width: 100%;
+  max-width: 500px;
+  padding: 40px 30px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  margin-bottom: 100px;
 }
+
 
 .rowTop {
   display: flex;
   justify-content: space-between;
   width: 100%;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.inputGroupSmall {
-  display: flex;
-  flex-direction: column;
-  font-size: 1rem;
-  color: #2f8665;
-  width: 250px; 
-}
-
+/* Grupos de input */
+.inputGroupSmall,
 .inputGroupFull {
   display: flex;
   flex-direction: column;
+  font-size: 1rem;
+  color: #2f8665;
+}
+
+.inputGroupSmall {
+  width: calc(50% - 0.5rem);
+}
+
+.inputGroupFull {
   width: 100%;
   margin-top: 1rem;
-  font-size: 1rem;
-  color: #2f8665;
 }
 
+/* Inputs e selects com efeito transparente */
 .input,
 .select {
-  padding: 0.9rem;
+  padding: 0.9rem 1.2rem;
   border-radius: 30px;
-  border: none;
-  background-color: rgba(162, 224, 209, 0.6);
-  color: #1e4f3f;
+  border: 2px solid rgba(0, 150, 138, 0.4);
+  background-color: rgba(255, 255, 255, 0.4);
+  color: #333;
   font-size: 1rem;
   outline: none;
-  transition: background-color 0.2s ease-in-out;
-  font-family: Poppins, sans-serif;
-  margin-bottom: 40px;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
 }
 
-.dateLabel{
-  color: #2f8665;
-}
-
-.input[type="date"] {
-  font-family: Poppins, sans-serif;
-  width: 100%;
+.input::placeholder,
+.select::placeholder {
+  color: #777;
 }
 
 .input:focus,
 .select:focus {
-  background-color: rgba(162, 224, 209, 0.9);
+  background-color: rgba(255, 255, 255, 0.9);
+  border-color: #00968a;
+  box-shadow: 0 0 0 3px #00968a33;
 }
 
+.input[type="date"] {
+  width: 100%;
+}
+
+/* Label de data */
+.dateLabel {
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #2f8665;
+  align-self: flex-start;
+}
+
+/* Botão com degrade */
 .button {
   margin-top: 1.5rem;
   padding: 0.9rem 2.5rem;
-  background-color: #41b883;
-  color: white;
-  font-size: 1rem;
+  width: 100%;
   border: none;
-  border-radius: 15px;
+  border-radius: 50px;
+  background: var(--gradient);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-  font-family: Poppins, sans-serif;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .button:hover:not(:disabled) {
-  background-color: #339e6e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .button:disabled {
-  background-color: #a9d6c3;
+  background-color: rgba(169, 214, 195, 0.5);
   cursor: not-allowed;
+  box-shadow: none;
 }
 
-input[type="number"]::-webkit-inner-spin-button{
-      -webkit-appearance: none;
+/* Mensagens */
+.errorMsg {
+  color: #ff7c7c;
+  font-size: 0.85rem;
+  margin-top: -15px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.successMsg {
+  color: #27ae60;
+  margin-bottom: 15px;
+}
+
+.forgotText {
+  font-size: 0.85rem;
+  color: #ddd;
+  margin-top: 15px;
+}
+
+.passwordText {
+  text-align: center;
+  font-family: "Poppins";
+}
+
+/* Remove setas de input number */
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Animação do formulário */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .rowTop {
+    flex-direction: column;
+  }
+
+  .inputGroupSmall {
+    width: 100%;
+  }
+
+  .form {
+    padding: 30px 20px;
+  }
 }
