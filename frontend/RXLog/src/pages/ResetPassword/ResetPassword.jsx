@@ -10,13 +10,13 @@ import styles from "../ResetPassword/ResetPassword.module.css";
 import { Helmet } from "react-helmet-async";
 
 const schema = yup.object().shape({
-  novaSenha: yup
+  senha: yup
     .string()
     .min(4, "A senha deve ter pelo menos 4 caracteres")
     .required("Nova senha obrigatória"),
   confirmarSenha: yup
     .string()
-    .oneOf([yup.ref("novaSenha")], "As senhas devem coincidir")
+    .oneOf([yup.ref("senha")], "As senhas devem coincidir")
     .required("Confirme a senha"),
 });
 
@@ -38,7 +38,7 @@ function ResetPasswordPage() {
     try {
       await axios.post("http://localhost:8080/auth/usuario/resetar-senha", {
         token,
-        novaSenha: data.novaSenha,
+        senha: data.novaSenha,
       });
 
       toast.success("Senha redefinida com sucesso!", {
