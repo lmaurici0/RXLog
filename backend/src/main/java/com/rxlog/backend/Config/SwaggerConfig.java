@@ -12,8 +12,8 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Documentação")
+                        .title("Documentação RxLog API")
                         .version("1.0")
-                        .description("Marcação de endpoints da RxLog"));
+                        .description("Documentação e marcação dos principais endpoints de nossa API."));
     }
 }
