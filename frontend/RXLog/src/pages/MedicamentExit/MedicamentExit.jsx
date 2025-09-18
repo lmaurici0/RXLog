@@ -14,47 +14,67 @@ export default function MedicamentExit() {
   });
 
   const [medicamentos, setMedicamentos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // Carregar medicamentos
   useEffect(() => {
+    const token = localStorage.getItem("token"); // pegar JWT
+
     axios
-      .get("http://localhost:8080/medicamentos")
+      .get("http://localhost:8080/medicamentos", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((res) => setMedicamentos(res.data))
       .catch((err) => {
         console.error(err);
         toast.error("Erro ao carregar medicamentos.");
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
+  // Atualizar valores do formulário
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
+  // Submeter baixa
   async function handleSubmit(e) {
     e.preventDefault();
 
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Usuário não autenticado.");
+      return;
+    }
+
     try {
-      await axios.post("http://localhost:8080/medicamentos/baixa", {
-        medicamentoId: form.medicamentoId,
-        quantidade: Number(form.quantidadeBaixa),
-        data: form.dataBaixa,
-      });
-
-      setForm({
-        medicamentoId: "",
-        quantidadeBaixa: "",
-        dataBaixa: "",
-      });
-
-      toast.success("Baixa realizada com sucesso!", {
-        style: {
-          fontFamily: "Poppins",
-          fontSize: "1rem",
-          color: "#1c1c1c",
+      await axios.post(
+        "http://localhost:8080/medicamentos/baixa",
+        {
+          medicamentoId: form.medicamentoId,
+          quantidade: Number(form.quantidadeBaixa),
+          data: form.dataBaixa,
         },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      setForm({ medicamentoId: "", quantidadeBaixa: "", dataBaixa: "" });
+      toast.success("Baixa realizada com sucesso!", {
+        style: { fontFamily: "Poppins", fontSize: "1rem", color: "#1c1c1c" },
       });
     } catch (err) {
       console.error(err);
-      toast.error("Erro ao realizar baixa. Verifique a quantidade disponível.");
+      if (err.response?.status === 403) {
+        toast.error("Você não tem permissão para realizar esta ação.", {
+          style: { fontFamily: "Poppins", fontSize: "1rem", color: "#1c1c1c" },
+        });
+      } else {
+        toast.error("Erro ao realizar baixa. Verifique os dados.", {
+          style: { fontFamily: "Poppins", fontSize: "1rem", color: "#1c1c1c" },
+        });
+      }
     }
   }
 
@@ -68,60 +88,64 @@ export default function MedicamentExit() {
       </Helmet>
       <Header />
       <div className={styles.container}>
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.rowTop}>
-            <div className={styles.inputGroupSmall}>
-              <label>Medicamento</label>
-              <select
-                name="medicamentoId"
-                value={form.medicamentoId}
-                onChange={handleChange}
-                className={styles.select}
-                required
-              >
-                <option value="">Selecione</option>
-                {medicamentos.map((m) => (
-                  <option key={m.id} value={m.id}>
-                    {m.nomeComercial} - Lote: {m.loteMedicamento}
-                  </option>
-                ))}
-              </select>
+        {loading ? (
+          <p>Carregando medicamentos...</p>
+        ) : (
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.rowTop}>
+              <div className={styles.inputGroupSmall}>
+                <label>Medicamento</label>
+                <select
+                  name="medicamentoId"
+                  value={form.medicamentoId}
+                  onChange={handleChange}
+                  className={styles.select}
+                  required
+                >
+                  <option value="">Selecione</option>
+                  {medicamentos.map((m) => (
+                    <option key={m.id} value={m.id}>
+                      {m.nomeComercial} - Lote: {m.loteMedicamento}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className={styles.inputGroupSmall}>
+                <label>Quantidade</label>
+                <input
+                  type="number"
+                  name="quantidadeBaixa"
+                  value={form.quantidadeBaixa}
+                  onChange={handleChange}
+                  className={styles.input}
+                  required
+                  min="1"
+                />
+              </div>
             </div>
 
-            <div className={styles.inputGroupSmall}>
-              <label>Quantidade</label>
+            <div className={styles.rowBottom}>
+              <label className={styles.dateLabel}>Data da baixa</label>
               <input
-                type="number"
-                name="quantidadeBaixa"
-                value={form.quantidadeBaixa}
+                type="date"
+                name="dataBaixa"
+                value={form.dataBaixa}
                 onChange={handleChange}
                 className={styles.input}
                 required
-                min="1"
               />
             </div>
-          </div>
 
-          <div className={styles.rowBottom}>
-            <label className={styles.dateLabel}>Data da baixa</label>
-            <input
-              type="date"
-              name="dataBaixa"
-              value={form.dataBaixa}
-              onChange={handleChange}
-              className={styles.input}
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            className={styles.button}
-            disabled={!isFormValid}
-          >
-            Registrar Baixa
-          </button>
-        </form>
+            <button
+              type="submit"
+              className={styles.button}
+              disabled={!isFormValid}
+            >
+              Registrar Baixa
+            </button>
+          </form>
+        )}
         <ToastContainer position="top-right" autoClose={3000} />
       </div>
     </>
