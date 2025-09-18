@@ -2,7 +2,7 @@
   background: linear-gradient(90deg, #39d2c0, #f2a384); 
   padding: 1.5rem;
   color: var(--neutral-color);
-  height: 8vh;
+  height: 6vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
