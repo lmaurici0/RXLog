@@ -5,8 +5,6 @@
 :root {
   --gradient: linear-gradient(to right, #00968a, #f2a384);
 }
-
-/* Container com fundo degradê e elementos decorativos */
 .container {
   display: flex;
   flex-direction: column;
@@ -45,7 +43,7 @@
   right: 10%;
 }
 
-/* Formulário com efeito de blur */
+
 .form {
   align-items: center;
   z-index: 1;
@@ -73,7 +71,7 @@
   flex-wrap: wrap;
 }
 
-/* Grupos de input */
+
 .inputGroupSmall,
 .inputGroupFull {
   display: flex;
@@ -91,7 +89,7 @@
   margin-top: 1rem;
 }
 
-/* Inputs e selects com efeito transparente */
+
 .input,
 .select {
   padding: 0.9rem 1.2rem;
@@ -130,7 +128,7 @@
   align-self: flex-start;
 }
 
-/* Botão com degrade */
+
 .button {
   margin-top: 1.5rem;
   padding: 0.9rem 2.5rem;
@@ -143,6 +141,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: Poppins;
 }
 
 .button:hover:not(:disabled) {
@@ -156,7 +155,7 @@
   box-shadow: none;
 }
 
-/* Mensagens */
+
 .errorMsg {
   color: #ff7c7c;
   font-size: 0.85rem;
@@ -181,13 +180,13 @@
   font-family: "Poppins";
 }
 
-/* Remove setas de input number */
+
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* Animação do formulário */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -199,7 +198,6 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-/* Responsividade */
 @media (max-width: 600px) {
   .rowTop {
     flex-direction: column;
