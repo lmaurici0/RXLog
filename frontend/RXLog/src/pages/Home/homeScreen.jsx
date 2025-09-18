@@ -13,7 +13,7 @@ function HomeScreen() {
         <title>Sobre nós | RXLog</title>
       </Helmet>
       <Header />
-      <Carrossel />
+      
       <section className={styles.aboutSection}>
         <div className={styles.aboutContent}>
           <div className={styles.aboutImage}>
