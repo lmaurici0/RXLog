@@ -101,7 +101,7 @@
   margin: 0 auto;
   padding: 12px;
   background-color: var(--primary-color);
-  color: var(--complementary-color);
+  color: var(--neutral-color);
   font-size: 1rem;
   border: none;
   border-radius: 10px;
@@ -111,7 +111,7 @@
 }
 
 .form button:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--third-color);
 }
 
 .backButton {
