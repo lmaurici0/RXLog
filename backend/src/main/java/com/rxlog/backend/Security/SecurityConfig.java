@@ -54,7 +54,8 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.POST,
                                 "/fornecedores/cadastrar",
-                                "/medicamentos/cadastrar"
+                                "/medicamentos/cadastrar",
+                                "/medicamentos/baixa"
                         ).hasAuthority("ADMINISTRADOR")
 
 
