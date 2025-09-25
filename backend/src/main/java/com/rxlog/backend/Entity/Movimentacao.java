@@ -15,7 +15,7 @@ import lombok.Setter;
 public class Movimentacao {
     @Id
     @Column(name = "id_movimentacao")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Min(value = 1, message = "A quantidade deve ser maior que zero.")
