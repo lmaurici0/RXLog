@@ -17,7 +17,6 @@ public interface MovimentacaoRepository extends JpaRepository<Movimentacao, Long
             "GROUP BY m.tipoMedicamento")
     List<Object[]> entradasPorCategoria(@Param("tipo") TipoMovimentacao tipo);
 
-    // Somatório por tipo de movimentação
     @Query("SELECT COALESCE(SUM(mm.quantidadeMovimentacao), 0) " +
             "FROM Movimentacao mm WHERE mm.tipoMovimentacao = :tipo")
     int sumByTipoMovimentacao(@Param("tipo") TipoMovimentacao tipo);
