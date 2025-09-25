@@ -14,7 +14,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/medicamentos")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 @Tag(name = "Medicamentos", description = "Gerenciamento de medicamentos")
 public class MedicamentoController {
 
@@ -72,4 +72,22 @@ public class MedicamentoController {
 
         return resultado;
     }
+
+    @GetMapping("/menor-estoque")
+    @Operation(summary = "Medicamentos com menor estoque", description = "Retorna os 5 medicamentos com menor quantidade no estoque")
+    public List<Map<String, Object>> menorEstoque() {
+        List<Medicamento> todos = medicamentoService.listarTodos();
+        todos.sort(Comparator.comparingInt(Medicamento::getQuantidadeMedicamento));
+        List<Medicamento> menores = todos.size() > 5 ? todos.subList(0, 5) : todos;
+        List<Map<String, Object>> resultado = new ArrayList<>();
+        for (Medicamento m : menores) {
+            resultado.add(Map.of(
+                    "nome", m.getNomeComercial(),
+                    "quantidade", m.getQuantidadeMedicamento()
+            ));
+        }
+
+        return resultado;
+    }
+
 }
