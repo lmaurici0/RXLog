@@ -30,39 +30,31 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
+                        // Endpoints públicos
                         .requestMatchers(
                                 "/auth/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
-                                "/swagger-ui.html"
+                                "/swagger-ui.html",
+                                "/medicamentos/**",
+                                "/fornecedores/**",
+                                "/alertas/**",
+                                "/movimentacoes/**"
                         ).permitAll()
 
-
-                        .requestMatchers(HttpMethod.GET,
-                                "/fornecedores",
-                                "/medicamentos",
-                                "/medicamentos/disponibilidade",
-                                "/medicamentos/estoque-vencido-vs-regular",
-                                "/alertas/vencimento/proximo",
-                                "/alertas/vencidos",
-                                "/movimentacoes",
-                                "/movimentacoes/total",
-                                "/movimentacoes/entradas-por-categoria",
-                                "/movimentacoes/saidas-por-categoria"
-                        ).permitAll()
-
-
+                        // Endpoints protegidos por ADMIN
                         .requestMatchers(HttpMethod.POST,
                                 "/fornecedores/cadastrar",
                                 "/medicamentos/cadastrar",
                                 "/medicamentos/baixa"
                         ).hasAuthority("ADMINISTRADOR")
 
-
+                        // Qualquer outro endpoint precisa de autenticação
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
+        // JWT filter só aplica em endpoints protegidos
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -81,8 +73,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedOriginPatterns(List.of("*")); // Aceita qualquer origem, incluindo celular
+        configuration.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
 
