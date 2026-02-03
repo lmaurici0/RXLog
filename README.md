@@ -25,8 +25,9 @@ e **boas práticas de backend**, simulando um cenário real de sistema corporati
 - Spring Boot
 - Spring Data JPA
 - API REST
-- MySQL / SQL Server
+- MySQL 
 - Maven
+- React Js
 
 ---
 
