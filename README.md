@@ -1,102 +1,50 @@
-# RxLog - Sistema de Controle de Estoque e Armazenamento de Medicamentos
+# RXLog – Sistema de Controle de Estoque de Medicamentos
 
+## 📌 Descrição
+O **RXLog** é uma API REST desenvolvida para o controle de estoque de medicamentos,
+permitindo o gerenciamento de produtos, registro de entradas e saídas e o acompanhamento
+do estoque atual de forma segura e organizada.
 
-> Sistema desenvolvido como parte do **Trabalho de Conclusão de Curso (TCC)** do curso de Desenvolvimento de Sistemas. Permite gerenciar o estoque e armazenamento de medicamentos com segurança e eficiência.
+O projeto foi desenvolvido com foco em **regras de negócio**, **modelagem de domínio**
+e **boas práticas de backend**, simulando um cenário real de sistema corporativo.
 
 ---
 
-## 💡 Objetivo
-
-O **RxLog** tem como objetivos:
-
-- Controlar o **estoque de medicamentos** de forma eficiente  
-- Permitir **cadastro de fornecedores e produtos**  
-- Registrar o **histórico de movimentações** (entradas e saídas)  
-- Garantir **acesso seguro** somente para usuários autorizados  
-- Disponibilizar dashboards com **estatísticas de estoque**
-
-O sistema está disponível para **web** e **mobile**, com interface intuitiva e responsiva.
+## ⚙️ Funcionalidades
+- Cadastro de medicamentos
+- Registro de entradas de estoque
+- Registro de saídas de estoque
+- Cálculo automático do estoque atual
+- Histórico de movimentações
+- Validações para evitar inconsistências (ex: saída maior que o estoque disponível)
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
-
-### Back-end
-- Java Spring Boot  
-- JPA / Hibernate  
-- MySQL  
-- JWT (autenticação e segurança)  
-- Maven (gerenciamento de dependências)  
-
-### Front-end Web
-- React.js  
-- React Router DOM  
-- React Icons  
-- CSS Modules  
-
-### Outras Ferramentas
-- Git / GitHub  
-- Postman  
-- Figma  
+- Java 17
+- Spring Boot
+- Spring Data JPA
+- API REST
+- MySQL / SQL Server
+- Maven
 
 ---
 
-## 🚀 Funcionalidades
-
-- Cadastro e gerenciamento de **medicamentos**  
-- Cadastro de **fornecedores**  
-- Registro de **movimentações de estoque** (entradas e saídas)  
-- Dashboards com **estatísticas de estoque**  
-- Autenticação de usuários via **JWT**  
-- Interface web responsiva e app mobile funcional
+## 🧠 O que este projeto demonstra
+- Modelagem de entidades e relacionamento entre dados
+- Implementação de regras de negócio no backend
+- Desenvolvimento de API REST seguindo boas práticas
+- Persistência de dados em banco relacional
+- Organização de código em camadas (controller, service, repository)
 
 ---
 
-## ⚙️ Instalação e Execução
-
-### Back-end
-1. Configure o **MySQL** e crie o banco `rxlog`.  
-2. Clone o repositório e acesse a pasta `backend`:
-
-```bash
-git clone <seu-repo>
-cd backend
-```
-
-3. Configure as credencias no application.properties
-4. Execute a API
-```
-mvn spring-boot:run
-```
-
-### Front-End
-1. Acesse a paste frontend
-```bash
-   cd frontend
-```
-
-2. Instale as dependências
-```bash
-   npm install
-```
-
-3. Inicie a aplicação
-```bash
-   npm run dev
-```
-
-## 📑 Documentação da API com Swagger
-
-A documentação da API está disponível por meio do Swagger. 
-
-### Acessando o Swagger
-
-Após subir o back-end com o comando:
-```bash
-   mvn spring-boot:run
-```
-
-A documentação estará disponível no seguinte endereço:
-```bash
-   http://localhost:8080/swagger-ui.html
-```
+## 🚀 Como executar o projeto
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/lmaurici0/RXLog.git
+´´´
+2. A API estará disponível em:
+   ```bash
+   http://localhost:8080
+´´´
