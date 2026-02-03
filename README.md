@@ -44,8 +44,7 @@ e **boas práticas de backend**, simulando um cenário real de sistema corporati
 1. Clone o repositório:
    ```bash
    git clone https://github.com/lmaurici0/RXLog.git
-´´´
+
 2. A API estará disponível em:
    ```bash
    http://localhost:8080
-´´´
